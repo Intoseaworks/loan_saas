@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/renewal/get-renewal-info:
+    get:
+      summary: 续期-获取续期信息(废弃)
+      tags:
+        - 订单模块
+      operationId: renewalGetRenewalInfo
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            renewal_fee：续期费用
+            renewal_days：续期天数
+            appointment_paid_time：应还日期
+            receivable_amount：应还金额
+            hint：计算方式提示语
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "renewal_fee":"27.00",
+                    "renewal_days":30,
+                    "receivable_amount":"1500.00",
+                    "appointment_paid_time":"2019-05-20",
+                    "hint":{
+                        "normal":"借款本金*续期天数*续期费率(0.1%)",
+                        "overdue":"逾期息费+借款本金*续期天数*续期费率(0.1%)"
+                    }
+                }
+            }
+  /app/renewal/confirm-renewal:
+    get:
+      summary: 续期-确认续期(废弃)
+      tags:
+        - 订单模块
+      operationId: renewalGetRenewalInfo
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            trade_log_id：交易记录id
+
+            调用后使用 trade_log_id 轮训 /app/repay/query-trade 获取交易结果

@@ -1,0 +1,205 @@
+swagger: '2.0'
+paths:
+  /api/order/index:
+    get:
+      summary: 订单列表
+      tags:
+        - 订单管理
+      operationId: orderIndex
+      parameters:
+        - name: keyword
+          in: query
+          description: 查询条件：关键字 真实姓名|手机号码|订单号
+          type: string
+          default: 18127820722
+        - name: status
+          in: query
+          description: 查询条件：状态
+          type: array
+        - name: created_time
+          in: query
+          description: 订单创建时间
+          type: array
+        - name: quality
+          in: query
+          description: 用户类型 0新用户 1老用户
+          type: string
+        - name: principal
+          in: query
+          description: 借款金额
+          type: string
+        - name: loan_days
+          in: query
+          description: 借款天数
+          type: string
+        - name: client_id
+          in: query
+          description: 借款客户端 ios/android/h5
+          type: array
+        - name: app_version
+          in: query
+          description: 客户端版本
+          type: array
+        - name: channel_name
+          in: query
+          description: 订单来源
+          type: array
+        - name: channel_code
+          in: query
+          description: 订单渠道
+          type: array
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            order_no:订单编号
+            principal:借款金额
+            loan_days:借款期限
+            status_text:订单进展状态
+            created_at:订单创建时间
+            updated_at:业务处理时间
+            app_version:版本号
+            app_client_text:订单创建客户端
+            interest_fee:综合费用
+            overdue_fee:逾期金额
+            receivable_amount:应还金额
+            paid_amount:实际到账金额
+            overdue_days:逾期天数
+            paid_time:实际到账时间
+            appointment_paid_time:应还时间
+            repay_time:实际还款时间
+            pay_channel:放款渠道
+            repay_amount:实际还款金额
+            quality_text:用户类型
+            user.telephone:手机号码
+            user.fullname:真实姓名
+            user.channel.channel_code:订单渠道
+            user.channel.channel_name:订单来源
+            renewal_fee_aggregate：续期费用累计
+            gst_processing_rate: gst手续费率
+            gst_penalty_rate: gst逾期费率
+            gst_processing_fee: gst手续费
+            gst_penalty_fee: gst逾期费
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "current_page": 1,
+                "data": [
+                {
+                  "id": 2,
+                  "order_no": "12312341235",
+                  "principal": "1000.00",
+                  "loan_days": 14,
+                  "status": 1,
+                  "created_at": "2019-01-15 14:34:06",
+                  "updated_at": "2019-01-15 14:34:06",
+                  "app_client": "ios",
+                  "app_version": "1.0.1",
+                  "quality": 0,
+                  "interest_fee": "140.00",
+                  "overdue_fee": "0.00",
+                  "receivable_amount": "900.00",
+                  "paid_amount": "0.00",
+                  "overdue_days": 0,
+                  "paid_time": "2019-01-11 17:09:16",
+                  "appointment_paid_time": "2019-01-25 17:09:16",
+                  "repay_time": "2019-01-14 10:00:06",
+                  "pay_channel": "人工放款",
+                  "repay_amount": "0.00",
+                  "id_text": null,
+                  "status_text": "逾期结清",
+                  "app_client_text": "苹果",
+                  "user": {
+                    "telephone": "18127820725",
+                    "fullname": "程旭升",
+                    "quality": 0,
+                    "quality_text": "新用户",
+                    "channel": {
+                      "channel_code": "test1",
+                      "channel_name": "test1"
+                    }
+                  }
+                },
+                {
+                  "id": 1,
+                  "order_no": "12312341234",
+                  "principal": "1000.00",
+                  "loan_days": 14,
+                  "status": 1,
+                  "created_at": "2019-01-11 17:22:34",
+                  "updated_at": "2019-01-11 17:22:36",
+                  "app_client": "ios",
+                  "app_version": "1.0.1",
+                  "quality": 0,
+                  "interest_fee": "140.00",
+                  "overdue_fee": "0.00",
+                  "receivable_amount": "900.00",
+                  "paid_amount": "0.00",
+                  "overdue_days": 0,
+                  "paid_time": "2019-01-11 17:09:16",
+                  "appointment_paid_time": "2019-01-25 17:09:16",
+                  "repay_time": "2019-01-14 10:00:06",
+                  "pay_channel": "人工放款",
+                  "repay_amount": "0.00",
+                  "id_text": null,
+                  "status_text": "逾期结清",
+                  "app_client_text": "苹果",
+                  "user": {
+                    "telephone": "18127820722",
+                    "fullname": "钟富成",
+                    "quality": 0,
+                    "quality_text": "新用户",
+                    "channel": {
+                      "channel_code": "jqbwx",
+                      "channel_name": "深圳金钱包公众号"
+                    }
+                  }
+                }
+                ],
+                "first_page_url": "http://saas.test/api/order/index?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http://saas.test/api/order/index?page=1",
+                "next_page_url": null,
+                "path": "http://saas.test/api/order/index",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 2,
+                "total": 2
+              }
+            }
+
+  /api/order/view:
+    get:
+      summary: 订单详情
+      tags:
+        - 订单管理
+      operationId: orderView
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档

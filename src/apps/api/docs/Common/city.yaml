@@ -1,0 +1,124 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/city/get-city:
+    get:
+      summary: 获取地区-城市列表.
+      tags:
+      - 公共模块
+      operationId: commonCityGetCity
+      parameters:
+      - name: select_type
+        in: query
+        description: 下拉结果类型 state：地区列表  city：城市列表
+        type: string
+        required: false
+        default: state
+      - name: type
+        in: query
+        description: 地址类型  bank:银行卡绑定页  其他或不传为默认正常地址列表
+        type: string
+        required: false
+      - name: state
+        in: query
+        description: 地区筛选(仅对select_type 为 city时生效)，根据state筛选出城市列表
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": [
+                    "Andaman Nicobar",
+                    "Andhra Pradesh",
+                    "Arunachal Pradesh",
+                    "Assam",
+                    "Bihar",
+                    "Chandigarh",
+                    "Chhattisgarh",
+                    "Dadra Nagar Haveli",
+                    "Daman Diu",
+                    "Delhi",
+                    "Goa",
+                    "Gujarat",
+                    "Haryana",
+                    "Himachal Pradesh",
+                    "Jammu Kashmir",
+                    "Jharkhand",
+                    "Karnataka",
+                    "Kerala",
+                    "Lakshadweep",
+                    "Madhya Pradesh",
+                    "Maharashtra",
+                    "Manipur",
+                    "Meghalaya",
+                    "Mizoram",
+                    "Nagaland",
+                    "Odisha",
+                    "Puducherry",
+                    "Punjab",
+                    "Rajasthan",
+                    "Sikkim",
+                    "Tamil Nadu",
+                    "Telangana",
+                    "Tripura",
+                    "Uttar Pradesh",
+                    "Uttarakhand",
+                    "West Bengal"
+                ]
+            }
+  /app/city/residential-city:
+    get:
+      summary: residential city城市选择
+      tags:
+      - 公共模块
+      operationId: commonCityResidentialCity
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "获取成功",
+                "data": {
+                    "open_city": [
+                        "Bangalore",
+                        "Mumbai",
+                        "Hyderabad",
+                        "Pune",
+                        "Chennai"
+                    ],
+                    "city_list": [
+                        {
+                            "city": "Adilabad",
+                            "status": 1
+                        },
+                        {
+                            "city": "Agar Malwa",
+                            "status": 1
+                        },
+                    ]
+                }
+            }
+
+  /app/city/position-address:
+    post:
+      summary: 根据定位返回地址信息.
+      tags:
+      - 公共模块
+      operationId: commonCityPositionAddress
+      parameters:
+      - name: position
+        in: formData
+        description: 当前位置
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+

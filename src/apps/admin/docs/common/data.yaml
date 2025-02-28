@@ -1,0 +1,807 @@
+swagger: '2.0'
+paths:
+  /api/data/tabs:
+    post:
+      summary: 后台资料卡项集合
+      tags:
+        - 后台资料卡项
+      operationId: common
+
+      responses:
+        200:
+          description: |
+            order:订单
+            order.fullname:借款人姓名 Applicant
+            order.telephone:手机号码
+            order.principal:借款金额 Loan Amount
+            order.order_no:订单编号 Order No
+            order.principal:借款金额 Loan Amount
+            order.loan_days:借款期限 Loan Tenure
+            order.status_text:订单进展状态
+            order.created_at:订单创建时间 Application Date
+            order.updated_at:业务处理时间
+            order.app_version:版本号
+            order.app_client_text:订单创建客户端
+            order.processing_fee:服务费 Processing Fee
+            order.processing_fee_incl_gst:服务费 Processing Fee（INCL GST）
+            order.interest_fee:综合费用 interest
+            order.overdue_fee:逾期金额 Penalty
+            order.overdue_fee_incl_gst:逾期金额 Penalty（INCL GST）
+            order.receivable_amount:应还金额 Repayment Amount
+            order.paid_amount:实际到账金额 Disbursement Amount
+            order.overdue_days:逾期天数 Overdue days
+            order.paid_time:实际到账时间 Disbursement date
+            order.appointment_paid_time:应还时间 Repayment date
+            order.repay_time:实际还款时间 Actual Repayment date
+            order.pay_channel:放款渠道
+            order.repay_amount:实际还款金额 Actual Repayment Amount
+            order.loan_location:借款所在地 Longitude for Apply
+            order.loan_position:借款所在地经纬度 Latitude for Apply
+            order.renewal_fee_aggregate:借款续期支付费用累计
+            order.renewal_days_aggregate:借款续期天数累计
+            order.renewal_count:借款续期次数
+            order.last_renewal_time:借款最后续期时间
+            order.gst_processing_rate: gst手续费率
+            order.gst_penalty_rate: gst逾期费率
+            order.gst_processing_fee: gst手续费
+            order.gst_penalty_fee: gst逾期费
+
+            user:用户
+            user.quality_text:用户类型
+            user.telephone:手机号码
+            user.fullname:真实姓名
+            user.created_at:创建时间
+            user.ip_address:最后ip位置
+            user.last_login_ip:最后登录ip
+            user.last_login_time_text:最后登录时间
+            user.status:状态 1：正常 2：禁用
+            user.status_text:账号状态解释字段
+            user.user_contacts.contact_fullname 紧急联系人姓名
+            user.user_contacts.contact_telephone 紧急联系人电话
+            user.user_contacts.relation 紧急联系人关系
+            user.user_contacts.created_at 紧急联系人创建时间
+            user.user_info.province 身份
+            user.user_info.city 城市
+            user.user_info.address 地址
+            user.user_info.gender 性别
+            user.user_info.education_level 教育程度
+            user.user_info.father_name Father's Name of Pan
+            user.user_info.pan_card_no Pan Card NO
+            user.user_info.passport_no Passport No
+            user.user_info.voter_id_card_no Voter ID No
+            user.user_info.driving_license_no Driven License No
+            user.user_info.address_aadhaar_no Aadhaar Card No
+            user.user_info.email email
+            user.user_info.language language
+            user.user_info.religion religion
+            user.user_info.birthday birthday
+            user.user_info.marital_status Marital status
+
+            bankCards:银行卡
+            bankCards.name:开户人 Holder
+            bankCards.bank_name:开户行 Bank Name
+            bankCards.bank_branch_name:开户行 Branch Name
+            bankCards.no:银行卡号 Account No
+            bankCards.bankCardsreserved_telephone:银行预留手机号
+            bankCards.status:代付/代扣银行卡(status为1:是，0:否)
+            bankCards.created_at:添加时间
+            bankCards.ifsc:IFSC Code
+            bankCards.city:城市 City
+            bankCards.province:州省 State
+
+            userSms:短信记录
+            userSms.sms_centent:短信内容
+            userSms.sms_telephone:短信号码
+            userSms.type:短信类型
+            userSms.sms_date:短信录入时间
+            userSms.created_time:获取时间
+
+            userApp:APP应用列表
+            userApp.app_name:APP应用名
+            userApp.installed_time:应用安装时间
+            userApp.updated_time:应用最后更新时间
+            userApp.created_time:获取时间
+
+            userPosition:定位信息
+            userPosition.longitude:位置信息
+            userPosition.longitude:经度
+            userPosition.longitude:维度
+            userPosition.province:省份
+            userPosition.city:城市
+            userPosition.district:县区
+            userPosition.street:街道
+            userPosition.address:详细地址
+            userPosition.created_time:获取时间
+
+            manualRisk:人审风险
+            manualRisk.manual_risk 人审风险检测
+            manualRisk.manual_risk.passRealName 实名制检测
+            manualRisk.manual_risk.identity_check 申请人身份检测
+            manualRisk.manual_risk.high_risk_check 高风险检测
+            manualRisk.manual_risk.risk_info_check 风险信息检测
+            manualRisk.manual_risk.duo_tou_check 多头风险检测
+            manualRisk.manual_risk.overdue_risk_check 逾期风险检测
+
+            manualRisk.month3_duotou 近3个月多头风险概览
+            manualRisk.month3_duotou.apply_request_sum 申请事件数
+            manualRisk.month3_duotou.apply_reject_sum 拒绝事件数
+            manualRisk.month3_duotou.loan_offer_sum 发放事件数
+            manualRisk.month3_duotou.repay_fail_sum 扣款失败事件数
+            manualRisk.month3_duotou.overdue_sum 逾期提醒事件数
+            manualRisk.month3_duotou.repay_remind_sum 还款提醒事件数
+            manualRisk.month1_mno 近1个月运营商异常概览
+            manualRisk.month1_mno.idc_count 手机号关联身份证个数
+            manualRisk.month1_mno.phone_count 身份证关联手机号个数
+            manualRisk.month1_mno.call_mobile_belong_match 通话主要活动区域与本人手机号是否一致
+            manualRisk.month1_mno.call_contacts_area_match 通话主要活动区域与朋友圈活动区域是否一致
+            manualRisk.month1_mno.not_cas_d_cnt 全天未使用通话和短信功能天数
+            manualRisk.month1_mno.number_used_long 号码使用时长
+            manualRisk.contacts_des 通讯录风险分析
+            manualRisk.contacts_des.contact_telephone_cnt 通讯录号码总数
+            manualRisk.contacts_des.top20_is_contact_telephone 通讯记录--通话次数前20的号码在通讯录”号码数量
+            manualRisk.contacts_des.phone11_cnt 通讯录11位手机号”号码数量
+            manualRisk.contacts_des.phone_400_106 通讯录400或106 开头”号码数量
+            manualRisk.contacts_des.emergency_contactor_exists1 紧急联系人1
+            manualRisk.contacts_des.emergency_contactor_exists2 紧急联系人2
+
+            manualRisk.contracts_remind 通讯录异常检测
+            manualRisk.sms_des 短信风险分析
+            manualRisk.sms_des.sms_cnt 短信总条数
+            manualRisk.sms_des.remind_cnt 来电提醒条数
+            manualRisk.sms_des.delivery 快递收件条数
+            manualRisk.sms_remind 短信记录异常检测
+
+            contacts:通讯录
+            contacts.contacts.contact_fullname:通讯录名称
+            contacts.contacts.contact_telephone:号码
+            contacts.contacts.created_time:获取时间
+            contacts.contacts_des.contact_telephone_cnt:通讯录风险分析通讯录号码总数
+            contacts.contacts_des.top20_is_contact_telephone:“通讯记录--通话次数前20的号码在通讯录”号码数量
+            contacts.contacts_des.phone_400_106:“通讯录400或106 开头”号码数量
+            contacts.contacts_des.phone11_cnt:“通讯录11位手机号”号码数量
+            contacts.contacts_des.emergency_contactor_exists1:紧急联系人1
+            contacts.contacts_des.emergency_contactor_exists2:紧急联系人2
+            contacts.contacts_remind:通讯录异常检测
+
+            sms:短信
+            sms.sms:短信列表
+            sms.sms_des:sms_cnt:短信总条数
+            sms.sms_des:remind_cnt:来电提醒条数
+            sms.sms_des:delivery:快递收件条数
+            sms.sms_remind:短信记录检测
+
+            userOperatorReportuserSms.:运营商报告
+            userOperatorReport.petitioner_info:用户信息
+            userOperatorReport.petitioner_info.petitioner_name:真实姓名
+            userOperatorReport.petitioner_info.gender:性别
+            userOperatorReport.petitioner_info.age:年龄
+            userOperatorReport.petitioner_info.petitioner_mobile:手机号码
+            userOperatorReport.petitioner_info.petitioner_certNo:身份证号
+            userOperatorReport.petitioner_info.user_risk:用户风险
+            userOperatorReport.petitioner_info.birthAddress:地址
+            mno_info:运营商基本信息
+            operator_report.mno_info.report_time:报告获取时间
+            operator_report.mno_info.mno_mobile:手机号码
+            operator_report.mno_info.reg_time:入网时间
+            operator_report.mno_info.auth:实名认证
+            check_info:信息校验
+            operator_report.check_info.inspectionItems:校验项目
+            operator_report.check_info.result:结果
+            operator_report.check_info.evidence:运营商说明
+            userOperatorReport.provider AUTH_TELEPHONE_PROVIDER_XINYAN:新颜服务商 AUTH_TELEPHONE_PROVIDER_BQS:白骑士服务商
+
+            ------------------------------------------白骑士运营商报告------------------------------------------------
+            userOperatorReport.user_base 运营商基本信息
+            userOperatorReport.user_base.mnoBaseInfo_mobile 手机号
+            userOperatorReport.user_base.mnoBaseInfo_monType 运营商类型
+            userOperatorReport.user_base.mnoBaseInfo_belongTo 归属地
+            userOperatorReport.user_base.mnoBaseInfo_boundName 绑定名
+            userOperatorReport.user_base.petitioner_certNo 身份证
+
+            userOperatorReport.mno_score 运营商信用分
+            userOperatorReport.mno_score.total_score 总分
+            userOperatorReport.mno_score.identity_score 身份特征分
+            userOperatorReport.mno_score.behavior_pref_score 行为分
+            userOperatorReport.mno_score.relationship_score 关系分
+            userOperatorReport.mno_score.stability_score 信用历史
+            userOperatorReport.mno_score.consume_score 消费能力
+            userOperatorReport.mno_score.performance_score 履约能力
+            userOperatorReport.mno_score.user_level 用户等级
+            userOperatorReport.mno_score.telephone_status 状态
+
+            userOperatorReport.call_behavior_info 通话行为信息
+            userOperatorReport.call_behavior_info.callActiveArea 通话主要活动区域
+            userOperatorReport.call_behavior_info.contactsActiveArea 朋友圈活动区域
+            userOperatorReport.call_behavior_info.callMobileBelongMatch 通话主要活动区域与本人手机号归属地是否一致
+            userOperatorReport.call_behavior_info.callContactsAreaMatch 通话主要活动区域与朋友圈活动区域是否一致
+            userOperatorReport.call_behavior_info.contacts_size 朋友圈大小：半年内与n个号码有过通话记录
+            userOperatorReport.call_behavior_info.Each_phone_Cnt 互通电话号码个数：半年内存在n个互通的电话的号码记录
+            userOperatorReport.call_behavior_info.NCH_exceed15_cnt 朋友圈活跃度：半年内与2个号码联系过15次以上
+            userOperatorReport.call_behavior_info.all_not_cnt 全天未播出通话天数
+            userOperatorReport.call_behavior_info.not_CAS_DCnt 累加全天未使用通话和短信功能天数
+            userOperatorReport.call_behavior_info.numberUsedLong 号码使用时长
+            userOperatorReport.call_behavior_info.openduration 号码活跃天数
+            userOperatorReport.call_behavior_info.openTime 入网时间
+            userOperatorReport.call_behavior_info.call_hz 通话频率
+            userOperatorReport.call_behavior_info.nightCallCnt 夜间通话次数
+            userOperatorReport.call_behavior_info.night_call_hz 夜间通话频率
+            接口文档地址：https://www.showdoc.cc/page/1668162866941658
+            ------------------------------------------白骑士运营商报告------------------------------------------------
+
+            ------------------------------------------新颜运营商报告------------------------------------------------
+            userOperatorReport.carrier_user_info 用户信息
+            userOperatorReport.carrier_user_info.mobile 手机号码
+            userOperatorReport.carrier_user_info.name 姓名
+            userOperatorReport.carrier_user_info.id_card 证件号
+            userOperatorReport.carrier_user_info.carrier 运营商
+            userOperatorReport.carrier_user_info.province 所属省份
+            userOperatorReport.carrier_user_info.city 所属城市
+            userOperatorReport.carrier_user_info.address 地址
+            userOperatorReport.carrier_user_info.open_time 入网时间
+            userOperatorReport.carrier_user_info.open_months 入网时长
+            userOperatorReport.carrier_user_info.level 帐号星级
+            userOperatorReport.carrier_user_info.package_name 套餐名称
+            userOperatorReport.carrier_user_info.state 帐号状态
+            userOperatorReport.carrier_user_info.available_balance 当前可用余额
+            userOperatorReport.carrier_user_info.last_modify_time 最近更新时间
+
+            userOperatorReport.bills 账单信息
+            userOperatorReport.bills.bill_month 充值月份
+            userOperatorReport.bills.bill_start_date
+            userOperatorReport.bills.bill_end_date
+            userOperatorReport.bills.base_fee 套餐及固定费
+            userOperatorReport.bills.extra_service_fee 增值业务费
+            userOperatorReport.bills.voice_fee 语音费
+            userOperatorReport.bills.sms_fee 短彩信费
+            userOperatorReport.bills.web_fee 流量费
+            userOperatorReport.bills.extra_fee 其它费用
+            userOperatorReport.bills.total_fee 总费用
+            userOperatorReport.bills.discount 优惠费
+            userOperatorReport.bills.extra_discount 其它优惠
+            userOperatorReport.bills.actual_fee 个人实际费用
+            userOperatorReport.bills.paid_fee 本期已付费用
+            userOperatorReport.bills.unpaid_fee 本期未付费用
+            userOperatorReport.bills.point 本期可用积分
+            userOperatorReport.bills.last_point 上期可用积分
+            userOperatorReport.bills.related_mobiles 本机关联号码
+            userOperatorReport.bills.notes
+
+            userOperatorReport.calls 通话信息
+            userOperatorReport.calls.bill_month 充值月份
+            userOperatorReport.calls.time 使用时间
+            userOperatorReport.calls.peer_number 对方号码
+            userOperatorReport.calls.location 本机使用地点
+            userOperatorReport.calls.location_type 通话地类型
+            userOperatorReport.calls.duration 使用时长
+            userOperatorReport.calls.dial_type 通话类型
+            userOperatorReport.calls.fee 通信费(单位:分)
+
+            userOperatorReport.smses 短信信息
+            userOperatorReport.smses.bill_month 充值月份
+            userOperatorReport.smses.time 使用时间
+            userOperatorReport.smses.peer_number 对方号码
+            userOperatorReport.smses.location 本机使用地点
+            userOperatorReport.smses.send_type 收发类型
+            userOperatorReport.smses.msg_type 短信类型
+            userOperatorReport.smses.service_name
+            userOperatorReport.smses.fee 通信费(单位:分)
+
+            userOperatorReport.nets 流量信息
+            userOperatorReport.nets.bill_month 充值月份
+            userOperatorReport.nets.time 使用时间
+            userOperatorReport.nets.duration 使用时长
+            userOperatorReport.nets.subflow 流量使用量
+            userOperatorReport.nets.location 本机使用地点
+            userOperatorReport.nets.net_type 网络类型
+            userOperatorReport.nets.service_name
+            userOperatorReport.nets.fee 通信费(单位:分)
+
+            userOperatorReport.packages 套餐信息
+            userOperatorReport.packages.item 套餐项目名称
+            userOperatorReport.packages.total 项目总量
+            userOperatorReport.packages.used 项目已使用量
+            userOperatorReport.packages.unit 单位
+            userOperatorReport.packages.bill_start_date 套餐起始日
+            userOperatorReport.packages.bill_end_date 账套餐结束日
+            userOperatorReport.packages.bill_month 充值月份
+
+            userOperatorReport.families 亲情号码信息
+            userOperatorReport.families.family_num 亲情网编号
+            userOperatorReport.families.long_number 长号
+            userOperatorReport.families.short_number 短号
+            userOperatorReport.families.member_type 成员类型
+            userOperatorReport.families.join_date 加入日期
+            userOperatorReport.families.expire_date 失效日期
+
+            userOperatorReport.recharges 充值记录详情
+            userOperatorReport.recharges.bill_month 充值月份
+            userOperatorReport.recharges.recharge_time 充值时间
+            userOperatorReport.recharges.amount 充值金额(单位: 分)
+            userOperatorReport.recharges.type 充值方式
+            参考文档:https://qz.xinyan.com/#/dataSource/carrier
+            ------------------------------------------新颜运营商报告------------------------------------------------
+
+
+            contractLog:放款记录
+            contractLog.master_business_no:订单号
+            contractLog.trade_account_name:借款人姓名
+            contractLog.trade_account_telephone:手机号码
+            contractLog.trade_account_no:收款银行卡
+            contractLog.trade_account_no_text:收款银行
+            contractLog.trade_amount:代付金额
+            contractLog.trade_request_time:放款时间
+            contractLog.trade_platform_text:代付通道
+            contractLog.trade_result_time:完成时间
+            contractLog.trade_result_text:放款结果
+            contractLog.trade_desc:结果描述
+
+            repayLog:还款记录
+            contractLog.master_business_no:还款计划编号
+            contractLog.trade_account_name:还款人姓名
+            contractLog.trade_account_telephone:手机号码
+            contractLog.trade_account_no:还款账户
+            contractLog.trade_account_no_text:还款银行
+            contractLog.trade_amount:已还款金额
+            contractLog.trade_result_time:还款支付时间
+            contractLog.trade_platform_text:还款方式
+            contractLog.created_at:还款核实时间
+            contractLog.handle_name:财务人员
+            contractLog.trade_result_text:还款结果
+            contractLog.trade_desc:结果描述
+            contractLog.admin_trade_account.account_no:收款账户
+            contractLog.admin_trade_account.payment_method_text:收款方式
+
+            contractAgreement:合同列表
+            contractAgreement.id:借款协议ID(用于下载)
+            contractAgreement.name:借款协议名称
+            contractAgreement.url_text:借款协议pdf链接
+            contractAgreement.created_at:借款协议创建时间
+
+            collectionRecordList:借款人催收记录
+            collectionRecordListCount 数量
+            collectionRecordList.no 还款计划编号
+            collectionRecordList.fullname 联系人姓名
+            collectionRecordList.relation 关系
+            collectionRecordList.contact 联系电话
+            collectionRecordList.dial collection_records.progress 联系结果
+            collectionRecordList.overdue_days 逾期天数
+            collectionRecordList.remark 备注
+            collectionRecordList.reduction_fee 减免金额
+            collectionRecordList.level 催收等级
+            collectionRecordList.staff.username 催收员
+            collectionRecordList.created_at 催收时间
+            collectionRecordList.receivable_amount 当前应还金额
+            collectionRecordList.to_status_text 状态
+
+            orderList:借款人借款记录
+            orderListCount 数量
+            orderList.order_no 订单编号
+            orderList.created_at 订单创建时间
+            orderList.status 订单状态-
+            orderList.principal 借款金额（元）
+            orderList.loan_days 借款期限（天）
+            orderList.overdue_days 逾期天数
+            orderList.receivable_amount 应还金额
+            orderList.appointment_paid_time 计划应还时间
+            orderList.repay_time 实际还款金额
+            orderList.repay_amount 实际还款时间
+
+            orderList.last_approve.approve_content 审批记录
+            orderList.last_approve.admin_username 审批人
+            orderList.repay_msg 还款说明
+
+            duoTou:多头报告
+            duoTou.evesums 多头事件数
+            duoTou.evesums.m1.slice_name 时间段
+            duoTou.evesums.m1.verif_sum 验证码通知事件数
+            duoTou.evesums.m1.register_sum 注册事件数
+            duoTou.evesums.m1.apply_request_sum 申请事件数
+            duoTou.evesums.m1.apply_reject_sum 被拒事件数
+            duoTou.evesums.m1.loan_offer_sum 发放事件数
+            duoTou.evesums.m1.repay_fail_sum 扣款失败事件数
+            duoTou.evesums.m1.repay_remind_sum 还款提醒事件数
+            duoTou.evesums.m1.overdue_sum 逾期提醒事件数
+            duoTou.evesums.m1.overdue_repay_sum 逾期已还事件数
+
+            duoTou.platforms 多头平台数
+            duoTou.platforms.m1.verif_count 验证码通知平台数
+            duoTou.platforms.m1.register_count 注册平台数
+            duoTou.platforms.m1.apply_request_count 申请平台数
+            duoTou.platforms.m1.apply_reject_count 被拒平台数
+            duoTou.platforms.m1.loan_offer_count 发放平台数
+            duoTou.platforms.m1.repay_fail_count 扣款失败平台数
+            duoTou.platforms.m1.overdue_count 逾期提醒平台数
+            duoTou.platforms.m1.overdue_replay_count 逾期已还平台数
+            duoTou.platforms.m1.repay_remind_count 还款提醒平台数
+
+            duoTou.overdue_max 最大逾期金额与时长
+            duoTou.overdue_max.m1.max_overdue_delay_level 最大逾期时长
+            duoTou.overdue_max.m1.max_overdue_amount_level 最大逾期金额
+            duoTou.overdue_max.m1.max_apply_request_amount_level 最大借款申请金额
+            duoTou.overdue_max.m1.max_loan_offer_amount_level 最大放款金额
+            duoTou.overdue_max.m1.max_repay_amount_level 最大还款提醒金额
+            duoTou.overdue_max.m1.max_overdue_repay_amount_level 最大逾期已还金额
+            duoTou.overdue_max.m1.max_overdue_repay_delay_level 最大逾期已还时长
+
+            duoTou.overdue_ave 平均逾期金额与时长
+            duoTou.overdue_ave.m1.ave_overdue_delay_level 平均逾期金额与时长
+            duoTou.overdue_ave.m1.ave_overdue_amount_level 平均逾期金额
+            duoTou.overdue_ave.m1.ave_apply_request_amount_level 平均借款申请金额
+            duoTou.overdue_ave.m1.ave_loan_offer_amount_level 平均放款金额
+            duoTou.overdue_ave.m1.ave_repay_amount_level 平均还款提醒金额
+            duoTou.overdue_ave.m1.ave_overdue_repay_amount_level 平均逾期已还金额
+            duoTou.overdue_ave.m1.ave_overdue_repay_delay_level 平均逾期已还时长
+
+            systemDetail:机审详情
+            systemDetail.user_id 用户id
+            systemDetail.order_no 订单编号
+            systemDetail.category_name 机审结果
+            systemDetail.score 模型分数
+            systemDetail.module 最终模型
+            systemDetail.module_name 机审分
+            systemDetail.descriptions 命中policy拒绝规则
+            systemDetail.created_dt 审核时间
+
+            alipayReport:支付宝报告
+            接口字段参考文档地址:https://www.showdoc.cc/page/1835214760699146
+            alipayReport.zm_black:芝麻
+            alipayReport.zm_black.zm_score 芝麻分
+            alipayReport.zm_black.zm_score_level 芝麻分等级
+            alipayReport.zm_black.tq_score	无
+            alipayReport.zm_black.is_black 无
+            alipayReport.zm_black.is_black_str 是否为黑名单(是或否）
+            alipayReport.zm_black.half_year_night_trade_percent 半年内夜间交易占比
+            alipayReport.zm_black.half_year_big_trade_percent 半年内大额交易占比
+
+            alipayReport.property_info: 资产信息
+            alipayReport.property_info.is_real_name_str	string	实名认证
+            alipayReport.property_info.total_card_cnt	number	绑定银行卡数
+            alipayReport.property_info.credit_card_cnt	number	绑定信用卡数
+            alipayReport.property_info.acct_balance	string	余额
+            alipayReport.property_info.yuebao_tot_amt	string	余额宝总额
+            alipayReport.property_info.huabei_avlb_amt	string	花呗可用额度
+            alipayReport.property_info.jiebei_tot_amt	string	借呗额度
+            alipayReport.property_info.jiebei_is_overdue	string	借呗是否逾期（是或否）
+
+            alipayReport.outcome_total_repay_info:支出-总计与还款信息
+            alipayReport.outcome_total_repay_info.outcome_monthly_amt	number	支出金额总和
+            alipayReport.outcome_total_repay_info.outcome_monthly_cnt	number	支出笔数总和
+            alipayReport.outcome_total_repay_info.outcome_rank	string	支出金额等级
+            alipayReport.outcome_total_repay_info.repay_monthly_amt	number	还款金额之和
+            alipayReport.outcome_total_repay_info.repay_monthly_cnt	number	还款笔数之和
+            alipayReport.outcome_total_repay_info.repay_rank	string	还款金额等级
+
+            alipayReport.outcome_consume_withdraw_transfer:支出-消费与提现和转账-转出信息
+            alipayReport.outcome_consume_withdraw_transfer.consume_monthly_amt	number	消费金额之和
+            alipayReport.outcome_consume_withdraw_transfer.consume_monthly_cnt	number	消费笔数之和
+            alipayReport.outcome_consume_withdraw_transfer.consume_rank	string	消费金额等级
+            alipayReport.outcome_consume_withdraw_transfer.transfer_out_monthly_amt	number	转账-转出的金额之和
+            alipayReport.outcome_consume_withdraw_transfer.transfer_out_monthly_cnt	number	转账-转出的笔数之和
+            alipayReport.outcome_consume_withdraw_transfer.alipay_withdraw_monthly_amt	number	提现金额之和
+            alipayReport.outcome_consume_withdraw_transfer.alipay_withdraw_monthly_cnt	number	提现笔数之和
+
+            alipayReport.income_total_jiebei_loan_info:收入-总计与借呗借款信息
+            alipayReport.income_total_jiebei_loan_info.income_total_amt	string	收入金额之和
+            alipayReport.income_total_jiebei_loan_info.income_total_cnt	string	收入笔数之和
+            alipayReport.income_total_jiebei_loan_info.income_rank	string	收入金额等级
+            alipayReport.income_total_jiebei_loan_info.jiebei_loan_total_amt	string	借呗借款金额之和
+            alipayReport.income_total_jiebei_loan_info.jiebei_loan_total_cnt	string	借呗借款笔数之和
+
+            alipayReport.income_recharge_transfer_info:收入-充值理财与转账-转入信息
+            alipayReport.income_recharge_transfer_info.transfer_in_total_amt	string	转账-转入 金额之和
+            alipayReport.income_recharge_transfer_info.transfer_in_total_cnt	string	转账-转入 笔数之和
+            alipayReport.income_recharge_transfer_info.alipay_recharge_total_amt	string	充值金额之和
+            alipayReport.income_recharge_transfer_info.alipay_recharge_total_cnt	string	充值笔数之和
+            alipayReport.income_recharge_transfer_info.alipay_financial_total_amt	string	理财金额之和
+            alipayReport.income_recharge_transfer_info.alipay_financial_total_cnt	string	理财笔数之和
+
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "tabs": [
+                {
+                  "label": "借款信息",
+                  "name": "order"
+                },
+                {
+                  "label": "基本信息",
+                  "name": "user"
+                },
+                {
+                  "label": "运营商报告",
+                  "name": "userOperatorReport"
+                },
+                {
+                  "label": "银行卡",
+                  "name": "bankCards"
+                },
+                {
+                  "label": "位置信息",
+                  "name": "userPosition"
+                },
+                {
+                  "label": "通讯录",
+                  "name": "contacts"
+                },
+                {
+                  "label": "短信记录",
+                  "name": "userSms"
+                },
+                {
+                  "label": "APP应用列表",
+                  "name": "userApp"
+                }
+                ],
+                "data": {
+                  "order": {
+                    "id": 1,
+                    "order_no": "12312341234",
+                    "principal": "1000.00",
+                    "loan_days": 14,
+                    "status": "manual_pass",
+                    "created_at": "2019-01-16 14:39:37",
+                    "app_client": "ios",
+                    "app_version": "1.0.1",
+                    "quality": 0,
+                    "interest_fee": "140.00",
+                    "overdue_fee": 0,
+                    "receivable_amount": "900.00",
+                    "paid_amount": "0.00",
+                    "overdue_days": -3,
+                    "paid_time": "2019-01-11 17:09:16",
+                    "appointment_paid_time": "2019-01-25 17:09:16",
+                    "repay_time": "2019-01-14 10:00:06",
+                    "pay_channel": "人工放款",
+                    "repay_amount": "0.00",
+                    "bank_card_no": "6222023602083352310",
+                    "bank_name": "工商银行",
+                    "loan_location": "aaa",
+                    "loan_position": "bbb",
+                    "order_no_text": null,
+                    "status_text": "人工审核通过待放款",
+                    "app_client_text": "苹果"
+                  },
+                  "user": {
+                    "id": 1,
+                    "telephone": "18127820722",
+                    "fullname": "钟富成",
+                    "id_card_no": "",
+                    "created_at": "2019-01-21 12:39:18",
+                    "client_id": "ios",
+                    "channel_id": "1",
+                    "quality": 0,
+                    "app_version": "1.0.0",
+                    "client_id_text": "苹果",
+                    "quality_text": "新用户",
+                    "user_contacts": [
+                    {
+                      "contact_fullname": "cccc",
+                      "contact_telephone": "34531534532",
+                      "relation": "cccc",
+                      "created_at": "2019-01-10 15:58:33"
+                    },
+                    {
+                      "contact_fullname": "cccc",
+                      "contact_telephone": "34531534531",
+                      "relation": "cccc",
+                      "created_at": "2019-01-10 15:58:33"
+                    }
+                    ],
+                    "user_info": {
+                      "province": "广东省33",
+                      "city": "深圳市33",
+                      "address": "广东省深圳市333",
+                      "gender": "男",
+                      "education_level": "大1学"
+                    }
+                  },
+                  "bankCards": [
+                  {
+                    "no": "6228482389531134877",
+                    "bank": "ABC",
+                    "bank_name": "中国农业银行",
+                    "bank_branch_name": null,
+                    "reserved_telephone": "18818881888",
+                    "is_default": 1,
+                    "created_at": "2019-01-09 15:33:53"
+                  }
+                  ],
+                  "userOperatorReport": {
+                    "petitioner_info": {
+                      "petitioner_name": "蒲爽",
+                      "gender": "男",
+                      "age": "25",
+                      "petitioner_mobile": "15520702377",
+                      "petitioner_certNo": "511381199309236430",
+                      "birthAddress": "四川省南充市阆中市",
+                      "user_risk": ""
+                    },
+                    "mno_info": {
+                      "report_time": "2018-06-27 18:53:43",
+                      "mno_mobile": "15520702377",
+                      "mno_type": "联通",
+                      "mno_belongs_to": "四川省成都市",
+                      "reg_time": "2013-12-07",
+                      "auth": "与用户身份证姓名不一致"
+                    },
+                    "check_info": {
+                      "callActiveArea": {
+                        "inspectionItems": "通话主要活动区域",
+                        "result": "未知",
+                        "evidence": "在未知地区通话385次，占总通话次数的100%"
+                      },
+                      "contactsActiveArea": {
+                        "inspectionItems": "朋友圈活动区域",
+                        "result": "朋友圈主要活动在天津市",
+                        "evidence": "天津市地区通话时间占比为74.52%"
+                      },
+                      "contacts_size": 473
+                    }
+                  },
+                  "userPosition": [
+                  {
+                    "position_id": 49000541,
+                    "user_id": 1,
+                    "longitude": 113.945958,
+                    "latitude": 22.533833999999999,
+                    "province": "广东省",
+                    "city": "深圳市",
+                    "district": "南山区",
+                    "street": "科苑南路",
+                    "address": "广东省深圳市南山区科苑南路靠近华成峰科苑南路德维森大厦华成峰37号",
+                    "created_time": 1548034450000,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1548034450000
+                  },
+                  {
+                    "position_id": 49000540,
+                    "user_id": 1,
+                    "longitude": 113.945958,
+                    "latitude": 22.533833999999999,
+                    "province": "广东省",
+                    "city": "深圳市",
+                    "district": "南山区",
+                    "street": "科苑南路",
+                    "address": "广东省深圳市南山区科苑南路靠近华成峰科苑南路德维森大厦华成峰37号",
+                    "created_time": 1548034378000,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1548034378000
+                  }
+                  ],
+                  "contacts": [
+                  {
+                    "user_contacts_telephone_id": 45,
+                    "user_id": 1,
+                    "contact_fullname": "程正东新号",
+                    "contact_telephone": "13886309390",
+                    "relation_level": 0,
+                    "created_time": 1547782063339,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1547782065000
+                  },
+                  {
+                    "user_contacts_telephone_id": 57,
+                    "user_id": 1,
+                    "contact_fullname": "外公",
+                    "contact_telephone": "15271024875",
+                    "relation_level": 0,
+                    "created_time": 1547782063339,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1547782065000
+                  }
+                  ],
+                  "userSms": [
+                  {
+                    "user_sms_id": 549,
+                    "user_id": 1,
+                    "sms_name": "未备注联系人",
+                    "sms_telephone": "106925051472660287",
+                    "sms_centent": "【斯凯奇女鞋】恭喜亲获得专享50元福利券！双11叠加平台津贴满500-100！戳 c.tb.cn/c.0YMveV 限三天内领！ 回TD退订",
+                    "sms_date": 1541764710467,
+                    "type": 5,
+                    "created_time": 1544771374126,
+                    "service_app_id": 1,
+                    "telephone": "13045109378",
+                    "sync_version": 1547801606000
+                  },
+                  {
+                    "user_sms_id": 550,
+                    "user_id": 1,
+                    "sms_name": "未备注联系人",
+                    "sms_telephone": "106916109817",
+                    "sms_centent": "【易到用车】手滑不小心送您一张无门槛券，好车低价~现在购卡返现40%，帮您省下双十一剁手钱！点击 t.cn/REYTecg 领取。回TD退订",
+                    "sms_date": 1541755063909,
+                    "type": 5,
+                    "created_time": 1544771374138,
+                    "service_app_id": 1,
+                    "telephone": "13045109378",
+                    "sync_version": 1547801606000
+                  }
+                  ],
+                  "userApp": [
+                  {
+                    "user_apply_id": 2887,
+                    "user_id": 1,
+                    "app_name": "王者荣耀",
+                    "pkg_name": "com.tencent.tmgp.sgame",
+                    "installed_time": 1479393634596,
+                    "updated_time": 1483370541253,
+                    "created_time": 1548034448000,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1548034450000
+                  },
+                  {
+                    "user_apply_id": 2888,
+                    "user_id": 1,
+                    "app_name": "蜻蜓FM",
+                    "pkg_name": "fm.qingting.qtradio",
+                    "installed_time": 1479368881739,
+                    "updated_time": 1483303330034,
+                    "created_time": 1548034448000,
+                    "service_app_id": 2,
+                    "telephone": "18127820722",
+                    "sync_version": 1548034450000
+                  }
+                  ],
+                  "alipayReport": {
+                    "zm_black": {
+                    "zm_score": "695.00",
+                    "zm_score_level": "C",
+                    "tq_score": "",
+                    "is_black": "",
+                    "is_black_str": ""
+                    },
+                    "property_info": {
+                    "is_real_name_str": "是",
+                    "total_card_cnt": 0,
+                    "credit_card_cnt": 0,
+                    "acct_balance": "0.000",
+                    "yuebao_tot_amt": "0.000",
+                    "huabei_avlb_amt": "1691.280",
+                    "jiebei_tot_amt": "0.000",
+                    "jiebei_is_overdue": "否"
+                    },
+                    "outcome_total_repay_info": {
+                    "outcome_monthly_amt": 26300.61,
+                    "outcome_monthly_cnt": 31,
+                    "outcome_rank": "C",
+                    "repay_monthly_amt": 0,
+                    "repay_monthly_cnt": 0,
+                    "repay_rank": "F"
+                    },
+                    "outcome_consume_withdraw_transfer": {
+                    "consume_monthly_amt": 2446.6,
+                    "consume_monthly_cnt": 21,
+                    "consume_rank": "D",
+                    "transfer_out_monthly_amt": 23854.01,
+                    "transfer_out_monthly_cnt": 10,
+                    "alipay_withdraw_monthly_amt": 0,
+                    "alipay_withdraw_monthly_cnt": 0
+                    },
+                    "income_total_jiebei_loan_info": {
+                    "income_total_amt": "3000.0000",
+                    "income_total_cnt": "2.0000",
+                    "income_rank": "E",
+                    "jiebei_loan_total_amt": "0.0000",
+                    "jiebei_loan_total_cnt": "0.0000"
+                    },
+                    "income_recharge_transfer_info": {
+                    "transfer_in_total_amt": "0.0000",
+                    "transfer_in_total_cnt": "0.0000",
+                    "alipay_recharge_total_amt": "3000.0000",
+                    "alipay_recharge_total_cnt": "2.0000",
+                    "alipay_financial_total_amt": "0.00000000000000",
+                    "alipay_financial_total_cnt": "0.0000"
+                    }
+                  },
+                }
+              }
+            }

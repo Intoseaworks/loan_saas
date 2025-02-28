@@ -1,0 +1,193 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/bankcard/look-up-ifsc:
+    get:
+      summary: 查找IFSC bank->State->District->City->Branch(等同于IFSC)
+      tags:
+      - 用户-银行卡
+      operationId: bankcardLookUpIfsc
+      parameters:
+        - name: bank
+          in: query
+          description: Bank Name
+          type: string
+          required: true
+        - name: state
+          in: query
+          description: State
+          type: string
+        - name: district
+          in: query
+          description: District
+          type: string
+        - name: city
+          in: query
+          description: City
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+        - name: size
+          in: query
+          description: 分页大小 仅支持[5, 10, 15, 20, 30, 40]
+          type: string
+      responses:
+        200:
+          description: |
+            bank：银行名
+            branch：支行名
+            address：地址
+            contact：联系方式
+            state：State
+            city：所属城市
+            district：所属区
+
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": {
+            		"current_page": 1,
+            		"data": [{
+            			"bank_info_id": 3,
+            			"bank": "ABHYUDAYA COOPERATIVE BANK LIMITED",
+            			"ifsc": "ABHY0065001",
+            			"micr_code": "400065001",
+            			"branch": "RTGS-HO",
+            			"address": "ABHYUDAYA BANK BLDG., B.NO.71, NEHRU NAGAR, KURLA (E), MUMBAI-400024",
+            			"contact": "25260173",
+            			"city": "MUMBAI",
+            			"district": "GREATER MUMBAI",
+            			"state": "MAHARASHTRA",
+            			"created_at": "2019-05-14 10:50:11",
+            			"updated_at": "2019-05-14 10:50:11"
+            		}, {
+            			"bank_info_id": 4,
+            			"bank": "ABHYUDAYA COOPERATIVE BANK LIMITED",
+            			"ifsc": "ABHY0065002",
+            			"micr_code": "400065002",
+            			"branch": "ABHYUDAYA NAGAR",
+            			"address": "ABHYUDAYA EDUCATION SOCIETY, OPP. BLDG. NO. 18, ABHYUDAYA NAGAR, KALACHOWKY, MUMBAI - 400033",
+            			"contact": "24702643",
+            			"city": "MUMBAI",
+            			"district": "GREATER MUMBAI",
+            			"state": "MAHARASHTRA",
+            			"created_at": "2019-05-14 10:50:11",
+            			"updated_at": "2019-05-14 10:50:11"
+            		}, {
+            			"bank_info_id": 6,
+            			"bank": "ABHYUDAYA COOPERATIVE BANK LIMITED",
+            			"ifsc": "ABHY0065004",
+            			"micr_code": "400065004",
+            			"branch": "BHANDUP",
+            			"address": "CHETNA APARTMENTS, J.M.ROAD, BHANDUP, MUMBAI-400078",
+            			"contact": "25963157",
+            			"city": "MUMBAI",
+            			"district": "GREATER MUMBAI",
+            			"state": "MAHARASHTRA",
+            			"created_at": "2019-05-14 10:50:11",
+            			"updated_at": "2019-05-14 10:50:11"
+            		}],
+            		"first_page_url": "http:\\/\\/localhost\\/app\\/bankcard\\/look-up-ifsc?page=1",
+            		"from": 1,
+            		"last_page": 23,
+            		"last_page_url": "http:\\/\\/localhost\\/app\\/bankcard\\/look-up-ifsc?page=23",
+            		"next_page_url": "http:\\/\\/localhost\\/app\\/bankcard\\/look-up-ifsc?page=2",
+            		"path": "http:\\/\\/localhost\\/app\\/bankcard\\/look-up-ifsc",
+            		"per_page": "5",
+            		"prev_page_url": null,
+            		"to": 5,
+            		"total": 113
+            	}
+            }
+  /app/bankcard/get-branch:
+    get:
+      summary: 查找银行
+      tags:
+      - 用户-银行卡
+      operationId: bankcardGetBranch
+      parameters:
+      - name: state
+        in: query
+        description: State
+        type: string
+        required: true
+      - name: city
+        in: query
+        description: City
+        type: string
+      responses:
+        200:
+          description: |
+            bank：银行名
+            branch：支行名
+            address：地址
+            contact：联系方式
+            city：所属城市
+            district：所属区
+            state：State
+
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": [{
+            		"bank_info_id": 1,
+            		"bank": "ABU DHABI COMMERCIAL BANK",
+            		"ifsc": "ADCB0000001",
+            		"micr_code": "400269002",
+            		"branch": "RTGS-HO",
+            		"address": "75, REHMAT MANZIL, V. N. ROAD, CURCHGATE, MUMBAI - 400020",
+            		"contact": "39534100",
+            		"city": "MUMBAI",
+            		"district": "MUMBAI CITY",
+            		"state": "MAHARASHTRA",
+            		"created_at": "2019-05-14 10:50:11",
+            		"updated_at": "2019-05-14 10:50:11"
+            	}]
+            }
+  /app/bankcard/create:
+    post:
+      summary: 绑定银行卡
+      tags:
+      - 用户-银行卡
+      operationId: bankcardCreate
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: card_no
+        in: formData
+        description: card_no
+        type: string
+        required: true
+      - name: ifsc
+        in: formData
+        description: ifsc
+        type: string
+      responses:
+        200:
+          description: |
+
+  /app/bankcard/index:
+    post:
+      summary: 银行卡首页
+      tags:
+      - 用户-银行卡
+      operationId: bankcardIndex
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+

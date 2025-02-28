@@ -1,0 +1,195 @@
+swagger: '2.0'
+paths:
+  /api/risk-blacklist/index:
+    get:
+      summary: 风控黑名单列表
+      tags:
+        - 风控模块
+      operationId: riskBlacklistIndex
+      parameters:
+        - name: keyword
+          in: query
+          description: Keyword
+          type: string
+        - name: value
+          in: query
+          description: value
+          type: string
+        - name: is_global
+          in: query
+          description: is_global Y/N
+          type: string
+        - name: apply_id
+          in: query
+          description: orgn_applyid
+          type: string
+        - name: black_reason
+          in: query
+          description: black_reason
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            keyword下拉列表 全局配置risk_blacklist_keyword
+            blackReason下拉列表 全局配置risk_blacklist_black_reason
+
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":{
+                    "current_page":1,
+                    "data":[
+                        {
+                            "id":1112,
+                            "merchant_id":1,
+                            "keyword":"TELEPHONE",
+                            "value":"7629954591",
+                            "black_reason":"贷后逾期入黑",
+                            "apply_id":1619,
+                            "related_info":null,
+                            "is_global":"N",
+                            "status":1,
+                            "created_at":"2020-12-26 10:53:16",
+                            "keyword_text":"手机号"
+                        }
+                    ],
+                    "first_page_url":"http:\/\/localhost\/api\/risk-blacklist\/index?page=1",
+                    "from":1,
+                    "last_page":1,
+                    "last_page_url":"http:\/\/localhost\/api\/risk-blacklist\/index?page=1",
+                    "next_page_url":null,
+                    "path":"http:\/\/localhost\/api\/risk-blacklist\/index",
+                    "per_page":15,
+                    "prev_page_url":null,
+                    "to":1,
+                    "total":1
+                }
+            }
+
+  /api/risk-blacklist/detail:
+    get:
+      summary: 风控黑名单详情
+      tags:
+        - 风控模块
+      operationId: riskBlacklistDetail
+      parameters:
+        - name: id
+          in: query
+          description: id 用户id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            telephone 电话
+            fullname 姓名
+            user_face 自拍照
+            user_face_comparison_selector 自拍照对比下拉选项
+            id_card 身份证照片
+            id_card_type 身份证类型
+            id_card_no 身份证号
+            company_id 工作证件照
+            age 年龄
+            work_phone 单位电话
+            contact_telephone 联系人电话
+            email 邮件
+            contact_telephone 紧急联系人列表集合
+            bank_name 银行名称
+            bank_account 银行账号
+            hardwards 设备及IP信息集合
+
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":{
+                    "id":652,
+                    "merchant_id":1,
+                    "keyword":"TELEPHONE",
+                    "value":"6302578341",
+                    "black_reason":"\u8d37\u540e\u903e\u671f\u5165\u9ed1",
+                    "apply_id":46622,
+                    "related_info":null,
+                    "is_global":"N",
+                    "status":1,
+                    "created_at":"2020-12-26 10:52:26",
+                    "id_card":"https:\/\/urupee-img.oss-ap-south-1.aliyuncs.com\/data\/saas\/dev\/202012\/5fe5bd8847463425977.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Ch_400&OSSAccessKeyId=LTAI4FhTK2Lh6Hcof7NJ5Dej&Expires=1608965116&Signature=rpTxzRI3ePGxm1cKOmj0n4FZ7Rg%3D",
+                    "user_face":"https:\/\/urupee-img.oss-ap-south-1.aliyuncs.com\/data\/saas\/dev\/202012\/5fe5bd92d690e516311.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Ch_400&OSSAccessKeyId=LTAI4FhTK2Lh6Hcof7NJ5Dej&Expires=1608965116&Signature=nawY0hVh7cs98KGy60GkFK%2FBvFU%3D",
+                    "company_id":null,
+                    "fullname":"hh uu tt",
+                    "birthday":"19\/03\/2005",
+                    "id_card_type":"PRC ID",
+                    "id_card_no":"4747282",
+                    "telephone":"9123000000",
+                    "work_phone":"475836",
+                    "email":"hujhgh@hh.com",
+                    "contact_telephone":[
+                        {
+                            "contact_fullname":"dfff",
+                            "contact_telephone":"9655467852",
+                            "relation":"PARENT"
+                        },
+                        {
+                            "contact_fullname":"rffg",
+                            "contact_telephone":"9354685243",
+                            "relation":"PARENT"
+                        },
+                        {
+                            "contact_fullname":"bjj",
+                            "contact_telephone":"9452154218",
+                            "relation":"PARENT"
+                        }
+                    ],
+                    "bankCards":[
+                        {
+                            "account_name":"hh uu tt",
+                            "account_no":"6473758594",
+                            "bank_name":"Metro Bank",
+                            "status":1,
+                            "created_at":"2020-12-25 18:24:22"
+                        }
+                    ],
+                    "hardwards":[
+                        {
+                            "cookie_id":"",
+                            "imei":"3ee0f6f2c695e1de",
+                            "advertising_id":"",
+                            "persistent_device_id":"",
+                            "request_ip":"169.29.23.112"
+                        },
+                        {
+                            "cookie_id":"",
+                            "imei":"",
+                            "advertising_id":"",
+                            "persistent_device_id":"",
+                            "request_ip":"168.34.29.211"
+                        }
+                    ]
+                }
+            }
+
+  /api/risk-blacklist/import:
+    post:
+      summary: 线下导入导入外部黑名单
+      tags:
+        - 风控模块
+      operationId: riskBlacklistImport
+      parameters:
+        - name: file
+          in: query
+          description: 文件
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+

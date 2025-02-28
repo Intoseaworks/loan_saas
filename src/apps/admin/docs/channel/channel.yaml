@@ -1,0 +1,525 @@
+swagger: '2.0'
+paths:
+  /api/channel/index:
+    get:
+      summary: 渠道列表
+      tags:
+      - 渠道管理
+      operationId: channelIndex
+      parameters:
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: status
+        in: query
+        description: 查询条件：状态  1：正常  2：禁用
+        type: string
+      - name: time_start
+        in: query
+        description: 查询条件：合作时间(min)
+        type: string
+      - name: time_end
+        in: query
+        description: 查询条件：合作时间(max)
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+
+            sort:排序
+            channel_name:平台名称
+            channel_code:合作标识
+            url:推广链接
+            cooperation_time_text:合作时间
+            status_text:合作状态
+            register_count:注册量
+            order_count:借款量
+            loan_count:放款成功订单数
+            loan_amount:放款成功金额
+
+
+            Response body
+            Download
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+                "current_page": 1,
+                "data": [
+                  {
+                    "channel_code": "jqbwx",
+                    "channel_name": "深圳金钱包公众号",
+                    "status": 1,
+                    "cooperation_time": 1546915193000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2019-01-08 10:39:53",
+                    "status_text": "正常",
+                    "register_count": 1000,
+                    "order_count": 1000,
+                    "loan_count": 1000,
+                    "loan_amount": 1000000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 5,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_count": 1000,
+                    "order_count": 1000,
+                    "loan_count": 1000,
+                    "loan_amount": 1000000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_count": 1000,
+                    "order_count": 1000,
+                    "loan_count": 1000,
+                    "loan_amount": 1000000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_count": 1000,
+                    "order_count": 1000,
+                    "loan_count": 1000,
+                    "loan_amount": 1000000
+                  }
+                ],
+                "first_page_url": "http://saas.test/api/channel/index?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http://saas.test/api/channel/index?page=1",
+                "next_page_url": null,
+                "path": "http://saas.test/api/channel/index",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 4,
+                "total": 4
+              }
+            }
+
+  /api/channel/monitor:
+    get:
+      summary: 流量监控
+      tags:
+      - 渠道管理
+      operationId: channelMonitor
+      parameters:
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: status
+        in: query
+        description: 查询条件：状态  1：正常  2：禁用
+        type: string
+      - name: time_start
+        in: query
+        description: 查询条件：合作时间(min)
+        type: string
+      - name: time_end
+        in: query
+        description: 查询条件：合作时间(max)
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+
+            sort:排序
+            channel_name:平台名称
+            channel_code:合作标识
+            url:推广链接
+            cooperation_time_text:合作时间
+            status_text:合作状态
+            register_pv:注册PV
+            register_uv:注册UV
+            download_pv:下载PV
+            download_uv:下载UV
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+                "current_page": 1,
+                "data": [
+                  {
+                    "channel_code": "jqbwx",
+                    "channel_name": "深圳金钱包公众号",
+                    "status": 1,
+                    "cooperation_time": 1546915193000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2019-01-08 10:39:53",
+                    "status_text": "正常",
+                    "register_pv": 1000,
+                    "register_uv": 1000,
+                    "download_pv": 1000,
+                    "download_uv": 1000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 5,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_pv": 1000,
+                    "register_uv": 1000,
+                    "download_pv": 1000,
+                    "download_uv": 1000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_pv": 1000,
+                    "register_uv": 1000,
+                    "download_pv": 1000,
+                    "download_uv": 1000
+                  },
+                  {
+                    "channel_code": "test1",
+                    "channel_name": "test1",
+                    "status": 1,
+                    "cooperation_time": 1515463621000,
+                    "url": "",
+                    "sort": 1,
+                    "cooperation_time_text": "2018-01-09 10:07:01",
+                    "status_text": "正常",
+                    "register_pv": 1000,
+                    "register_uv": 1000,
+                    "download_pv": 1000,
+                    "download_uv": 1000
+                  }
+                ],
+                "first_page_url": "http://saas.test/api/channel/monitor?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http://saas.test/api/channel/monitor?page=1",
+                "next_page_url": null,
+                "path": "http://saas.test/api/channel/monitor",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 4,
+                "total": 4
+              }
+            }
+
+  /api/channel/view:
+    get:
+      summary: 渠道详情
+      tags:
+      - 渠道管理
+      operationId: channelView
+      parameters:
+      - name: id
+        in: query
+        description: id 渠道id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+
+                }
+            }
+
+  /api/channel/create:
+    post:
+      summary: 添加渠道
+      tags:
+      - 渠道管理
+      operationId: channelCreate
+      parameters:
+      - name: channel_code
+        in: formData
+        description: 渠道标识
+        type: string
+      - name: page_name
+        in: formData
+        description: 包名（/api/config-option/info接口 page_name）
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "channel_code": "test1",
+                    "page_name": "com.good.vay",
+                    "url": "https://play.google.com/store/apps/details?id=com.good.vay&referrer=test1",
+                    "short_url": "https://dwz.cn/p4Wd2tjB",
+                    "status": 1,
+                    "updated_at": "2019-09-17 12:45:08",
+                    "created_at": "2019-09-17 12:45:08",
+                    "id": 49
+                }
+            }
+
+  /api/channel/update:
+    post:
+      summary: 更新渠道
+      tags:
+      - 渠道管理
+      operationId: channelUpdate
+      parameters:
+      - name: id
+        in: formData
+        description: 渠道id
+        type: string
+        required: true
+      - name: cooperation_time
+        in: formData
+        description: 合作时间（Y-m-d H:i:s）
+        type: string
+        required: true
+      - name: sort
+        in: formData
+        description: 排序
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": "修改成功"
+            }
+
+  /api/channel/del:
+    get:
+      summary: 删除渠道
+      tags:
+      - 渠道管理
+      operationId: channelDel
+      parameters:
+      - name: id
+        in: query
+        description: id 渠道id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+
+                }
+            }
+
+  /api/channel/check_code:
+    get:
+      summary: 渠道标识验证
+      tags:
+      - 渠道管理
+      operationId: channelCheckCode
+      parameters:
+      - name: channel_code
+        in: query
+        description: 渠道标识
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 2222,
+              "msg": "标识码已使用，请重新填写"
+            }
+
+  /api/channel/update_status:
+    get:
+      summary: 更新状态
+      tags:
+      - 渠道管理
+      operationId: channelUpdateStatus
+      parameters:
+      - name: id
+        in: query
+        description: 渠道id
+        type: string
+        required: true
+      - name: status
+        in: query
+        description: 状态
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": "修改成功"
+            }
+
+  /api/channel/update_top:
+    post:
+      summary: 更新置顶
+      tags:
+      - 渠道管理
+      operationId: channelUpdateTop
+      parameters:
+      - name: id
+        in: formData
+        description: 渠道id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": "修改成功"
+            }
+  /api/channel/monitor-item:
+    get:
+      summary: 每日投放效果统计
+      tags:
+        - 渠道管理
+      operationId: channelMonitorItem
+      parameters:
+        - name: channel_code
+          in: query
+          description: 渠道标识
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            channel 渠道相关
+            channel.channel_name: 渠道名
+            channel.status_text: 推广状态
+            channel.url: 推广链接
+            list 列表
+            list.count_at 日期
+            list.register_pv 注册PV
+            list.register_uv 注册UV
+            list.downloan_pv 下载PV
+            list.downloan_uv 下载UV
+            list.order_count 申请借款UV
+            list.paid_count 成功放款UV
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "channel": {
+                  "id": 1,
+                  "channel_code": "132",
+                  "channel_name": "123",
+                  "status": 1,
+                  "cooperation_time": "2019-03-13 10:48:55",
+                  "url": "http://47.106.179.225:8003/#/registered/132",
+                  "sort": 1,
+                  "is_top": 0,
+                  "top_time": null,
+                  "status_text": "正常"
+                },
+                "list": {
+                  "current_page": 1,
+                  "data": [
+                  {
+                    "count_at": "2019-03-15",
+                    "register_uv": 1,
+                    "order_count": 0,
+                    "paid_count": "0",
+                    "register_pv": 0,
+                    "downloan_pv": 0,
+                    "downloan_uv": 0
+                  },
+                  {
+                    "count_at": "2019-03-14",
+                    "register_uv": 1,
+                    "order_count": 0,
+                    "paid_count": "0",
+                    "register_pv": 0,
+                    "downloan_pv": 0,
+                    "downloan_uv": 0
+                  }
+                  ],
+                  "first_page_url": "http://saas.test/api/channel/monitor-item?page=1",
+                  "from": 1,
+                  "last_page": 1,
+                  "last_page_url": "http://saas.test/api/channel/monitor-item?page=1",
+                  "next_page_url": null,
+                  "path": "http://saas.test/api/channel/monitor-item",
+                  "per_page": 15,
+                  "prev_page_url": null,
+                  "to": 2,
+                  "total": 2
+                }
+              }
+            }

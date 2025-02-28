@@ -1,0 +1,49 @@
+swagger: '2.0'
+paths:
+  /api/trade-log/system-repay-list:
+    get:
+      summary: 代扣还款记录
+      tags:
+        - 还款管理
+      operationId: systemRepayList
+      parameters:
+        - name: keyword_user
+          in: query
+          description: 用户查询 收款人姓名/ 手机号码
+          type: string
+        - name: trade_result_time
+          in: query
+          description: 扣款时间
+          type: string
+        - name: trade_result
+          in: query
+          description: 状态 公共配置 name:trade_log_result
+          type: string
+        - name: channel_code
+          in: query
+          description: 订单渠道 公共配置 name:channel_code
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            transaction_no:交易流水号
+            master_business_no:订单号
+            trade_account_name:收款人姓名
+            trade_account_telephone:手机号码
+            trade_amount:金额
+            trade_account_no:扣款银行卡
+            order.created_at:借款时间
+            out_trade_result_time:打款时间
+            in_trade_result_time:还款时间
+            business_type_text:业务类型
+            trade_platform_text:还款渠道
+            admin_trade_account.account_no:平台账户
+            user.email:邮箱
+            user.channel.channel_name:订单渠道
+            trade_result_text:状态
+            trade_result_time:扣款时间

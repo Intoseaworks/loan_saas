@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="loan-saas" default="build">
+    <target name="build" depends="composer, copy_code, chmod"/>
+    <property name="project.name" value="${project_name}" />
+    <property name="version" value="1.1.0" />
+    <property name="tarfile" value="${project.name}.${build_time}.tar.gz" />
+    <property name="distfile" value="package/${tarfile}" />
+    <property name="distbuild" value="build" />
+    <property name="env" value="${env}" />
+    <!--更改执行顺序，先composer后copy代码，避免每次发布都要install-->
+    <property name="srcdir" value="${project.basedir}/src"/>
+
+    <!--配置生成 Tar 包名称-->
+    <fileset id="loan-saas_package" dir="${distbuild}">
+        <include name="**" />
+    </fileset>
+
+    <!--更新权限-->
+    <target name="chmod">
+        <echo message="Chmod Cmd Run: artisan " />
+        <if>
+            <available file="${distbuild}/artisan" type="file" />
+            <then>
+                <exec command="chmod 0755 artisan" dir="${distbuild}" />
+            </then>
+            <else>
+                <echo message="Chmod: artisan file does not exist!"/>
+            </else>
+        </if>
+        <echo message="Chmod Dir: public "/>
+        <if>
+            <available file="${distbuild}/public" type="dir"/>
+            <then>
+                <exec command="chmod 0777 -R public" dir="${distbuild}"/>
+            </then>
+            <else>
+                <echo message="Chmod: public dir does not exist!"/>
+            </else>
+        </if>
+        <echo message="Chmod Dir: storage "/>
+        <if>
+            <available file="${distbuild}/storage" type="dir"/>
+            <then>
+                <exec command="chmod 0777 -R storage" dir="${distbuild}"/>
+            </then>
+            <else>
+                <echo message="Chmod: storage dir does not exist!"/>
+            </else>
+        </if>
+        <echo message="Chmod Dir: vendor "/>
+        <if>
+            <available file="${distbuild}/vendor" type="dir"/>
+            <then>
+                <exec command="chmod 0777 -R vendor" dir="${distbuild}"/>
+            </then>
+            <else>
+                <echo message="Chmod: vendor dir does not exist!"/>
+            </else>
+        </if>
+    </target>
+
+
+    <!--拷贝配置文件-->
+    <target name="env_conf">
+        <if>
+            <available file="env.${env}.php" type="file" filepath="${project.basedir}/src"/>
+            <then>
+                <echo message="copy ${project.basedir}/src/env.${env}.php to ${distbuild}/env.php"/>
+                <copy file="${project.basedir}/src/env.${env}.php" toFile="${distbuild}/env.php"/>
+            </then>
+            <else>
+                <echo message="env.${env}.php does not exist!"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- 拷贝待部署文件 -->
+    <target name="copy_code">
+        <!--拷贝 php 代码-->
+        <copy todir="${distbuild}" >
+            <fileset defaultexcludes="true" expandsymboliclinks="true" dir="src">
+                <!--                <exclude name="env.*php"/>-->
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Run Composer command for approve -->
+    <target name="composer" depends="env_conf">
+        <echo message="ComposerInstall: For pre or prod!!" />
+        <if>
+            <available file="${srcdir}/composer.json" type="file"/>
+            <then>
+                <exec checkreturn="true" command="composer install --optimize-autoloader --prefer-dist" passthru="true"
+                      logoutput="true" dir="${srcdir}"/>
+            </then>
+            <else>
+                <echo message="ComposerInstall: composer.json does not exist!" />
+            </else>
+        </if>
+
+    </target>
+    <!-- end -->
+
+    <!-- 运行前检查是否所有参数已填写 -->
+    <target name="check" description="Check variables" >
+        <fail unless="version" message="Version not defined!" />
+        <fail unless="project_name" message="project_name no defined!" />
+        <fail unless="build_time" message="build_time not defined!" />
+        <fail unless="env" message="env not defined!" />
+        <delete dir="package" failonerror="false" />
+        <delete includeemptydirs="true">
+            <fileset dir="build" excludes="vendor, composer.lock" />
+        </delete>
+        <mkdir dir="package" />
+        <mkdir dir="build" />
+    </target>
+    <!-- end -->
+
+    <!-- 代码打包-->
+    <target name="tar" depends="check, build" description="Create tar file for release">
+        <echo msg="Creating distribution tar for ${project.name} ${version}"/>
+        <!-- 调用生成 tar 包 -->
+        <tar destfile="${distfile}" compression="gzip">
+            <fileset refid="loan-saas_package"/>
+        </tar>
+        <!-- end -->
+    </target>
+    <!-- end -->
+
+    <target name="publish" depends="check, build" description="Publish">
+        <echo msg="Complete the project construction of ${project.name} ${version}"/>
+    </target>
+</project>

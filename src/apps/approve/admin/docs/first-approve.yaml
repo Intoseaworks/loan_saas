@@ -1,0 +1,376 @@
+swagger: '2.0'
+paths:
+  /api/approve/first-approve/list:
+    get:
+      summary: 初审列表
+      tags:
+        - 审批列表/初审列表
+      operationId: index
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `1`
+          type: string
+      responses:
+        200:
+          description: |
+            is_hang_up 是否挂起队列
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "id": 4,
+                        "order_id": 34,
+                        "type": 1,
+                        "grade": 2,
+                        "order_no": "120161016000034",
+                        "telephone": "18572354718",
+                        "order_type": "0",
+                        "order_status": "0",
+                        "pass_time": null,
+                        "wait_time": 1526896941,
+                        "status": 1,
+                        "created_at": "2018-12-12 18:04:11",
+                        "updated_at": "2018-12-14 18:20:24",
+                        "wait_time_text": "209d20h11m",
+                        "approve_at": "2018-12-14 18:20:24"
+                    }
+                ]
+            }
+
+            {
+                "status": 400,
+                "msg": "存在电审订单"
+            }
+
+
+  /api/approve/first-approve/start-work:
+    get:
+      summary: 开始审批
+      tags:
+        - 审批列表/初审列表
+      operationId: startWork
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `1`
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "id": 4,
+                        "order_id": 34,
+                        "type": 1,
+                        "grade": 2,
+                        "order_no": "120161016000034",
+                        "telephone": "18572354718",
+                        "order_type": "0",
+                        "order_status": "0",
+                        "pass_time": null,
+                        "wait_time": 1526896941,
+                        "status": 1,
+                        "created_at": "2018-12-12 18:04:11",
+                        "updated_at": "2018-12-14 18:20:24",
+                        "wait_time_text": "209d20h11m",
+                        "approve_at": "2018-12-14 18:20:24"
+                    }
+                ]
+            }
+
+            {
+                "status": 400,
+                "msg": "存在电审订单"
+            }
+
+
+  /api/approve/first-approve/stop-work:
+    get:
+      summary: 停止审批
+      tags:
+        - 审批列表/初审列表
+      operationId: stopWork
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `1`
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": []
+            }
+
+
+  /api/approve/approve/log:
+    get:
+      summary: 审批日志
+      tags:
+        - 审批列表/初审列表
+      operationId: approveLog
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: integer
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+        - name: order_type
+          in: query
+          description: 订单类型  1初审 2电审
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": []
+            }
+
+
+  /api/approve/approve/start-check:
+    get:
+      summary: 开始审批
+      tags:
+        - 审批列表/电审列表
+      operationId: startCheck
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: integer
+          required: true
+        - name: id
+          in: query
+          description: user_pool_id  列表的 id字段
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": []
+            }
+
+  /api/approve/first-approve/detail:
+    get:
+      summary: 初审详情
+      tags:
+        - 审批列表/初审列表
+      operationId: firstShow
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: id
+          in: query
+          description: user_pool_id 列表 id字段
+          type: integer
+          required: true
+        - name: order_id
+          in: query
+          description: 订单id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            order_no 订单编号
+            telephone 电话
+            fullname 姓名
+            fullname_radio_list 姓名Radio选项
+            user_face 自拍照
+            user_face_comparison_selector 自拍照对比下拉选项
+            id_card 身份证照片
+            id_card_type 身份证类型
+            id_card_no 身份证号
+            id_card_radio_list 身份证号Radio选项
+            company_id 工作证件照
+            principal 申请额度
+            loan_days 贷款周期
+            user_type 用户类型
+            loan_times 贷款次数
+            birthday 生日
+            age 年龄
+            gender 性别
+            current_address 当前地址
+            order_status 订单状态文案
+            base_detail_status 提交选项
+            refusal_code 拒绝码下拉选项
+            suspected_fraud_status 补件下拉选项
+            {"code":18000,"msg":"Success","data":{"data":{"bashDetail":{"order_no":"88573155FD8194F302","telephone":"9000000888","fullname":"UiuUiuiLala","fullname_radio_list":[{"key":1,"val":"Correct"},{"key":2,"val":"Incorrect"}],"user_face":"https:\\/\\/urupee-img.oss-ap-south-1.aliyuncs.com\\/data\\/saas\\/dev\\/202012\\/5fd819fa80e71389526.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Ch_400&OSSAccessKeyId=LTAI4FhTK2Lh6Hcof7NJ5Dej&Expires=1608712892&Signature=atR7hgBe1i2E%2BZ5jQNyy8YS55ZE%3D","user_face_comparison_selector":{"list":[{"key":1,"val":"Same"},{"key":2,"val":"Not Same"},{"key":3,"val":"Not Face"},{"key":4,"val":"Not Clear"},{"key":5,"val":"Forge"}]},"id_card":"https:\\/\\/urupee-img.oss-ap-south-1.aliyuncs.com\\/data\\/saas\\/dev\\/202012\\/5fd819f69c5a3801632.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Ch_400&OSSAccessKeyId=LTAI4FhTK2Lh6Hcof7NJ5Dej&Expires=1608712892&Signature=9%2BslPlC9%2Bwy8AcHB4UrfYqmERdI%3D","id_card_type":"UMID","id_card_no":"123456000099","id_card_radio_list":[{"key":1,"val":"Correct"},{"key":2,"val":"Incorrect"}],"company_id":null,"principal":"3000.00","loan_days":1,"user_type":"New User","loan_times":0,"birthday":"01\\/01\\/1998","age":22,"gender":"Male","current_address":"123456yananlu","order_status":"First approval","base_detail_status":[{"key":"manual_approve_pass","val":"Approval PASS"},{"key":"manual_approve_fraud","val":"Approval FAILED"},{"key":"manual_approve_supplementary","val":"Supplement"}],"refusal_code":[{"key":"R03WD","val":"Wrong document number of ID CARD"},{"key":"R01OHPIV","val":"Photo is not head portrait"},{"key":"R03OCPIV","val":"ID card is invalid"},{"key":"R03OCPUQ","val":"ID card does not meet the application standards"},{"key":"R03OHPUQ","val":"Head portrait does not meet the application standards"},{"key":"R01OCPFF","val":"ID forgery"},{"key":"R01OCPSP","val":"Authenticity of ID card is uncertain"},{"key":"R01OHPDF","val":"Head portrait and  id card show different people"},{"key":"R03DL","val":"Non-Philippines citizens"},{"key":"R03OAGUQ","val":"Age does not meet the regulations"},{"key":"R03OWCCD","val":"Bagde validity might be outdated"},{"key":"R03OWCDF2","val":"Customer name on document does not match with the online application"},{"key":"R03OWCDF3","val":"Head portrait and badge show different person"},{"key":"R03OWCIV","val":"Badge is invalid"},{"key":"R03OWCNI","val":"Authenticity of Badge is uncertain"},{"key":"R03OWCUQ","val":"Badge does not meet the application standards"},{"key":"R03SG","val":"ID card expired"},{"key":"R01FH","val":"Negative information of the industry or company"}],"suspected_fraud_status":[{"key":"NEED_APTITUDE_FACE","val":"Selfie"},{"key":"NEED_APTITUDE_ID","val":"ID Photo"},{"key":"NEED_APTITUDE_ALL","val":"Selfie&ID Photo"}]}},"flows":["bashDetail"]}}
+
+  /api/approve/first-approve/submit:
+    post:
+      summary: 初审提交
+      tags:
+        - 审批列表/初审列表
+      operationId: firstApproveSubmit
+      parameters:
+        - name: order_id
+          in: query
+          description: 订单ID
+          type: integer
+          required: true
+        - name: id
+          in: query
+          description: 审批列表id
+          type: integer
+          required: true
+        - name: confirm_selfie_id_phone
+          in: query
+          description: 自拍照与证件照是否一致
+          type: integer
+          required: true
+        - name: confirm_selfie_work_phone
+          in: query
+          description: 自拍照与工作证是否一致
+          type: integer
+          required: true
+        - name: firstname
+          in: query
+          description: firstname
+          type: string
+          required: false
+        - name: middlename
+          in: query
+          description: middlename
+          type: string
+          required: false
+        - name: lastname
+          in: query
+          description: lastname
+          type: string
+          required: false
+        - name: confirm_fullname
+          in: query
+          description: 姓名是否正确
+          type: string
+          required: false
+        - name: id_card_no
+          in: query
+          description: 身份证号
+          type: string
+          required: false
+        - name: confirm_id_card
+          in: query
+          description: 证件是否正确
+          type: string
+          required: false
+        - name: base_detail_status
+          in: query
+          description: 初审界面提交选项 传detail接口base_detail_status选项
+          type: string
+          required: true
+        - name: refusal_code
+          in: query
+          description: 拒绝码 审批不通过时传detail接口refusal_code选项
+          type: string
+          required: false
+        - name: suspected_fraud_status
+          in: query
+          description: 补件选项(单选) 补件时传detail接口suspected_fraud_status选项
+          type: string
+          required: false
+
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                  // order_id  为 0时是用户没有订单
+                  'order_id' => 111
+                }
+            }
+
+
+  /api/approve/first-approve/bank-bill-sort:
+    get:
+      summary: 银行流水排序
+      tags:
+        - 审批列表/初审列表
+      operationId: bankBillSort
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: order_id
+          in: query
+          required: true
+          description: 订单id
+          type: string
+        - name: sort_params
+          in: query
+          required: true
+          description: 排序 [1,2,3,4]
+          type: array
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": []
+            }
+
+
+  /api/approve/first-approve/address-info:
+    get:
+      summary: 获取地址信息
+      tags:
+        - 审批列表/初审列表
+      operationId: addressInfo
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: pincode
+          in: query
+          required: true
+          description: pincode
+          type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+                "state": "ANDHRA PRADESH",
+                "city": "Nellore",
+                "pincode": "524314"
+              }
+            }

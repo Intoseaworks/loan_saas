@@ -1,0 +1,78 @@
+swagger: '2.0'
+paths:
+  /app/data/facebook:
+    post:
+      summary: 上传facebook授权
+      tags:
+      - 信息采集
+      parameters:
+      - name: apply_id
+        in: query
+        description: apply_id
+        type: string
+        required: true
+        default: ''
+      - name: type
+        in: query
+        description: 类型
+        type: string
+        required: true
+        default: ''
+      - name: email
+        in: query
+        description: 邮箱
+        type: string
+        required: true
+        default: ''
+      - name: first_name
+        in: query
+        description: first Name
+        type: string
+        required: true
+        default: ''
+      - name: id
+        in: query
+        description: id
+        type: string
+        required: true
+        default: ''
+      - name: last_name
+        in: query
+        description: last Name
+        type: string
+        required: true
+        default: ''
+      - name: name
+        in: query
+        description: Name
+        type: string
+        required: true
+        default: ''
+      - name: name_format
+        in: query
+        description: name Format
+        type: string
+        required: true
+        default: ''
+      - name: picture
+        in: query
+        description: 头像
+        type: file
+        required: true
+        default: ''
+      - name: short_name
+        in: query
+        description: Short name
+        type: string
+        required: true
+        default: ''
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "Facebook信息保存成功",
+                "data": 15
+            }
+
+  

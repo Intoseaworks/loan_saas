@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="loan-saas" default="build">
+    <target name="build" depends="composer" />
+    <property name="project.name" value="${project_name}" />
+    <property name="version" value="1.1.0" />
+    <property name="tarfile" value="${project.name}.${build_time}.tar.gz" />
+    <property name="distfile" value="package/${tarfile}" />
+    <property name="distbuild" value="build" />
+    <property name="env" value="${env}" />
+
+    <!--配置生成 Tar 包名称-->
+    <fileset id="loan-saas_package" dir="${distbuild}">
+        <include name="**" />
+    </fileset>
+
+    <!--更新权限-->
+    <target name="chmod">
+        <echo message="Chmod Cmd Run: artisan " />
+        <if>
+            <available file="${distbuild}/artisan" type="file" />
+            <then>
+                <exec command="chmod 0755 artisan" dir="${distbuild}" />
+            </then>
+            <else>
+                <echo message="ComposerInstall: composer.json does not exist!" />
+            </else>
+        </if>
+    </target>
+
+
+    <!--拷贝配置文件-->
+    <target name="env_conf">
+        <if>
+            <available file="env.saas.${env}.php" type="file" filepath="${project.basedir}/src"/>
+            <then>
+                <echo message="copy ${project.basedir}/src/env.saas.${env}.php to ${distbuild}/env.php"/>
+                <copy file="${project.basedir}/src/env.saas.${env}.php" toFile="${distbuild}/env.php"/>
+            </then>
+            <else>
+                <echo message="env.saas.${env}.php does not exist!"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- 拷贝待部署文件 -->
+    <target name="copy_code">
+        <!--拷贝 php 代码-->
+        <copy todir="${distbuild}" >
+            <fileset defaultexcludes="true" expandsymboliclinks="true" dir="src">
+                <!--                <exclude name="env.*php"/>-->
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Run Composer command for approve -->
+    <target name="composer" depends="env_conf, copy_code, chmod">
+        <echo message="ComposerInstall: For pre or prod!!" />
+        <if>
+            <available file="${distbuild}/composer.json" type="file" />
+            <then>
+                <exec checkreturn="true" command="composer install --optimize-autoloader --prefer-dist" passthru="true"
+                      logoutput="true" dir="${distbuild}"/>
+            </then>
+            <else>
+                <echo message="ComposerInstall: composer.json does not exist!" />
+            </else>
+        </if>
+
+    </target>
+    <!-- end -->
+
+    <!-- 运行前检查是否所有参数已填写 -->
+    <target name="check" description="Check variables" >
+        <fail unless="version" message="Version not defined!" />
+        <fail unless="project_name" message="project_name no defined!" />
+        <fail unless="build_time" message="build_time not defined!" />
+        <fail unless="env" message="env not defined!" />
+        <delete dir="package" failonerror="false" />
+        <delete includeemptydirs="true">
+            <fileset dir="build" excludes="vendor, composer.lock" />
+        </delete>
+        <mkdir dir="package" />
+        <mkdir dir="build" />
+    </target>
+    <!-- end -->
+
+    <!-- 代码打包-->
+    <target name="tar" depends="check, composer" description="Create tar file for release">
+        <echo msg="Creating distribution tar for ${project.name} ${version}"/>
+        <!-- 调用生成 tar 包 -->
+        <tar destfile="${distfile}" compression="gzip">
+            <fileset refid="loan-saas_package"/>
+        </tar>
+        <!-- end -->
+    </target>
+    <!-- end -->
+</project>

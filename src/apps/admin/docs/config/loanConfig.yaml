@@ -1,0 +1,181 @@
+swagger: '2.0'
+paths:
+  /api/loan-config/view:
+    get:
+      summary: 查看贷款设置
+      tags:
+        - 贷款设置
+      operationId: loanConfigView
+      responses:
+        200:
+          description: |
+            loan_config:贷款设置
+            first_loan_repayment_rate:第一期贷款比率
+            loan_gst_rate:GST
+            nbfc_lender:NBFC公司名称
+
+            loan_config字段解析
+            number_start：起始复借次数(Number of initial re borrowing)
+            number_end：结束复借次数(Number of end re borrowing)
+            loan_amount_range：贷款额度(Loan Amount)。数组
+            loan_days_range：第一期贷款期限(First Loan Tenure)。数组
+            loan_daily_loan_rate：日利率(Interest rate)
+            penalty_rate：罚息(Penalty)
+            processing_rate：手续费(Processing Fee Rate) 数组(跟贷款天数一一对应)
+            loan_renewal_rate：展期费率(Renewal Rate) 数组(跟贷款天数一一对应)
+            loan_forfeit_penalty_rate：滞纳金费率。数组 [5,5] 第一个是在第5天收取，第二个是收取比例5% (Late Fee Rate) 数组
+            loan_again_days：被拒天数(Rejection days)
+            created_at：创建时间(Creation Time)
+            updated_at：修改时间(Update Time)
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "loan_config":[
+                        {
+                            "id":7,
+                            "merchant_id":1,
+                            "parent_id":0,
+                            "number_start":0,
+                            "number_end":0,
+                            "loan_amount_range":[
+                                2000,
+                                3000
+                            ],
+                            "loan_days_range":[
+                                14,
+                                30
+                            ],
+                            "loan_daily_loan_rate":"0.10",
+                            "penalty_rate":"0.50",
+                            "processing_rate":"10.00",
+                            "loan_again_days":30,
+                            "status":1,
+                            "created_at":"2020-02-06 09:13:45",
+                            "updated_at":"2020-02-06 10:23:50"
+                        },
+                        {
+                            "id":10,
+                            "merchant_id":1,
+                            "parent_id":7,
+                            "number_start":1,
+                            "number_end":4,
+                            "loan_amount_range":[
+                                1000,
+                                2000,
+                                3000
+                            ],
+                            "loan_days_range":[
+                                20,
+                                30
+                            ],
+                            "loan_daily_loan_rate":"0.09",
+                            "penalty_rate":"0.49",
+                            "processing_rate":"9.00",
+                            "loan_again_days":15,
+                            "status":1,
+                            "created_at":"2020-02-06 10:21:49",
+                            "updated_at":"2020-02-06 10:23:51"
+                        }
+                    ],
+                    "first_loan_repayment_rate":"99.99",
+                    "loan_gst_rate":"18",
+                    "nbfc_lender":"STAR FINSERV INDIA LIMITED"
+                }
+            }
+  /api/loan-config/save:
+    post:
+      summary: 保存贷款设置
+      tags:
+        - 贷款设置
+      operationId: loanConfigSave
+      parameters:
+        - name: loan_config.*.number_end
+          in: formData
+          description: 结束复借次数。整数，必须大于上一条的结束复借次数
+          type: number
+          required: true
+        - name: loan_config.*.loan_amount_range
+          in: formData
+          description: 贷款额度。数组，数组元素为整千的数字
+          type: number
+          required: true
+        - name: loan_config.*.loan_days_range
+          in: formData
+          description: 第一期贷款期限。数组，数组元素为大于0小于60的整数
+          type: number
+          required: true
+        - name: loan_config.*.loan_daily_loan_rate
+          in: formData
+          description: 日利率。>=0的数字
+          type: number
+          required: true
+        - name: loan_config.*.processing_rate
+          in: formData
+          description: 手续费率。数组 [10,20] 和loan_days_range一一对应
+          type: number
+          required: true
+        - name: loan_config.*.loan_renewal_rate
+          in: formData
+          description: 展期费率。数组 [10,20] 和loan_days_range一一对应
+          type: number
+          required: true
+        - name: loan_config.*.loan_forfeit_penalty_rate
+          in: formData
+          description: 滞纳金费率。数组 [5,5] 第一个是在第5天收取，第二个是收取比例5%
+          type: number
+          required: true
+        - name: loan_config.*.loan_again_days
+          in: formData
+          description: 拒绝天数。>=0的整数
+          type: integer
+          required: true
+        - name: first_loan_repayment_rate
+          in: formData
+          description: 第一期贷款比率。[0.01,99.99]之间的数字
+          type: number
+          required: true
+        - name: loan_gst_rate
+          in: formData
+          description: GST。>=0的数字
+          type: number
+          required: true
+        - name: nbfc_lender
+          in: formData
+          description: NBFC公司名称
+          type: number
+          required: true
+      responses:
+        200:
+          description: |
+
+            请求数据示例：
+            {"loan_config":[{"number_end":"0","loan_amount_range":[2000,3000],"loan_days_range":[14,30],"loan_daily_loan_rate":"0.1","penalty_rate":"0.5","processing_rate":"10","loan_again_days":30},{"number_end":"4","loan_amount_range":[1000,2000,3000],"loan_days_range":[20,30],"loan_daily_loan_rate":"0.09","penalty_rate":"0.49","processing_rate":"9","loan_again_days":15},{"number_end":"7","loan_amount_range":[3000],"loan_days_range":[25,30],"loan_daily_loan_rate":"0.08","penalty_rate":"0.48","processing_rate":"8","loan_again_days":14},{"number_end":"9","loan_amount_range":[4000],"loan_days_range":[30,40],"loan_daily_loan_rate":"0.1","penalty_rate":"0.5","processing_rate":"8","loan_again_days":14}],"first_loan_repayment_rate":99.98,"loan_gst_rate":18,"nbfc_lender":"STAR FINSERV INDIA LIMITED-test"}
+
+            响应:
+            {
+                 "code":18000,
+                 "msg":"",
+                 "data":null
+             }
+  /api/loan-config/item-del:
+    post:
+      summary: 贷款设置-配置项删除
+      tags:
+        - 贷款设置
+      operationId: loanConfigItemDel
+      parameters:
+        - name: id
+          in: formData
+          description: 配置项id
+          type: number
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                 "code":18000,
+                 "msg":"",
+                 "data":null
+             }

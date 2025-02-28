@@ -1,0 +1,238 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/repay/mode:
+    get:
+      summary: 还款方式
+      tags:
+      - 还款管理
+      operationId: repayMode
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": [
+                    {
+                        "name": "razorpay",
+                        "text": "Razorpay"
+                    }
+                ]
+            }
+  /app/repay/daikou:
+    get:
+      summary: 一键代扣(根据 /repay/mode判断是否调用一键还款)
+      tags:
+        - 还款管理
+      operationId: repayDaikou
+      parameters:
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+        - name: token
+          in: query
+          description: token
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"已发起扣款，请耐心等待还款结果",
+                "data":{
+                    "trade_log_id":"25"
+                }
+            }
+  /app/repay/query-trade:
+    get:
+      summary: 查询交易结果
+      tags:
+        - 还款管理
+      operationId: repayQueryTrade
+      parameters:
+        - name: trade_log_id
+          in: query
+          description: 交易记录id, 不传默认取当前订单下的最后一笔交易记录
+          type: string
+        - name: token
+          in: query
+          description: token
+          type: string
+      responses:
+        200:
+          description: |
+            trade_result: 1：交易成功 2：交易失败 0：交易中
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "trade_platform":"fuiou",
+                    "master_business_no":"88530495C8479BB1A4",
+                    "business_type":"repay",
+                    "trade_amount":"0.01",
+                    "trade_account_telephone":"15700767943",
+                    "trade_account_name":"王沙亮",
+                    "trade_account_no":"6217002920131968100",
+                    "trade_desc":"系统代扣回款",
+                    "trade_result_time":"2019-03-11 12:29:48",
+                    "trade_request_time":"2019-03-11 12:29:36",
+                    "handle_name":"",
+                    "trade_result":1,
+                    "created_at":"2019-03-11 12:29:32",
+                    "business_type_text":"还款",
+                    "trade_platform_text":"富有支付",
+                    "trade_result_text":"支付成功"
+                }
+            }
+  /app/repay/repay:
+    post:
+      summary: 发起还款支付，获取第三方还款链接
+      tags:
+      - 还款管理
+      operationId: repayRepay
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+      - name: orderId
+        in: formData
+        description: 订单id
+        type: string
+        required: true
+      - name: channel
+        in: formData
+        description: channel（/app/repay/mode还款方式返回的name值）
+        type: string
+        required: true
+      - name: payerAccount
+        in: formData
+        description: 支付账号。当还款渠道为Mpurse时必填。channel=mpurse。 测试账号 Bodhi@icici
+        type: string
+        required: false
+      - name: repayAmount
+        in: formData
+        description: 还款金额
+        type: number
+        required: false
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"success",
+                "data":{
+                    "platform":"deduction"
+                    "pay_url":"..."
+                }
+            }
+            注：当platform等于deduction时，代表减免，不做url跳转
+  /app/repay/app-repay:
+    post:
+      summary: 获取app支付参数
+      tags:
+        - 还款管理
+      operationId: repayAppRepay
+      parameters:
+        - name: token
+          in: formData
+          description: token
+          type: string
+        - name: orderId
+          in: formData
+          description: 订单id
+          type: string
+        - name: channel
+          in: formData
+          description: mobikwik、razorpay、paytm、mpurse
+          type: string
+        - name: repayAmount
+          in: formData
+          description: 还款金额
+          type: number
+          required: false
+      responses:
+        200:
+          description: |
+            Mpurse取 data.resultDetail 即可
+
+            env: 支付环境  test：测试  prod：正式
+
+            {
+                "code":18000,
+                "msg":"success",
+                "data":{
+                    "open_method":"sdk",
+                    "post_url":"",
+                    "resultDetail":{
+                        "amount":"1.00",
+                        "createTime":"1582001328173",
+                        "mpQueryId":"59126429422",
+                        "partnerId":"mp12950",
+                        "txnId":"572B4796EB2D7F24"
+                    },
+                    "tradeAmount":"1",
+                    "transactionNo":"5E4B6CB40BD8320200218",
+                    'env' => 'prod'
+                }
+            }
+
+  /app/repay/deduction:
+    post:
+      summary: 尾期减免
+      tags:
+        - 还款管理
+      operationId: repayDeduction
+      parameters:
+        - name: token
+          in: formData
+          description: token
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"success",
+                "data":{}
+            }
+
+  /app/payment/create-barcode:
+    post:
+      summary: 创建skypay条形码
+      tags:
+        - 还款管理
+      operationId: paymentCreateBarcode
+      parameters:
+        - name: token
+          in: formData
+          description: token
+          type: string
+        - name: amount
+          in: formData
+          description: 还款金额
+          type: string
+        - name: reference_no
+          in: formData
+          description: 还款码
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"success",
+                "data":"条形码html"
+            }

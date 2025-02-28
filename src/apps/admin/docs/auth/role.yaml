@@ -1,0 +1,409 @@
+swagger: '2.0'
+paths:
+  /api/rbac/role/index:
+    get:
+      tags:
+      - Rbac role
+      summary: 角色列表
+      operationId: index
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      - in: formData
+        name: page
+        type: integer
+        description: 分页页码
+        required: false
+        default: 1
+      - in: formData
+        name: per_page
+        type: integer
+        description: 每页显示数量
+        required: false
+        default: 10
+      - in: formData
+        name: name
+        type: string
+        description: 角色名称
+        required: false
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/show:
+    get:
+      tags:
+      - Rbac role
+      summary: 角色详情
+      operationId: show
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: id
+        type: integer
+        description: 角色Id
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/create:
+    post:
+      tags:
+      - Rbac role
+      summary: 创建角色
+      operationId: create
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: name
+        type: string
+        description: 角色名称
+        required: true
+      - in: formData
+        name: remark
+        type: string
+        description: 描述
+        required: false
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块
+        required: true
+        default: admin
+      - in: formData
+        name: menus
+        type: string
+        description: 菜单path,用逗号(,)隔开
+        required: true
+      - in: formData
+        name: operations
+        type: string
+        description: 功能Id,用逗号(,)隔开
+        required: true
+      - in: formData
+        name: users
+        type: string
+        description: 用户Id,多个用逗号(,)隔开
+        required: false
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/delete:
+    post:
+      tags:
+      - Rbac role
+      summary: 删除权限
+      operationId: destory
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: id
+        type: integer
+        description: 角色Id
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/edit:
+    post:
+      tags:
+      - Rbac role
+      summary: 编辑角色
+      operationId: edit
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: id
+        type: integer
+        description: 角色Id
+        required: true
+      - in: formData
+        name: name
+        type: string
+        description: 角色名称
+        required: true
+      - in: formData
+        name: remark
+        type: string
+        description: 详情
+        required: false
+      - in: formData
+        name: menus
+        type: string
+        description: 菜单path,多个用逗号(,)隔开
+        required: true
+      - in: formData
+        name: operations
+        type: string
+        description: 功能Id,用逗号(,)隔开
+        required: true
+      - in: formData
+        name: users
+        type: string
+        description: 用户Id,多个用逗号(,)隔开
+        required: false
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/all-role:
+    get:
+      tags:
+      - Rbac role
+      summary: 获取所有角色
+      operationId: getAllRole
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/get-permission-by-role:
+    get:
+      tags:
+      - Rbac role
+      summary: 通过角色获取权限
+      operationId: getPermissionByRole
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: role_ids
+        type: string
+        description: 角色Id(多个角色用逗号(,)分割)
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/users:
+    get:
+      tags:
+      - Rbac role
+      summary: 获取授权人员列表
+      operationId: getRoleUser
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      - in: formData
+        name: page
+        type: integer
+        description: 分页页码
+        required: false
+        default: 1
+      - in: formData
+        name: per_page
+        type: integer
+        description: 每页显示数量
+        required: false
+        default: 20
+      - in: formData
+        name: role_ids
+        type: string
+        description: 角色Id,多个角色Id用逗号(,)隔开. 获取角色对应的用户列表,不传返回所有已授权的用户列表
+        required: false
+      - in: formData
+        name: username
+        type: string
+        description: 用户名/昵称
+        required: false
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/unauthorized-user:
+    get:
+      tags:
+      - Rbac role
+      summary: 未被授权角色的用户列表
+      operationId: getUnauthorizedUser
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      - in: formData
+        name: role_id
+        type: string
+        description: 角色Id
+        required: false
+      - in: formData
+        name: username
+        type: string
+        description: 用户名/昵称
+        required: false
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/assign-role:
+    post:
+      tags:
+      - Rbac role
+      summary: 用户角色授权
+      operationId: assignRole
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: uid
+        type: integer
+        description: 用户id
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      - in: formData
+        name: role_ids
+        type: string
+        description: 角色id,多个角色用逗号(,)隔开.
+        required: false
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/detach-role:
+    post:
+      tags:
+      - Rbac role
+      summary: 清空权限
+      operationId: detachRole
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: uid
+        type: integer
+        description: 用户id
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/user-role:
+    get:
+      tags:
+      - Rbac role
+      summary: 获取用户角色列表
+      operationId: getUserRole
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: uid
+        type: integer
+        description: 用户id
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/role/guard-list:
+    get:
+      tags:
+      - Rbac role
+      summary: 获取模块
+      operationId: getGuardList
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      responses:
+        200:
+          description: 操作成功

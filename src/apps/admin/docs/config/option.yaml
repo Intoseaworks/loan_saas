@@ -1,0 +1,393 @@
+swagger: '2.0'
+paths:
+  /api/config-option/info:
+    get:
+      summary: 下拉配置获取
+      tags:
+      - config 配置管理
+      operationId: configOptionInfo
+      parameters:
+      - name: name
+        in: query
+        description: 配置名
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+
+            quality:用户类型
+            education_level:学历
+            employment_type：职业类型
+            client_id:注册客户端
+            app_version:注册客户端版本
+            channel_name:用户来源
+            channel_code:注册渠道
+            auth:已认证项
+            order_status:最后订单状态
+            user_black_type:用户黑明单类型
+            order_approval_pending_status:订单待审批状态
+            option_order_approver_list:审批人员列表
+            option_order_approval_reject_status:订单被拒状态
+            admin_account_payment_method:账户支付方式
+            admin_account_type:账户业务类型
+            admin_account_list:账户列表
+            reduction_setting:催收设置
+            language:语言选择
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "quality": [
+                        {
+                            "value": 0,
+                            "label": "新用户"
+                        },
+                        {
+                            "value": 1,
+                            "label": "复贷用户"
+                        }
+                    ],
+                    "education_level": [
+                        {
+                            "value": "高中以下",
+                            "label": "高中以下"
+                        },
+                        {
+                            "value": "高中",
+                            "label": "高中"
+                        },
+                        {
+                            "value": "中专",
+                            "label": "中专"
+                        },
+                        {
+                            "value": "大专",
+                            "label": "大专"
+                        },
+                        {
+                            "value": "本科",
+                            "label": "本科"
+                        },
+                        {
+                            "value": "硕士",
+                            "label": "硕士"
+                        },
+                        {
+                            "value": "博士",
+                            "label": "博士"
+                        }
+                    ],
+                    "client_id": [
+                        {
+                            "value": "android",
+                            "label": "安卓"
+                        },
+                        {
+                            "value": "ios",
+                            "label": "苹果"
+                        },
+                        {
+                            "value": "h5",
+                            "label": "H5"
+                        }
+                    ],
+                    "app_version": [
+                        {
+                            "value": "1.0.0",
+                            "label": "1.0.0"
+                        },
+                        {
+                            "value": "1.0.1",
+                            "label": "1.0.1"
+                        }
+                    ],
+                    "channel_name": [
+                        {
+                            "value": "深圳金钱包公众号",
+                            "label": "深圳金钱包公众号"
+                        },
+                        {
+                            "value": "test1",
+                            "label": "test1"
+                        },
+                        {
+                            "value": "aaa",
+                            "label": "aaa"
+                        },
+                        {
+                            "value": "bbb",
+                            "label": "bbb"
+                        },
+                        {
+                            "value": "快播文化",
+                            "label": "快播文化"
+                        },
+                        {
+                            "value": "方俊桦002",
+                            "label": "方俊桦002"
+                        },
+                        {
+                            "value": "测试",
+                            "label": "测试"
+                        },
+                        {
+                            "value": "ppp",
+                            "label": "ppp"
+                        },
+                        {
+                            "value": "环境",
+                            "label": "环境"
+                        },
+                        {
+                            "value": "00",
+                            "label": "00"
+                        }
+                    ],
+                    "channel_code": [
+                        {
+                            "value": "jqbwx",
+                            "label": "jqbwx"
+                        },
+                        {
+                            "value": "test1",
+                            "label": "test1"
+                        },
+                        {
+                            "value": "aaa",
+                            "label": "aaa"
+                        },
+                        {
+                            "value": "bbb",
+                            "label": "bbb"
+                        },
+                        {
+                            "value": "ffffg",
+                            "label": "ffffg"
+                        },
+                        {
+                            "value": "002",
+                            "label": "002"
+                        },
+                        {
+                            "value": "https://wetest.qq.com",
+                            "label": "https://wetest.qq.com"
+                        },
+                        {
+                            "value": "https://www.jianshu.com/c/b64f497402d6",
+                            "label": "https://www.jianshu.com/c/b64f497402d6"
+                        },
+                        {
+                            "value": "test112",
+                            "label": "test112"
+                        },
+                        {
+                            "value": 132132,
+                            "label": "132132"
+                        },
+                        {
+                            "value": "005",
+                            "label": "005"
+                        }
+                    ],
+                    "auth": [
+                        {
+                            "value": "id_card_no",
+                            "label": "身份证"
+                        },
+                        {
+                            "value": "face",
+                            "label": "人脸识别"
+                        },
+                        {
+                            "value": "hand_id_card",
+                            "label": "手持身份证"
+                        },
+                        {
+                            "value": "bind_bank_card",
+                            "label": "绑定银行卡"
+                        },
+                        {
+                            "value": "user_info",
+                            "label": "个人信息"
+                        },
+                        {
+                            "value": "operator_report",
+                            "label": "运营商报告"
+                        },
+                        {
+                            "value": "zhima",
+                            "label": "芝麻分"
+                        }
+                    ],
+                    "order_status": [
+                        {
+                            "value": "wait_sign",
+                            "label": "待确认借款"
+                        },
+                        {
+                            "value": "wait_system_approve",
+                            "label": "待系统机审"
+                        },
+                        {
+                            "value": "system_approving",
+                            "label": "机审中"
+                        },
+                        {
+                            "value": "wait_manual_approve",
+                            "label": "待人工审核"
+                        },
+                        {
+                            "value": "manual_pass",
+                            "label": "人工审核通过待放款"
+                        },
+                        {
+                            "value": "system_pass",
+                            "label": "系统审核通过待放款"
+                        },
+                        {
+                            "value": "system_reject",
+                            "label": "系统审核拒绝"
+                        },
+                        {
+                            "value": "manual_reject",
+                            "label": "人工审核拒绝"
+                        },
+                        {
+                            "value": "replenish",
+                            "label": "待补充资料"
+                        },
+                        {
+                            "value": "paying",
+                            "label": "放款处理中"
+                        },
+                        {
+                            "value": "system_paid",
+                            "label": "系统出款成功待还款"
+                        },
+                        {
+                            "value": "manual_paid",
+                            "label": "人工出款成功待还款"
+                        },
+                        {
+                            "value": "system_pay_fail",
+                            "label": "系统出款失败"
+                        },
+                        {
+                            "value": "manual_pay_fail",
+                            "label": "人工出款失败"
+                        },
+                        {
+                            "value": "manual_cancel",
+                            "label": "人工取消借款"
+                        },
+                        {
+                            "value": "user_cancel",
+                            "label": "用户取消借款"
+                        },
+                        {
+                            "value": "overdue",
+                            "label": "借款已逾期"
+                        },
+                        {
+                            "value": "repaying",
+                            "label": "还款处理中"
+                        },
+                        {
+                            "value": "finish",
+                            "label": "正常结清"
+                        },
+                        {
+                            "value": "overdue_finish",
+                            "label": "逾期结清"
+                        }
+                    ],
+                    "user_black_type": [
+                        {
+                            "value": "cannot_login",
+                            "label": "限制登录"
+                        },
+                        {
+                            "value": "cannot_loan",
+                            "label": "限制借款"
+                        }
+                    ],
+                    "order_approval_pending_status": [
+                        {
+                            "value": "wait_system_approve",
+                            "label": "待系统机审"
+                        },
+                        {
+                            "value": "wait_manual_approve",
+                            "label": "待人工审核"
+                        },
+                        {
+                            "value": "replenish",
+                            "label": "待补充资料"
+                        }
+                    ],
+                    "option_order_approver_list": [
+                        {
+                            "value": 1,
+                            "label": "方俊桦"
+                        },
+                        {
+                            "value": 2142,
+                            "label": "李春凤"
+                        }
+                    ],
+                    "admin_account_type": [
+                        {
+                            "value": 1,
+                            "label": "出款"
+                        },
+                        {
+                            "value": 2,
+                            "label": "入款"
+                        }
+                    ],
+                    "admin_account_payment_method": [
+                        {
+                            "value": 1,
+                            "label": "银行转账"
+                        },
+                        {
+                            "value": 2,
+                            "label": "支付宝转账"
+                        }
+                    ],
+                    "option_order_approval_reject_status": [
+                        {
+                            "value": "system_reject",
+                            "label": "系统审核拒绝"
+                        },
+                        {
+                            "value": "manual_reject",
+                            "label": "人工审核拒绝"
+                        }
+                    ],
+                    "admin_account_list": [
+                        {
+                            "value": 1,
+                            "label": {
+                                "id": 1,
+                                "payment_method": 1,
+                                "account_no": "saas@163.com",
+                                "account_name": "陈*",
+                                "payment_method_text": "银行转账"
+                            }
+                        },
+                        {
+                            "value": 3,
+                            "label": {
+                                "id": 3,
+                                "payment_method": 2,
+                                "account_no": "saas@163.com",
+                                "account_name": "陈*",
+                                "payment_method_text": "支付宝转账"
+                            }
+                        }
+                    ]
+                }
+            }

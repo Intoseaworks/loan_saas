@@ -1,0 +1,31 @@
+swagger: '2.0'
+paths:
+  /api/data_statistics/summary/index:
+    get:
+      summary: 每日流量效果
+      tags:
+      - 每日流量效果
+      operationId: summaryIndex
+      parameters:
+      - name: app_version
+        in: query
+        description: 版本号
+        type: string
+      responses:
+        200:
+          description: |
+            user_count: 注册用户数,
+            order_count: 借款申请笔数,
+            loan_rate: 申请转化率,
+            order_pass_count: 申请通过笔数,
+            pass_rate: 通过转化率,
+            order_remit_count: 放款笔数,
+            order_repay_count: 还款笔数,
+            order_repay_rate: 回款率,
+            overdue_count: 逾期笔数,
+            overdue_rate: 逾期率,
+            bad_count: 坏账数,
+            bad_rate: 坏账率
+
+
+

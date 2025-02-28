@@ -1,0 +1,401 @@
+swagger: '2.0'
+paths:
+  /api/staff/staff-index:
+    get:
+      summary: 人员列表-列表
+      tags:
+      - staff 人员列表
+      operationId: oaAdminUserList
+      parameters:
+      - name: status
+        in: query
+        description: 查询条件：状态  1：正常  2：禁用
+        type: string
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      responses:
+        200:
+          description: |
+            id:ID
+            username:用户名
+            nickname:昵称
+            created_at:创建时间
+            ip_address:最后ip位置
+            last_login_ip:最后登录ip
+            last_login_time_text:最后登录时间
+            status:状态 1：正常 2：禁用
+            status_text:账号状态解释字段
+            roles:角色列表数组
+            roles.name:角色名
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 2114,
+                            "username": "chengxusheng@jiumiaodai.com",
+                            "nickname": "chengxusheng",
+                            "role": null,
+                            "tissue": null,
+                            "uuid": null,
+                            "company_id": 1,
+                            "ding_openid": "AxeiivL8CGufWFiPnfdGtOZwiEiE",
+                            "wechat_openid": null,
+                            "email": null,
+                            "last_login_time": "1545960535",
+                            "last_login_ip": "119.137.54.33",
+                            "status": 1,
+                            "created_at": "2017-11-21 17:23:36",
+                            "updated_at": "2018-12-28 09:28:55",
+                            "last_update_pwd_time": 1545271373,
+                            "is_need_update_pwd": 0,
+                            "is_need_ding_login": 0,
+                            "ding_unionid": "5uFc1UCJrz7YqW7A1iPYBrAiEiE"
+                        }
+                    ],
+                    "first_page_url": "http://localsaas/api/staff/staff-index?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://localsaas/api/staff/staff-index?page=1",
+                    "next_page_url": null,
+                    "path": "http://localsaas/api/staff/staff-index",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }
+
+  /api/staff/staff-view:
+    get:
+      summary: 人员列表-详情
+      tags:
+      - staff 人员列表
+      operationId: oaAdminUserDetail
+      parameters:
+      - name: id
+        in: query
+        description: id 用户id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            id:ID
+            username:用户名
+            nickname:昵称
+            created_at:创建时间
+            ip_address:最后ip位置
+            last_login_ip:最后登录ip
+            last_login_time_text:最后登录时间
+            status:状态 1：正常 2：禁用
+            status_text:账号状态解释字段
+
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "id": 2114,
+                    "username": "chengxusheng@jiumiaodai.com",
+                    "nickname": "chengxusheng",
+                    "role": null,
+                    "tissue": null,
+                    "uuid": null,
+                    "company_id": 1,
+                    "ding_openid": "AxeiivL8CGufWFiPnfdGtOZwiEiE",
+                    "wechat_openid": null,
+                    "email": null,
+                    "last_login_time": "1545960535",
+                    "last_login_ip": "119.137.54.33",
+                    "status": 1,
+                    "created_at": "2017-11-21 17:23:36",
+                    "updated_at": "2018-12-28 09:28:55",
+                    "last_update_pwd_time": 1545271373,
+                    "is_need_update_pwd": 0,
+                    "is_need_ding_login": 0,
+                    "ding_unionid": "5uFc1UCJrz7YqW7A1iPYBrAiEiE",
+                    "last_login_time_text": "2018-12-29 09:16:34",
+                    "status_text": "正常",
+                    "ip_address": "深圳"
+                }
+            }
+
+  /api/staff/create:
+    post:
+      summary: 添加用户
+      tags:
+      - staff 人员列表
+      operationId: oaAdminUserAdd
+      parameters:
+      - name: username
+        in: query
+        description: 用户名
+        type: string
+        required: true
+      - name: nickname
+        in: query
+        description: 昵称
+        type: string
+        required: true
+      - name: password
+        in: query
+        description: 密码 字段不存在或未空 则设置为默认密码
+        type: string
+      - name: role_ids
+        in: query
+        description: 角色id,多个角色用逗号(,)隔开  角色列表见：/api/rbac/role/all-role
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "id": 2120,
+                    "username": "wangshaliang@jiumiaodai.com",
+                    "nickname": "wangsl",
+                    "role": null,
+                    "tissue": null,
+                    "uuid": null,
+                    "company_id": 0,
+                    "ding_openid": null,
+                    "wechat_openid": null,
+                    "email": null,
+                    "last_login_time": "1546049009",
+                    "last_login_ip": "127.0.0.1",
+                    "status": 1,
+                    "created_at": "2018-12-29 10:03:29",
+                    "updated_at": "2018-12-29 10:03:29",
+                    "last_update_pwd_time": 1546049009,
+                    "is_need_update_pwd": 0,
+                    "is_need_ding_login": 0,
+                    "ding_unionid": "",
+                    "last_login_time_text": "2018-12-29 10:03:29",
+                    "status_text": "正常",
+                    "last_update_pwd_time_text": "2018-12-29 10:03:29",
+                    "ip_address": "本机地址"
+                }
+            }
+
+  /api/staff/delete:
+    post:
+      summary: 删除用户
+      tags:
+      - staff 人员列表
+      operationId: oaAdminUserDelete
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": 1
+            }
+
+  /api/staff/disable-or-enable:
+    post:
+      summary: 禁用/启用用户
+      tags:
+      - staff 人员列表
+      operationId: oaAdminInitialization
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: string
+        required: true
+      - name: status
+        in: query
+        description: 操作 1:启用 2:禁用(当前用户status为1时，传2禁用。status为2时，传1启用)
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "id": 2120,
+                    "username": "wangshaliang@jiumiaodai.com",
+                    "nickname": "wangsl",
+                    "role": null,
+                    "tissue": null,
+                    "uuid": null,
+                    "company_id": 0,
+                    "ding_openid": null,
+                    "wechat_openid": null,
+                    "email": null,
+                    "last_login_time": "1546049009",
+                    "last_login_ip": "127.0.0.1",
+                    "status": 2,
+                    "created_at": "2018-12-29 10:03:29",
+                    "updated_at": "2018-12-29 10:15:33",
+                    "last_update_pwd_time": 1546049009,
+                    "is_need_update_pwd": 0,
+                    "is_need_ding_login": 0,
+                    "ding_unionid": "",
+                    "last_login_time_text": "2018-12-29 10:15:33",
+                    "status_text": "禁用",
+                    "last_update_pwd_time_text": "2018-12-29 10:03:29",
+                    "ip_address": "本机地址"
+                }
+            }
+  /api/staff/password-setting:
+    post:
+      summary: 设置密码
+      tags:
+      - staff 人员列表
+      operationId: oaAdminInitialization
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: string
+        required: true
+      - name: password
+        in: query
+        description: 密码  不传时不设置，传''时设置成默认密码
+        type: string
+      - name: unbind_ding
+        in: query
+        description: 解绑钉钉 键存在时解绑钉钉(任意值)
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": 1
+            }
+  /api/staff/assign-role:
+    post:
+      summary: 人员授权
+      tags:
+      - staff 人员列表
+      operationId: oaAdminInitialization
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: string
+        required: true
+      - name: role_ids
+        in: query
+        description: 角色id,多个角色用逗号(,)隔开  角色列表见：/api/rbac/role/all-role
+        type: string
+      - name: nickname
+        in: query
+        description: 昵称 传空或不传为不修改
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+  /api/staff/verify-repeat:
+    post:
+      summary: 用户名验重
+      tags:
+      - staff 人员列表
+      operationId: oaAdminInitialization
+      parameters:
+      - name: username
+        in: query
+        description: 用户名
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+
+            {
+                "status": 1000,
+                "msg": "账号名已注册，请重新填写"
+            }
+
+  /api/staff/check-password:
+    post:
+      summary: 验证密码
+      tags:
+      - staff 个人中心
+      operationId: checkPassword
+      parameters:
+      - name: password
+        in: formData
+        description: 密码
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+
+  /api/staff/edit-password:
+    post:
+      summary: 修改个人密码
+      tags:
+      - staff 个人中心
+      operationId: editPassword
+      parameters:
+      - name: old_password
+        in: formData
+        description: 旧密码
+        type: string
+        required: true
+      - name: new_password
+        in: formData
+        description: 新密码
+        type: string
+        required: true
+      - name: again_password
+        in: formData
+        description: 确认密码
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+
+            {
+                "status": 1000,
+                "msg": "账号名已注册，请重新填写"
+            }

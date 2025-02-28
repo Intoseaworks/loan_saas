@@ -1,0 +1,478 @@
+#swagger: '2.0'
+#paths:
+#  /api/approve/index:
+#    get:
+#      summary: 待审批列表
+#      tags:
+#      - 审批
+#      operationId: approveIndex
+#      parameters:
+#      - name: keyword
+#        in: query
+#        description: 用户查询|订单查询
+#        type: string
+#      - name: status
+#        in: query
+#        description: 查询条件：状态 wait_system_approve：待系统机审  wait_manual_approve：待人工审核  replenish：重新提交资料
+#        type: array
+#      - name: created_time
+#        in: query
+#        description: 订单创建时间
+#        type: array
+#        default: created_time[0] 2019-01-16 00:00:00   created_time[1] 2019-01-16 23:59:59
+#      - name: channel_name
+#        in: query
+#        description: 订单来源
+#        type: array
+#      - name: channel_code
+#        in: query
+#        description: 订单渠道
+#        type: array
+#      - name: page
+#        in: query
+#        description: 页码
+#        type: string
+#        default: 1
+#      - name: pageSize
+#        in: query
+#        description: 分页大小
+#        type: string
+#        default: 15
+#      responses:
+#        200:
+#          description: |
+#            id:ID
+#            order_no:订单号
+#            principal:借款金额
+#            loan_days:借款期限
+#            status_text:订单进展状态(待审批状态)
+#            created_at:订单创建时间
+#            updated_at:业务处理时间
+#            app_version:版本号
+#            app_client_text:订单创建客户端
+#            interest_fee:综合费用
+#            overdue_fee:逾期金额
+#            receivable_amount:应还金额
+#            paid_amount:实际到账金额
+#            overdue_days:逾期天数
+#            paid_time:实际到账时间
+#            appointment_paid_time:应还时间
+#            repay_time:实际还款时间
+#            pay_channel:放款渠道
+#            repay_amount:实际还款金额
+#            evolve_status:处理进展
+#            quality_text:用户类型
+#            user.telephone:手机号码
+#            user.fullname:真实姓名
+#            user.channel.channel_code:订单渠道
+#            user.channel.channel_name:订单来源
+#
+#            Response body
+#            {
+#              "code": 18000,
+#              "msg": "",
+#              "data": {
+#                "current_page": 1,
+#                "data": [
+#                {
+#                  "id": 2,
+#                  "order_no": "12312341235",
+#                  "principal": "1000.00",
+#                  "loan_days": 14,
+#                  "status": 1,
+#                  "created_at": "2019-01-15 14:34:06",
+#                  "updated_at": "2019-01-15 14:34:06",
+#                  "app_client": "ios",
+#                  "app_version": "1.0.1",
+#                  "quality": 0,
+#                  "interest_fee": "140.00",
+#                  "overdue_fee": "0.00",
+#                  "receivable_amount": "900.00",
+#                  "paid_amount": "0.00",
+#                  "overdue_days": 0,
+#                  "paid_time": "2019-01-11 17:09:16",
+#                  "appointment_paid_time": "2019-01-25 17:09:16",
+#                  "repay_time": "2019-01-14 10:00:06",
+#                  "pay_channel": "人工放款",
+#                  "repay_amount": "0.00",
+#                  "id_text": null,
+#                  "status_text": "逾期结清",
+#                  "app_client_text": "苹果",
+#                  "user": {
+#                    "telephone": "18127820725",
+#                    "fullname": "程旭升",
+#                    "quality": 0,
+#                    "quality_text": "新用户",
+#                    "channel": {
+#                      "channel_code": "test1",
+#                      "channel_name": "test1"
+#                    }
+#                  }
+#                },
+#                {
+#                  "id": 1,
+#                  "order_no": "12312341234",
+#                  "principal": "1000.00",
+#                  "loan_days": 14,
+#                  "status": 1,
+#                  "created_at": "2019-01-11 17:22:34",
+#                  "updated_at": "2019-01-11 17:22:36",
+#                  "app_client": "ios",
+#                  "app_version": "1.0.1",
+#                  "quality": 0,
+#                  "interest_fee": "140.00",
+#                  "overdue_fee": "0.00",
+#                  "receivable_amount": "900.00",
+#                  "paid_amount": "0.00",
+#                  "overdue_days": 0,
+#                  "paid_time": "2019-01-11 17:09:16",
+#                  "appointment_paid_time": "2019-01-25 17:09:16",
+#                  "repay_time": "2019-01-14 10:00:06",
+#                  "pay_channel": "人工放款",
+#                  "repay_amount": "0.00",
+#                  "id_text": null,
+#                  "status_text": "逾期结清",
+#                  "app_client_text": "苹果",
+#                  "user": {
+#                    "telephone": "18127820722",
+#                    "fullname": "钟富成",
+#                    "quality": 0,
+#                    "quality_text": "新用户",
+#                    "channel": {
+#                      "channel_code": "jqbwx",
+#                      "channel_name": "深圳金钱包公众号"
+#                    }
+#                  }
+#                }
+#                ],
+#                "first_page_url": "http://saas.test/api/order/index?page=1",
+#                "from": 1,
+#                "last_page": 1,
+#                "last_page_url": "http://saas.test/api/order/index?page=1",
+#                "next_page_url": null,
+#                "path": "http://saas.test/api/order/index",
+#                "per_page": 15,
+#                "prev_page_url": null,
+#                "to": 2,
+#                "total": 2
+#              }
+#            }
+#  /api/approve/approve-list:
+#    get:
+#      summary: 人工审批列表(分配审批单)
+#      tags:
+#      - 审批
+#      operationId: approveApproveList
+#      responses:
+#        200:
+#          description: |
+#            id:ID
+#            order_no:订单号
+#            principal:借款金额
+#            loan_days:借款期限
+#            status_text:订单进展状态(待审批状态)
+#            created_at:订单创建时间
+#            wait_approve_time:等待审批时间
+#            updated_at:业务处理时间
+#            appointment_paid_time:应还时间
+#            quality_text:用户类型
+#            user.telephone:手机号码
+#            user.fullname:真实姓名
+#            user.channel.channel_code:订单渠道
+#            user.channel.channel_name:订单来源
+#  /api/approve/can-approve:
+#    get:
+#      summary: 判断订单能否进入审批详情
+#      tags:
+#        - 审批
+#      operationId: approveCanApprove
+#      parameters:
+#        - name: order_id
+#          in: query
+#          description: 订单id
+#          type: string
+#          required: true
+#      responses:
+#        200:
+#          description: |
+#            {
+#                "code":18000,
+#                "msg":"",
+#                "data":[
+#                ]
+#            }
+#  /api/approve/view:
+#    get:
+#      summary: 人工审批详情
+#      tags:
+#      - 审批
+#      operationId: approveApproveView
+#      parameters:
+#      - name: id
+#        in: query
+#        description: 订单id
+#        type: string
+#        required: true
+#      responses:
+#        200:
+#          description: |
+#            参考[后台资料卡项集合]文档
+#  /api/approve/select-group:
+#    get:
+#      summary: 获取人工审批选项列表
+#      tags:
+#      - 审批
+#      operationId: approveSelectGroup
+#      responses:
+#        200:
+#          description: |
+#            {
+#                "code": 18000,
+#                "msg": "",
+#                "data": [
+#                    {
+#                        "value": "pass",
+#                        "label": "通过",
+#                        "children": [
+#                            {
+#                                "value": "pass",
+#                                "label": "人审通过"
+#                            }
+#                        ]
+#                    },
+#                    {
+#                        "value": "replenish",
+#                        "label": "重新提交资料",
+#                        "children": [
+#                            {
+#                                "value": "replenish_front_breezing",
+#                                "label": "正面照不清晰"
+#                            },
+#                            {
+#                                "value": "replenish_back_breezing",
+#                                "label": "反面照不清晰"
+#                            }
+#                        ]
+#                    },
+#                    {
+#                        "value": "rejected",
+#                        "label": "拒绝",
+#                        "children": [
+#                            {
+#                                "value": "rejected_basic_no_pass",
+#                                "label": "基本信息未通过"
+#                            },
+#                            {
+#                                "value": "rejected_operator_report_no_pass",
+#                                "label": "运营商报告未通过"
+#                            }
+#                        ]
+#                    }
+#                ]
+#            }
+#  /api/approve/approve-submit:
+#    post:
+#      summary: 操作审批|提交审批
+#      tags:
+#      - 审批
+#      operationId: approveSubmit
+#      parameters:
+#      - name: first
+#        in: query
+#        description: 首次调用标识字段，传 '1'。从人工审批列表首次拉取订单时需携带
+#        type: string
+#      - name: order_id
+#        in: query
+#        description: 上次调用当前接口得到的id。若返回为 null ，则返回人工审批列表。当first不存在时为必传
+#        type: string
+#      - name: approve_result
+#        in: query
+#        description: 审批结果，从 /api/approve/select-group 获得的值。当first不存在时为必传
+#        type: string
+#      - name: remark
+#        in: query
+#        description: 备注
+#        type: string
+#      responses:
+#        200:
+#          description: |
+#            data 为下次 order_id传值，为null时回到人工审批列表
+#
+#            {
+#                "code": 18000,
+#                "msg":
+#                "data":1
+#            }
+#  /api/approve/reject-list:
+#    get:
+#      summary: 审批拒绝订单列表 [拒绝状态取自统一下拉配置 - option_order_approval_reject_status][审批人下拉列表 - option_order_approver_list]
+#      tags:
+#      - 审批
+#      operationId: approveRejectList
+#      parameters:
+#      - name: keyword
+#        in: query
+#        description: 用户查询|订单查询
+#        type: string
+#      - name: created_time
+#        in: query
+#        description: 订单创建时间
+#        type: array
+#        default: created_time[0] 2019-01-16 00:00:00   created_time[1] 2019-09-16 23:59:59
+#      - name: status
+#        in: query
+#        description: 拒绝状态 查询条件：状态 system_reject：机审拒绝 manual_reject ：人审解决
+#        type: array
+#      - name: approve_ids
+#        in: query
+#        description: 审批人
+#        type: array
+#      - name: channel_name
+#        in: query
+#        description: 订单来源
+#        type: array
+#      - name: channel_code
+#        in: query
+#        description: 订单渠道
+#        type: array
+#      - name: page
+#        in: query
+#        description: 页码
+#        type: string
+#        default: 1
+#      - name: pageSize
+#        in: query
+#        description: 分页大小
+#        type: string
+#        default: 15
+#      - name: export
+#        in: query
+#        description: 导出标识 1导出 0不导出
+#        type: integer
+#        default: 0
+#      responses:
+#        200:
+#          description: |
+#            id:ID
+#            order_no:订单号
+#            principal:借款金额
+#            loan_days:借款期限
+#            status_text:被拒状态
+#            created_at:订单创建时间
+#            wait_approve_time:等待审批时间
+#            updated_at:业务处理时间
+#            appointment_paid_time:应还时间
+#            reject_reason:被拒原因
+#            risk_score:机审分
+#            approver:审批人
+#            quality_text:用户类型
+#            user.telephone:手机号码
+#            user.fullname:真实姓名
+#            user.channel.channel_code:订单渠道
+#            user.channel.channel_name:订单来源
+#  /api/approve/reject-reason:
+#    get:
+#      summary: 审批拒绝原因
+#      tags:
+#      - 审批
+#      operationId: approveRejectReason
+#      parameters:
+#      - name: id
+#        in: query
+#        description: 订单id
+#        type: string
+#        default: 70
+#      responses:
+#        200:
+#          description: |
+#            机审被拒原因
+#            user_id 用户id
+#            order_no 订单编号
+#            category_name 机审结果
+#            score 机审分数
+#            module 最终模型
+#            module_name 机审分
+#            descriptions 命中policy拒绝规则
+#            created_dt 审核时间
+#            机审被拒原因
+#            {
+#                "code": 18000,
+#                "msg": "",
+#                "data": [
+#                    {
+#                        "label": "user_id",
+#                        "value": 92
+#                    },
+#                    {
+#                        "label": "order_id",
+#                        "value": 138
+#                    },
+#                    {
+#                        "label": "category",
+#                        "value": 2
+#                    },
+#                    {
+#                        "label": "score",
+#                        "value": 0
+#                    },
+#                    {
+#                        "label": "module",
+#                        "value": "policy"
+#                    },
+#                    {
+#                        "label": "descriptions",
+#                        "value": "[]"
+#                    },
+#                    {
+#                        "label": "created_dt",
+#                        "value": "2019-03-22 15:35:48"
+#                    },
+#                    {
+#                        "label": "order_no",
+#                        "value": "123123132132131313"
+#                    },
+#                    {
+#                        "label": "category_name",
+#                        "value": "通过"
+#                    }
+#                ]
+#            }
+#            人审被拒原因
+#            {
+#              "code": 18000,
+#              "msg": "",
+#              "data": [
+#                {
+#                  "label": "基本信息",
+#                  "value": "pass"
+#                },
+#                {
+#                  "label": "借款信息",
+#                  "value": "pass"
+#                },
+#                {
+#                  "label": "运营商报告",
+#                  "value": "pass"
+#                },
+#                {
+#                  "label": "短信记录",
+#                  "value": "rejected"
+#                },
+#                {
+#                  "label": "银行卡",
+#                  "value": "pass"
+#                },
+#                {
+#                  "label": "通讯录",
+#                  "value": "pass"
+#                },
+#                {
+#                  "label": "位置信息",
+#                  "value": "rejected"
+#                },
+#                {
+#                  "label": "APP应用列表",
+#                  "value": "pass"
+#                }
+#              ]
+#            }

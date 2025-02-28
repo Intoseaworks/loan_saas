@@ -1,0 +1,62 @@
+swagger: '2.0'
+paths:
+  /api/collection_config/option_dial_progress:
+    get:
+      summary: 联系结果催收进度下拉
+      tags:
+      - 催收公共
+      operationId: collectionConfigOptionDialProgress
+      parameters:
+      - name: type
+        in: query
+        description: 类型 所有all, 本人self, 非本人noself
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/collection_config/option_dial:
+    get:
+      summary: 联系结果下拉
+      tags:
+      - 催收公共
+      operationId: collectionConfigOptionDial
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/collection_config/option_progress:
+    get:
+      summary: 联系进度下拉
+      tags:
+      - 催收公共
+      operationId: collectionConfigOptionProgress
+      parameters:
+      - name: dial
+        in: query
+        description: 联系结果
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

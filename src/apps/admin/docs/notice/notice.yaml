@@ -1,0 +1,334 @@
+swagger: '2.0'
+paths:
+  /api/notice/inbox-list:
+    get:
+      summary: 推送列表
+      tags:
+      - 通知管理
+      operationId: noticeInboxList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 查询条件：用户关键字 真实姓名|手机号码|订单号
+        type: string
+      - name: keyword_inbox
+        in: query
+        description: 查询条件：推送关键字 标题|内容
+        type: string
+      - name: time_start
+        in: query
+        description: 开始时间(start) 格式 2019-01-23 00:00:00
+        type: string
+      - name: time_end
+        in: query
+        description: 结束时间(end) 格式 2019-01-23 23:59:59
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: sort
+        in: query
+        description: 排序字段 推送时间：created_at  (值 前面加 - 表示降序，不加 - 表示升序)
+        type: string
+      responses:
+        200:
+          description: |
+            id:ID
+            title:标题
+            content:订单编号
+            created_at:推送时间
+            user.telephone:手机号码
+            user.fullname:真实姓名
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-list:
+    get:
+      summary: 公告列表
+      tags:
+      - 通知管理
+      operationId: noticeNoticeList
+      parameters:
+      - name: keyword_notice
+        in: query
+        description: 查询条件：推送关键字 标题|内容
+        type: string
+      - name: time_start
+        in: query
+        description: 开始时间(start) 格式 2019-01-23 00:00:00
+        type: string
+      - name: time_end
+        in: query
+        description: 结束时间(end) 格式 2019-01-23 23:59:59
+        type: string
+      - name: tags
+        in: query
+        description: 紧急状态： 参考： api/config-option/info=notice_tags
+        type: string
+      - name: status
+        in: query
+        description: 发送类型 参考： api/config-option/info=notice_status
+        type: int
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      responses:
+        200:
+          description: |
+            id:ID
+            title:标题
+            content:订单编号
+            created_at:创建时间
+            pushed_at:创建时间
+            status_text:状态
+            tags_text:紧急状态
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-create:
+    post:
+      summary: 公告创建
+      tags:
+      - 通知管理
+      operationId: noticeNoticeCreate
+      parameters:
+      - name: title
+        in: query
+        description: 标题
+        type: string
+        required: true
+      - name: content
+        in: query
+        description: 内容
+        type: string
+        required: true
+      - name: type
+        in: query
+        description: 保存类型： save_and_send保存并发送 save保存
+        type: string
+      - name: pushed_at
+        in: query
+        description: 推送时间 格式 2019-01-23 00:00:00
+        type: string
+        required: true
+      - name: tags
+        in: query
+        description: 紧急状态： 参考： api/config-option/info=notice_tags
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-edit:
+    post:
+      summary: 公告编辑
+      tags:
+      - 通知管理
+      operationId: noticeNoticeEdit
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: int
+        required: true
+      - name: title
+        in: query
+        description: 标题
+        type: string
+        required: true
+      - name: content
+        in: query
+        description: 内容
+        type: string
+        required: true
+      - name: type
+        in: query
+        description: 保存类型： save_and_send保存并发送 save保存
+        type: string
+      - name: pushed_at
+        in: query
+        description: 推送时间 格式 2019-01-23 00:00:00
+        type: string
+        required: true
+      - name: tags
+        in: query
+        description: 紧急状态： 参考： api/config-option/info=notice_tags
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-delete:
+    post:
+      summary: 公告删除
+      tags:
+      - 通知管理
+      operationId: noticeNoticeDelete
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: int
+        required: true
+
+      responses:
+        200:
+          description: |
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-delete-by-send:
+    post:
+      summary: 公告删除（列表）
+      tags:
+      - 通知管理
+      operationId: noticeNoticeDeleteBySend
+      parameters:
+      - name: id
+        in: formData
+        description: ID
+        type: int
+        required: true
+      responses:
+        200:
+          description: |
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/notice-detail:
+    post:
+      summary: 公告详情
+      tags:
+      - 通知管理
+      operationId: noticeNoticeDetail
+      parameters:
+      - name: id
+        in: query
+        description: ID
+        type: int
+        required: true
+
+      responses:
+        200:
+          description: |
+
+            id:ID
+            title:标题
+            content:订单编号
+            created_at:创建时间
+            pushed_at:创建时间
+            status_text:状态
+            tags_text:紧急状态
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/notice/sms-list:
+    get:
+      summary: 短信列表
+      tags:
+      - 通知管理
+      operationId: noticeSmsList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 查询条件：推送关键字 姓名|电话
+        type: string
+      - name: time_start
+        in: query
+        description: 发送开始时间(start) 格式 2019-01-23 00:00:00
+        type: string
+      - name: time_end
+        in: query
+        description: 发送结束时间(end) 格式 2019-01-23 23:59:59
+        type: string
+      - name: content
+        in: query
+        description: 内容
+        type: string
+      - name: send_method
+        in: query
+        description: 发送类型：参考api/config-option/info?name=send_method
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: size
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      responses:
+        200:
+          description: |
+            send_id:ID
+            fullname:姓名
+            receive:电话
+            content:内容
+            send_time:发送时间
+            send_method_text:发送类型
+            channel_text: 渠道
+            status_text:发送状态
+
+            Response body
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }

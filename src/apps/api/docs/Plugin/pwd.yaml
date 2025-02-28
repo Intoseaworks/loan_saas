@@ -1,0 +1,164 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/pwd-login:
+    post:
+      summary: 密码登录
+      tags:
+        - 登录模块
+      operationId: pwdLogin
+      parameters:
+        - name: telephone
+          in: formData
+          description: 电话号码
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码(最少6位)
+          type: string
+          required: true
+        - name: client_id
+          in: query
+          description: 注册终端
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "登录成功",
+                "data": {
+                    "token": "988b6583ce603d9899367a64bdd5446b",
+                    "refresh_token": "a5637b9cb42332ab9f5e6dd3cab1fc0b"
+                }
+            }
+  /app/pwd-reg:
+    post:
+      summary: 密码注册
+      tags:
+        - 登录模块
+      operationId: register
+      parameters:
+        - name: telephone
+          in: formData
+          description: 电话号码
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码(最少6位)
+          type: string
+          required: true
+        - name: password_check
+          in: formData
+          description: 密码确认(最少6位)需要验证两个密码一致
+          type: string
+          required: true
+        - name: client_id
+          in: query
+          description: 注册终端
+          type: string
+          required: true
+        - name: captcha
+          in: formData
+          description: 验证码(4位)
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "注册成功",
+                "data": {
+                    "token": "988b6583ce603d9899367a64bdd5446b",
+                    "refresh_token": "a5637b9cb42332ab9f5e6dd3cab1fc0b"
+                }
+            }
+  /app/retrieve-pwd:
+    post:
+      summary: 找回密码
+      tags:
+        - 登录模块
+      operationId: retrieve pwd
+      parameters:
+        - name: telephone
+          in: formData
+          description: 电话号码
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码(最少6位)
+          type: string
+          required: true
+        - name: password_check
+          in: formData
+          description: 密码确认(最少6位)需要验证两个密码一致
+          type: string
+          required: true
+        - name: captcha
+          in: formData
+          description: 验证码(4位)
+          type: string
+          required: true
+        - name: client_id
+          in: query
+          description: 注册终端
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "设置成功",
+                "data": {
+                    "token": "988b6583ce603d9899367a64bdd5446b",
+                    "refresh_token": ""
+                }
+            }
+  /app/change-pwd:
+    post:
+      summary: 密码修改
+      tags:
+        - 登录模块
+      operationId: change pwd
+      parameters:
+        - name: token
+          in: formData
+          description: Token
+          type: string
+          required: true
+        - name: old_password
+          in: formData
+          description: 密码(最少6位)
+          type: string
+          required: true
+        - name: new_password
+          in: formData
+          description: 密码确认(最少6位)需要验证两个密码一致
+          type: string
+          required: true
+        - name: check_password
+          in: formData
+          description: 验证码(4位)
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "修改成功",
+                "data": {
+                    "token": "988b6583ce603d9899367a64bdd5446b",
+                    "refresh_token": ""
+                }
+            }

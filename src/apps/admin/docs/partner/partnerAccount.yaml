@@ -1,0 +1,238 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/partner-account/partner/detail:
+    get:
+      summary: 获取商户详情
+      tags:
+        - 商户账户管理
+      operationId: partnerDetail
+      parameters:
+      responses:
+        200:
+          description: |
+            partner_account_company_name:公司主体名称
+            partner_account_app_name:app产品名称
+            partner_account_contract:公司联系人
+            partner_account_contract_tel:公司联系人号码
+            partner_account_lender_name:出借人姓名
+            partner_account_lender_id_card:出借人身份证号
+            partner_account_company_name_edit:公司主体名称是否可编辑 true可以编辑 false不可编辑
+            partner_account_app_name_edit:APP产品名称是否可以编辑 true可以编辑 false不可编辑
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "partner_account_company_name": "111",
+                    "partner_account_app_name": "111",
+                    "partner_account_contract": "111",
+                    "partner_account_contract_tel": "111",
+                    "partner_account_lender_name": "111",
+                    "partner_account_lender_id_card": "111",
+                    "partner_account_company_name_edit": true,
+                    "partner_account_app_name_edit": true
+                }
+            }
+    post:
+      summary: 更新商户信息
+      tags:
+        - 商户账户管理
+      operationId: partnerDetai_
+      parameters:
+        - name: partner_account_company_name
+          in: query
+          description: 公司主体名称
+          type: string
+          required: true
+        - name: partner_account_app_name
+          in: query
+          description: app产品名称
+          type: string
+          required: true
+        - name: partner_account_contract
+          in: query
+          description: 公司联系人
+          type: string
+          required: true
+        - name: partner_account_contract_tel
+          in: query
+          description: 公司联系人号码
+          type: string
+          required: true
+        - name: partner_account_lender_name
+          in: query
+          description: 出借人姓名
+          type: string
+          required: true
+        - name: partner_account_lender_id_card
+          in: query
+          description: 出借人身份证号
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+  /api/partner-account/consume/list:
+    get:
+      summary: 消费记录统计列表
+      tags:
+        - 商户账户管理
+      operationId: consumeList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 数组
+          type: array
+        - name: export
+          in: query
+          description: 导出参数  传非0参数为导出
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: size
+          in: query
+          description: 分页大小 仅支持[10,20,30,40]
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            *_count：数量
+            *_amount：金额
+
+            statistic：总计
+            sms_captcha：短验
+            sms_notice：短信通知
+            risk_approve：风控机审
+            auth_telephone：运营商认证
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "current_page":1,
+                    "data":[
+                        {
+                            "id":6,
+                            "partner_id":20,
+                            "date":"2018-10-02",
+                            "created_at":"2019-03-25 21:25:15",
+                            "sms_captcha_count":3722,
+                            "sms_captcha_amount":"1861.00",
+                            "sms_notice_count":741,
+                            "sms_notice_amount":"741.00",
+                            "risk_approve_count":0,
+                            "risk_approve_amount":"0.00",
+                            "auth_telephone_count":0,
+                            "auth_telephone_amount":"0.00"
+                        }
+                    ],
+                    "first_page_url":"http://localhost/api/partner-account/consume/list?page=1",
+                    "from":1,
+                    "last_page":1,
+                    "last_page_url":"http://localhost/api/partner-account/consume/list?page=1",
+                    "next_page_url":null,
+                    "path":"http://localhost/api/partner-account/consume/list",
+                    "per_page":15,
+                    "prev_page_url":null,
+                    "to":1,
+                    "total":1
+                }
+            }
+  /api/partner-account/consume-log/list:
+    get:
+      summary: 消费明细列表(导出当天的收费明细excel表格)
+      tags:
+        - 商户账户管理
+      operationId: consumeList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 指定日期字符串 如：2018-10-02
+          type: string
+          required: true
+        - name: export
+          in: query
+          description: 导出参数  传非0参数为导出
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: size
+          in: query
+          description: 分页大小 仅支持[10,20,30,40]
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            暂提供导出功能
+  /api/partner-account/account-statistics/list:
+    get:
+      summary: 商户账户每日统计列表
+      tags:
+        - 商户账户管理
+      operationId: consumeList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 数组
+          type: array
+        - name: export
+          in: query
+          description: 导出参数  传非0参数为导出
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: size
+          in: query
+          description: 分页大小 仅支持[10,20,30,40]
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            date：日期
+            statistics_balance：当日账户余额
+            consume_statistics_day：当日消费累计
+            recharge_statistics_day：当日充值金额
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "current_page":1,
+                    "data":[
+                        {
+                            "consume_statistics_day":"2602.00",
+                            "recharge_statistics_day":"2500.00",
+                            "statistics_balance":"-102.00",
+                            "date":"2018-10-02",
+                            "created_at":"2019-03-25 21:31:36",
+                            "updated_at":"2019-03-25 21:35:11"
+                        }
+                    ],
+                    "first_page_url":"http://localhost/api/partner-account/account-statistics/list?page=1",
+                    "from":1,
+                    "last_page":1,
+                    "last_page_url":"http://localhost/api/partner-account/account-statistics/list?page=1",
+                    "next_page_url":null,
+                    "path":"http://localhost/api/partner-account/account-statistics/list",
+                    "per_page":15,
+                    "prev_page_url":null,
+                    "to":1,
+                    "total":1
+                }
+            }

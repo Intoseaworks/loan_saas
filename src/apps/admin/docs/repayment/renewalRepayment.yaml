@@ -1,0 +1,275 @@
+swagger: '2.0'
+paths:
+  /api/repayment/apply-renewal:
+    post:
+      summary: 申请续期
+      tags:
+        - 还款管理
+      operationId: repaymentApplyRenewal
+      parameters:
+      - name: no
+        in: query
+        description: 还款计划编号
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "id": 4,
+                    "merchant_id": 0,
+                    "uid": 6,
+                    "order_id": 1,
+                    "repayment_plan_id": 1,
+                    "renewal_days": 7,
+                    "issue": 0,
+                    "renewal_fee": "0.00",
+                    "renewal_interest": "0.00",
+                    "forfeit_penalty": "0.00",
+                    "rate": "0.0000",
+                    "overdue_days": 0,
+                    "overdue_interest": "0.00",
+                    "extends_appointment_paid_time": "0000-00-00 00:00:00",
+                    "appointment_paid_time_log": "0000-00-00 00:00:00",
+                    "payable_renewal_amount": "15780.00",
+                    "paid_amount": "0.00",
+                    "status": 1,
+                    "valid_period": "2020-11-16",
+                    "created_at": "2020-11-16 19:20:32",
+                    "updated_at": "2020-11-16 19:26:36"
+                }
+            }
+
+
+  /api/repayment/renewal-list:
+    post:
+      summary: 续期列表
+      tags:
+        - 还款管理
+      operationId: repaymentRenewalList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 手机号/证件号
+        type: string
+      - name: reference_no
+        in: query
+        description: 还款码
+        type: string
+      - name: order_no
+        in: query
+        description: 合同号
+        type: string
+      responses:
+        200:
+          description: |
+            uid: 用户id
+            order_id : 订单id
+            repayment_plan_id: 还款计划id
+            renewal_code: 续期码
+            renewal_days: 续期天数
+            renewal_fee:  续期费用
+            renewal_interest: 续期利息
+            forfeit_penalty: 滞纳金
+            rate: 续期费率
+            overdue_days: 逾期天数
+            overdue_interest: 逾期利息
+            extends_appointment_paid_time: 应还款时间
+            appointment_paid_time_log: 续期前应还款时间
+            paid_amount: 支付金额
+            status: 状态: 1-申请续期, 2-续期成功, 3-续期失败
+            valid_period: 允许续期的有效截止时间
+            created_at: 添加时间
+            updated_at: 更新时间
+            "order_no": "合同号"
+            "fullname": "用户姓名"
+            "telephone": "手机号"
+            "payable_renewal_amount" : "申请展期最小应还金额"
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 4,
+                            "merchant_id": 0,
+                            "uid": 6,
+                            "order_id": 1,
+                            "repayment_plan_id": 1,
+                            "renewal_days": 7,
+                            "issue": 0,
+                            "renewal_fee": "0.00",
+                            "renewal_interest": "0.00",
+                            "forfeit_penalty": "0.00",
+                            "rate": "0.0000",
+                            "overdue_days": 0,
+                            "overdue_interest": "0.00",
+                            "extends_appointment_paid_time": "0000-00-00 00:00:00",
+                            "appointment_paid_time_log": "0000-00-00 00:00:00",
+                            "payable_renewal_amount": "15780.00",
+                            "paid_amount": "0.00",
+                            "status": 1,
+                            "valid_period": "2020-11-16",
+                            "created_at": "2020-11-16 19:20:32",
+                            "updated_at": "2020-11-16 19:26:36",
+                            "order_no": "88103635E8768CF5F2",
+                            "telephone": "9876543213",
+                            "fullname": ""
+                        },
+                    ],
+                    "first_page_url": "http://local.loan-saas.com/api/repayment/renewal-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://local.loan-saas.com/api/repayment/renewal-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://local.loan-saas.com/api/repayment/renewal-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 2,
+                    "total": 2
+                }
+            }
+
+
+  /api/repayment/renewal-pre-list:
+    post:
+      summary: 展期管理
+      tags:
+        - 还款管理
+      operationId: repaymentRenewalPreList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 手机号/证件号
+        type: string
+      - name: reference_no
+        in: query
+        description: 还款码
+        type: string
+      responses:
+        200:
+          description: |
+            "renewalPreInf.orenewal_days": 展期天数
+            "renewalPreInf.renewal_paid_amount": 展期支付金额
+            "renewalPreInf.appointment_paid_time": "展期后还款时间"
+            "renewalPreInf.valid_period": "展期有效时间"
+            "renewalPreInf.extend_appointment_paid_amount": "到期后应还金额"
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 27471,
+                            "merchant_id": 1,
+                            "user_id": 6,
+                            "order_id": 10458,
+                            "no": "88198465F850817DE3",
+                            "status": 1,
+                            "overdue_days": 0,
+                            "appointment_paid_time": "2020-09-12 18:15:06",
+                            "repay_time": null,
+                            "repay_amount": "0.00",
+                            "repay_channel": "",
+                            "reduction_fee": "0.00",
+                            "created_at": "2020-10-13 07:21:19",
+                            "updated_at": "2020-11-16 20:30:50",
+                            "reduction_valid_date": "",
+                            "principal": "0.00",
+                            "interest_fee": "0.00",
+                            "overdue_fee": "0.00",
+                            "gst_processing": "0.00",
+                            "gst_penalty": "0.00",
+                            "installment_num": 1,
+                            "repay_proportion": "99.99",
+                            "repay_days": 7,
+                            "loan_days": 7,
+                            "part_repay_amount": null,
+                            "can_part_repay": null,
+                            "ost_prncp": null,
+                            "renewalPreInfo": {
+                                "renewal_days": 7,
+                                "renewal_paid_amount": "15840.00",
+                                "appointment_paid_time": "2020-11-23 18:15:06",
+                                "valid_period": "2020/11/16",
+                                "extend_appointment_paid_amount": "3000.00"
+                            },
+                            "user": {
+                                "id": 6,
+                                "merchant_id": 1,
+                                "app_id": 1,
+                                "telephone": "9876543213",
+                                "fullname": "",
+                                "card_type": "",
+                                "id_card_no": "",
+                                "status": 1,
+                                "created_at": "2020-11-14 21:42:26",
+                                "updated_at": "2020-11-14 21:42:26",
+                                "platform": "",
+                                "client_id": "android",
+                                "channel_id": "",
+                                "quality": 0,
+                                "quality_time": null,
+                                "app_version": "1.0.0",
+                                "api_token": "",
+                                "password": "e83298dfff2dcfd0065a6b21e8cd61af",
+                                "channel": null
+                            },
+                            "order": {
+                                "id": 10458,
+                                "merchant_id": 1,
+                                "app_id": 1,
+                                "order_no": "88473325F538589D47",
+                                "user_id": 15326,
+                                "apply_principal": "0.00",
+                                "principal": "3000.00",
+                                "loan_days": 7,
+                                "status": "finish",
+                                "created_at": "2020-09-05 18:03:13",
+                                "updated_at": "2020-09-12 01:34:44",
+                                "app_client": "android",
+                                "app_version": "",
+                                "quality": 1,
+                                "daily_rate": "0.00090",
+                                "overdue_rate": "0.008474",
+                                "signed_time": "2020-09-05 18:11:04",
+                                "system_time": "2020-09-05 18:09:07",
+                                "manual_time": null,
+                                "paid_time": "2020-09-05 18:15:06",
+                                "paid_amount": "2290.23",
+                                "pay_channel": "Razorpay",
+                                "cancel_time": null,
+                                "pass_time": "2020-09-05 18:09:07",
+                                "overdue_time": null,
+                                "bad_time": null,
+                                "approve_push_status": 0,
+                                "manual_check": 0,
+                                "call_check": 0,
+                                "reject_time": null,
+                                "manual_result": 1,
+                                "call_result": 1,
+                                "auth_process": "ekyc",
+                                "nbfc_report_status": 2,
+                                "flag": "",
+                                "reference_no": null
+                            }
+                        },
+                    ],
+                    "first_page_url": "http://local.loan-saas.com/api/repayment/renewal-pre-list?page=1",
+                    "from": 1,
+                    "last_page": 916,
+                    "last_page_url": "http://local.loan-saas.com/api/repayment/renewal-pre-list?page=916",
+                    "next_page_url": "http://local.loan-saas.com/api/repayment/renewal-pre-list?page=2",
+                    "path": "http://local.loan-saas.com/api/repayment/renewal-pre-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 15,
+                    "total": 13728
+                }
+            }

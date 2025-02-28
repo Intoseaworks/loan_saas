@@ -1,0 +1,107 @@
+swagger: '2.0'
+paths:
+  /api/channel-statistics/index:
+    get:
+      summary: 渠道分析列表
+      tags:
+      - 渠道分析管理
+      operationId: channelStatisticsIndex
+      parameters:
+      - name: channel_code
+        in: query
+        description: 渠道 （/api/config-option/info接口 channel_code）
+        type: string
+      - name: app_version
+        in: query
+        description: app版本
+        type: string
+      - name: register_time_start
+        in: query
+        description: 时间开始
+        type: string
+      - name: register_time_end
+        in: query
+        description: 时间结束
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出
+        type: string
+      responses:
+        200:
+          description: |
+            channel_name: 平台名称,
+            user_count: 注册用户数,
+            order_count: 借款申请笔数,
+            loan_rate: 申请转化率,
+            order_pass_count: 申请通过笔数,
+            pass_rate: 通过转化率,
+            order_remit_count: 放款笔数,
+            order_repay_count: 还款笔数,
+            order_repay_rate: 回款率,
+            overdue_count: 逾期笔数,
+            overdue_rate: 逾期率,
+            bad_count: 坏账数,
+            bad_rate: 坏账率,
+
+            {
+              status: 0,
+              msg: ok,
+              data: {
+
+              }
+            }
+
+  /api/channel-statistics/view:
+    get:
+      summary: 渠道分析详情
+      tags:
+      - 渠道分析管理
+      operationId: channelStatisticsView
+      parameters:
+      - name: channel_name
+        in: query
+        description: 查询条件：平台名称
+        type: string
+      - name: channel_code
+        in: query
+        description: 查询条件：合作标识
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出
+        type: string
+      responses:
+        200:
+          description: |
+
+            channel_code: 合作标识
+            其他参考渠道分析列表
+
+            {
+              status: 0,
+              msg: ok,
+              data: {
+
+              }
+            }

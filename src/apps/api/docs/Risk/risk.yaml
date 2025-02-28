@@ -1,0 +1,39 @@
+swagger: '2.0'
+paths:
+  /app/risk/auth_time:
+    post:
+      summary: 更新认证状态
+      tags:
+      - 风控模块
+      operationId: riskAuthTime
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+      - name: userId
+        in: formData
+        description: 用户id
+        type: string
+      - name: authName
+        in: formData
+        description: 认证项名称
+        type: string
+      - name: authStatus
+        in: formData
+        description: 认证状态(1:成功，2：失败，3：认证中)
+        type: string
+      - name: time
+        in: formData
+        description: 对应时间(Y-m-d H:i:s)
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {
+
+              }
+            }

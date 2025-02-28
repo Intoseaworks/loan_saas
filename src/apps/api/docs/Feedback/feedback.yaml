@@ -1,0 +1,197 @@
+swagger: '2.0'
+paths:
+  /app/feedback/add:
+    post:
+      summary: 添加反馈
+      tags:
+        - 反馈模块
+      operationId: feedbackAdd
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: type
+        in: formData
+        description: 类型
+        type: string
+      - name: content
+        in: formData
+        description: 内容
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "全局配置获取成功",
+              "data": {
+                "login_ip_filter": [
+                  {
+                    "ip": "127.0.0.77",
+                    "city": "局域网"
+                  },
+                  {
+                    "ip": "127.0.0.92",
+                    "city": "局域网"
+                  }
+                ],
+                "login_ip_filter_on": "0",
+                "any_login_on": "1",
+                "default_password": "abc303",
+                "ding_login_on": "0",
+                "login_expire_hours": "10"
+              }
+            }
+
+  /app/feedback/faq/index:
+    get:
+      summary: 常见问题列表
+      tags:
+      - 常见问题模块
+      operationId: feedbackFaqIndex
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: type
+        in: query
+        description: 类型（loan:借款，repay:还款，quota:额度）
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "全局配置获取成功",
+              "data": {
+                "login_ip_filter": [
+                  {
+                    "ip": "127.0.0.77",
+                    "city": "局域网"
+                  },
+                  {
+                    "ip": "127.0.0.92",
+                    "city": "局域网"
+                  }
+                ],
+                "login_ip_filter_on": "0",
+                "any_login_on": "1",
+                "default_password": "abc303",
+                "ding_login_on": "0",
+                "login_expire_hours": "10"
+              }
+            }
+
+  /app/feedback/faq/detail:
+    get:
+      summary: 常见问题详情
+      tags:
+      - 常见问题模块
+      operationId: feedbackFaqDetail
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: id
+        in: query
+        description: ID
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "id": 1,
+                "type": "loan",
+                "title": "loan1",
+                "content": "loan1",
+                "status": 1,
+                "created_at": "2019-01-21 14:03:34",
+                "updated_at": "2019-01-21 14:03:36"
+              }
+            }
+
+  /app/feedback/faq/detention:
+    post:
+      summary: 用户调查列表
+      tags:
+        - 常见问题模块
+      operationId: detention
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+        - name: step
+          in: query
+          description: STEP
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "title": "Only 3 steps to go to get credit! please consider to continue or leave",
+                    "items": [
+                        "I don't want the money",
+                        "I forget some info, will apply later",
+                        "APP experience is bad",
+                        "I don't take ID card with me, will apply later",
+                        "Phone is going to power off, will apply later",
+                        "It's not convenient to apply now"
+                    ]
+                }
+            }
+
+  /app/feedback/faq/surveys-submit:
+    post:
+      summary: 用户调查提交
+      tags:
+        - 常见问题模块
+      operationId: surveys-submit
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+        - name: step
+          in: query
+          description: STEP
+          type: string
+          required: true
+        - name: option
+          in: query
+          description: option
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "channel_name": "Detention",
+                "title": "1",
+                "content": "I don't want the money",
+                "user_id": 989,
+                "updated_at": "2020-12-19 08:12:13",
+                "created_at": "2020-12-19 08:12:13",
+                "id": 270
+              }
+            }

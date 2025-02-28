@@ -1,0 +1,1 @@
+* * * * * php /var/www/html/loan-saas/artisan schedule:run >> /var/www/html/loan-saas/storage/logs/crontab.log 2>&1

@@ -1,0 +1,198 @@
+swagger: '2.0'
+paths:
+  /api/clm/clm-amount-config:
+    get:
+      summary: 获取等级金额配置
+      tags:
+        - clm
+      operationId: clmAmountConfig
+      responses:
+        200:
+          description: |
+            clm_level: 等级
+            clm_amount: 额度
+            clm_interest_discount: 服务费优惠比例(百分比)
+            alias: 等级展示
+
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":[
+                    {
+                        "id":182,
+                        "clm_level":-2,
+                        "clm_amount":"1000.00",
+                        "clm_interest_discount":"0.00",
+                        "alias":"BRONZE",
+                        "created_at":"2020-12-26 08:20:04",
+                        "updated_at":"2020-12-26 08:20:04"
+                    },
+                    {
+                        "id":183,
+                        "clm_level":-1,
+                        "clm_amount":"1500.00",
+                        "clm_interest_discount":"0.00",
+                        "alias":"BRONZE",
+                        "created_at":"2020-12-26 08:20:04",
+                        "updated_at":"2020-12-26 08:20:04"
+                    }
+                ]
+            }
+  /api/clm/add-clm-amount-config:
+    post:
+      summary: 新增等级金额配置
+      tags:
+        - clm
+      operationId: addClmAmountConfig
+      parameters:
+        - name: level
+          in: formData
+          description: 等级
+          type: integer
+          required: true
+        - name: clm_amount
+          in: formData
+          description: 额度上限
+          type: number
+          required: true
+        - name: clm_interest_discount
+          in: formData
+          description: 服务费优惠比率
+          type: number
+          required: true
+        - name: alias
+          in: formData
+          description: 对应前端等级展示
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":{
+                    "clm_level":21,
+                    "clm_amount":12000,
+                    "clm_interest_discount":20,
+                    "alias":"ssssss",
+                    "updated_at":"2021-01-06 20:02:22",
+                    "created_at":"2021-01-06 20:02:22",
+                    "id":210
+                }
+            }
+  /api/clm/edit-clm-amount-config:
+    post:
+      summary: 编辑等级金额配置
+      tags:
+        - clm
+      operationId: editClmAmountConfig
+      parameters:
+        - name: id
+          in: formData
+          description: 等级
+          type: integer
+          required: true
+        - name: level
+          in: formData
+          description: 等级
+          type: integer
+          required: true
+        - name: clm_amount
+          in: formData
+          description: 额度上限
+          type: number
+          required: true
+        - name: clm_interest_discount
+          in: formData
+          description: 服务费优惠比率
+          type: number
+          required: true
+        - name: alias
+          in: formData
+          description: 对应前端等级展示
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":{
+                    "id":210,
+                    "clm_level":21,
+                    "clm_amount":"2050.00",
+                    "clm_interest_discount":"51.00",
+                    "alias":"qwe",
+                    "created_at":"2021-01-06 20:02:22",
+                    "updated_at":"2021-01-06 20:06:30"
+                }
+            }
+  /api/clm/init-level-config:
+    get:
+      summary: 获取初始化等级配置
+      tags:
+        - clm
+      operationId: initLevelConfig
+      responses:
+        200:
+          description: |
+            id: id
+            user_type_name: 名单类型
+            payment_type_name: 收款方式
+            clm_level: 初始化等级
+
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":[
+                    {
+                        "id":203,
+                        "merchant_id":1,
+                        "user_type":1,
+                        "payment_type":1,
+                        "clm_level":6,
+                        "created_at":"2020-12-26 08:41:47",
+                        "updated_at":"2020-12-26 14:46:04",
+                        "user_type_name":"白名单",
+                        "payment_type_name":"有卡"
+                    },
+                    {
+                        "id":204,
+                        "merchant_id":1,
+                        "user_type":1,
+                        "payment_type":2,
+                        "clm_level":2,
+                        "created_at":"2020-12-26 08:41:47",
+                        "updated_at":"2020-12-26 08:41:47",
+                        "user_type_name":"白名单",
+                        "payment_type_name":"无卡"
+                    }
+                ]
+            }
+  /api/clm/edit-init-level-config:
+    post:
+      summary: 修改初始化等级配置
+      tags:
+        - clm
+      operationId: editInitLevelConfig
+      parameters:
+        - name: id
+          in: formData
+          description: ID
+          type: integer
+          required: true
+        - name: level
+          in: formData
+          description: 配置等级
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"Success",
+                "data":null
+            }

@@ -1,0 +1,588 @@
+swagger: '2.0'
+paths:
+  /app/user-info/show:
+    get:
+      summary: 获取个人信息
+      tags:
+        - 用户模块
+      operationId: userInfoShow
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "address": "广东省深圳市xx街xx楼",
+                "marital_status": "未婚",
+                "education_level": "高中",
+                "expected_amount": "1000",
+                "company_name": "",
+                "company_telephone": "",
+                "salary": "",
+                "contacts": [
+                    {
+                        "id": 1545105327963,
+                        "user_id": 8,
+                        "contact_fullname": "张宝宝",
+                        "contact_telephone": "12342341235",
+                        "relation": "同事",
+                        "status": 1,
+                        "check_status": "",
+                        "created_at": "2019-01-15 15:02:05"
+                    },
+                    {
+                        "id": 1545105327964,
+                        "user_id": 8,
+                        "contact_fullname": "李宝宝",
+                        "contact_telephone": "34531534532",
+                        "relation": "朋友",
+                        "status": 1,
+                        "check_status": "",
+                        "created_at": "2019-01-15 15:02:05"
+                    }
+                ]
+            }
+  /user-info/create:
+    post:
+      summary: 保存个人信息(废弃)
+      tags:
+        - 用户模块
+      operationId: userInfoCreate
+      parameters:
+      - name: token
+        in: formData
+        description: 用户token
+        type: string
+      - name: position
+        in: formData
+        description: 用户地址, 当address不出现时，必须传值
+        type: string
+      - name: marital_status
+        in: formData
+        description: 婚姻状况
+        type: string
+      - name: education_level
+        in: formData
+        description: 教育程度
+        type: string
+      - name: expected_amount
+        in: formData
+        description: 期望金额
+        type: string
+      - name: contacts
+        in: formData
+        description: 紧急联系人 格式：json数组
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "address": "广东省深圳市xx街xx楼",
+                "marital_status": "未婚",
+                "education_level": "高中",
+                "expected_amount": "1000",
+                "company_name": "",
+                "company_telephone": "",
+                "salary": "",
+                "contacts": [
+                    {
+                        "id": 1545105327963,
+                        "user_id": 8,
+                        "contact_fullname": "张宝宝",
+                        "contact_telephone": "12342341235",
+                        "relation": "同事",
+                        "status": 1,
+                        "check_status": "",
+                        "created_at": "2019-01-15 15:02:05"
+                    },
+                    {
+                        "id": 1545105327964,
+                        "user_id": 8,
+                        "contact_fullname": "李宝宝",
+                        "contact_telephone": "34531534532",
+                        "relation": "朋友",
+                        "status": 1,
+                        "check_status": "",
+                        "created_at": "2019-01-15 15:02:05"
+                    }
+                ]
+            }
+  /app/user-info/work-eamil-valid:
+    post:
+      summary: 用户工作邮箱验证(废弃)
+      tags:
+      - 用户模块
+      operationId: workEmailValid
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: email
+        in: query
+        description: email
+        type: string
+        required: true
+      - name: captcha
+        in: query
+        description: 验证码
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "Work email verification success",
+              "data": ""
+            }
+
+  /app/user-info/create-user-work:
+    post:
+      summary: 用户工作信息
+      tags:
+      - 用户模块
+      operationId: createUserWork
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: workplace_pincode
+        in: query
+        description: 工作地点邮编(Workplace Pincode)
+        type: string
+        required: true
+      - name: company
+        in: query
+        description: 公司(Company/Firm)
+        type: string
+        required: false
+      - name: work_address1
+        in: query
+        description: 工作地点1(Office Address Line1)
+        type: string
+        required: true
+      - name: work_address2
+        in: query
+        description: 工作地点2(Office Address Line2)
+        type: string
+        required: true
+      - name: work_positon
+        in: query
+        description: 工作位置(Positon)
+        type: string
+        required: false
+      - name: salary
+        in: query
+        description: 月薪(Salary per month)
+        type: string
+        required: true
+      - name: work_start_date
+        in: query
+        description: 开始工作时间 (Joing Month and Year)格式：d/m/Y
+        type: string
+        required: true
+      - name: work_experience_years
+        in: query
+        description: 工作经验，单位/年(Total Work experience Years)
+        type: string
+        required: true
+      - name: work_experience_months
+        in: query
+        description: 工作经验，单位/月(Total Work experience Months)
+        type: string
+        required: true
+      - name: work_email
+        in: query
+        description: 工作邮箱(Office email)
+        type: string
+        required: true
+      - name: work_phone
+        in: query
+        description: 工作电话(Office  Number)
+        type: string
+        required: true
+      - name: employment_type
+        in: query
+        description: 就业类型(employment type)
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": ""
+            }
+
+  /app/user-info/create-user-info:
+    post:
+      summary: 用户信息
+      tags:
+      - 用户模块
+      operationId: createUserInfo
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: address
+        in: query
+        description: 地址(Address)
+        type: string
+        required: true
+      - name: profession
+        in: query
+        description: 职业(Profession)
+        type: string
+        required: true
+      - name: income
+        in: query
+        description: 收入(Monthly Salary/Income(INR))
+        type: string
+        required: true
+      - name: workplace_pincode
+        in: query
+        description: 工作邮编(Workplace Pincode)
+        type: string
+        required: true
+      - name: pincode
+        in: query
+        description: 住址邮编(Pincode/ZIPcode)
+        type: string
+        required: true
+      - name: city
+        in: query
+        description: 城市(City)
+        type: string
+        required: true
+      - name: state
+        in: query
+        description: 州(State)
+        type: string
+        required: true
+      - name: company
+        in: query
+        description: 公司(Company Name)
+        type: string
+        required: false
+      - name: residence_type
+        in: query
+        description: 住宅(Type of Residence)
+        type: string
+        required: true
+      - name: working_since
+        in: query
+        description: 工作时间(Working Since)
+        type: string
+        required: true
+      - name: employment_type
+        in: query
+        description: 工作性质(Employment Type)
+        type: string
+        required: true
+      - name: loan_reason
+        in: query
+        description: 借款原因
+        type: string
+        required: true
+      - name: live_length
+        in: query
+        description: 居住年限
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": ""
+            }
+
+  /app/user-info/create-base-user-info:
+    post:
+      summary: 用户基本信息
+      tags:
+      - 用户模块
+      operationId: createBaseUserInfo
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: fullname
+        in: query
+        description: 名称(Full Name)
+        type: string
+        required: true
+      - name: birthday
+        in: query
+        description: 生日(Date of Birth)
+        type: string
+        required: true
+      - name: gender
+        in: query
+        description: 性别(Gender)
+        type: string
+        required: true
+      - name: marital_status
+        in: query
+        description: Marital Status
+        type: string
+        required: true
+      - name: education_level
+        in: query
+        description: Highest Education
+        type: string
+        required: true
+      - name: language
+        in: query
+        description: Language
+        type: string
+        required: true
+      - name: email
+        in: query
+        description: Email
+        type: string
+        required: true
+      - name: religion
+        in: query
+        description: Religion
+        type: string
+        required: false
+      - name: chirdren_count
+        in: query
+        description: 子女数
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": ""
+            }
+
+  /app/user-info/create-user-intention:
+    post:
+      summary: 用户意向信息提交(废弃)
+      tags:
+        - 用户模块
+      operationId: createUserIntention
+      parameters:
+        - name: token
+          in: query
+          description: 用户token
+          type: string
+          required: true
+        - name: principal
+          in: query
+          description: 借款金额
+          type: string
+          required: true
+        - name: loan_days
+          in: query
+          description: 借款天数
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": ""
+            }
+
+  /app/user-info/get-user-info:
+    get:
+      summary: 获取用户信息
+      tags:
+        - 用户模块
+      operationId: getUserInfo
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": ""
+            }
+
+  /app/user-info/get-user-detail:
+    get:
+      summary: 获取用户详情
+      tags:
+      - 用户模块
+      operationId: getUserDetail
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            user_id 用户id
+            telephone 手机号
+            email 邮箱
+            quality 用户质量
+            fullname 姓名
+            aadhaar_card_no Aadhaar
+            bank_card_no 银行卡号
+            identity_status 身份认证状态:未完善0,已通过1,已失效2
+            telephone_status 手机认证状态:未完善0,已通过1,已失效2
+            basic_detail_status 基本信息认证状态:未完善0,已通过1,已失效2
+            is_completed 是否完成认证
+            contacts_status 紧急联系人认证:未完善0,已通过1,已失效2
+            bank_card_status 银行卡认证状态:未完善0,已通过1,已失效2
+            unread_inbox_sum 未读消息
+            face_img 人脸识别图片
+            address 地址
+            facebook_name facebook用户名
+
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": {
+            		"user_id": 93,
+            		"telephone": "8978493866",
+            		"email": "email",
+            		"quota": "5000",
+            		"quality": 1,
+            		"fullname": "ssssss",
+            		"last_name": null,
+            		"first_name": null,
+            		"aadhaar_card_no": "address_aadhaar_no",
+            		"bank_card_no": "",
+            		"identity_status": 0,
+            		"personal_info_status": 1,
+            		"contacts_status": 0,
+            		"telephone_status": 1,
+            		"basic_detail_status": 1,
+            		"is_completed": false,
+            		"bank_card_status": 0,
+            		"unread_inbox_sum": 12,
+            		"face_img": "",
+            		"address": "mmmmmmmmmm1",
+            		"facebook_name": ""
+            	}
+            }
+
+  /app/user-info/get-profession:
+    get:
+      summary: 获取职业列表
+      tags:
+      - 用户模块
+      operationId: getProfession
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: parent
+        in: query
+        description: 父级职业，不传或传空默认取一级职业
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": [
+                "Audit",
+                "Clerk/Book Keeper",
+                "Finance",
+                "Taxation"
+              ]
+            }
+
+  /app/user-info/create-user-contact:
+    post:
+      summary: 紧急联系人
+      tags:
+      - 用户模块
+      operationId: createUserContact
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: contactFullname1
+        in: formData
+        description: 联系人名字1
+        type: string
+        required: true
+      - name: relation1
+        in: formData
+        description: 关系1
+        type: string
+        required: true
+      - name: contactTelephone1
+        in: formData
+        description: 电话号1
+        type: string
+        required: true
+      - name: extend1
+        in: formData
+        description: 扩展字段1(<br>
+          timesContacted:联系人联系次数<br>
+          lastTimeContacted:最近联系时间<br>
+          hasPhoneNumber:是否有号码<br>
+          starred:是否收藏<br>
+          contactLastUpdatedTimestamp:联系人最后编辑时间<br>)
+        type: string
+      - name: contactFullname2
+        in: formData
+        description: 联系人名字2
+        type: string
+        required: true
+      - name: relation2
+        in: formData
+        description: 关系2
+        type: string
+        required: true
+      - name: contactTelephone2
+        in: formData
+        description: 电话号2
+        type: string
+        required: true
+      - name: extend2
+        in: formData
+        description: 扩展字段2(<br>
+          timesContacted:联系人联系次数<br>
+          lastTimeContacted:最近联系时间<br>
+          hasPhoneNumber:是否有号码<br>
+          starred:是否收藏<br>
+          contactLastUpdatedTimestamp:联系人最后编辑时间<br>)
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": []
+            }

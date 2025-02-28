@@ -1,0 +1,115 @@
+swagger: '2.0'
+paths:
+  /app/inbox/index:
+    get:
+      summary: 消息列表
+      tags:
+      - 消息模块
+      operationId: inboxIndex
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: type
+        in: query
+        description: 消息类型 （inbox, notice）
+        type: string
+        required: true
+      - name: page
+        in: query
+        description: 分页
+        type: string
+      - name: size
+        in: query
+        description: 条数
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "items": [
+                  {
+                    "id": 3,
+                    "title": "test2",
+                    "content": "test2",
+                    "datetime": "2019-01-18 14:22:48",
+                    "type": "inbox",
+                    "is_read": 1
+                  },
+                  {
+                    "id": 2,
+                    "title": "test1",
+                    "content": "test1",
+                    "datetime": "2019-01-18 14:22:46",
+                    "type": "inbox",
+                    "is_read": 1
+                  },
+                  {
+                    "id": 4,
+                    "title": "test3",
+                    "content": "test3",
+                    "datetime": "2019-01-18 14:22:46",
+                    "type": "inbox",
+                    "is_read": 1
+                  },
+                  {
+                    "id": 1,
+                    "title": "notice1",
+                    "content": "notice1",
+                    "datetime": "2019-01-18 14:22:46",
+                    "type": "notice",
+                    "is_read": 1
+                  },
+                  {
+                    "id": 2,
+                    "title": "notice2",
+                    "content": "notice2",
+                    "datetime": "2019-01-18 14:22:46",
+                    "type": "notice",
+                    "is_read": 1
+                  }
+                ],
+                "page": 1,
+                "size": 10,
+                "total": 5
+              }
+            }
+
+  /app/inbox/get:
+    get:
+      summary: 消息详情
+      tags:
+      - 消息模块
+      operationId: inboxGet
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: id
+        in: query
+        description: 消息id
+        type: string
+        required: true
+      - name: type
+        in: query
+        description: 消息类型 （inbox, notice）
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "title": "notice1",
+                "content": "notice1",
+                "datetime": "2019-01-18 14:22:46"
+              }
+            }

@@ -1,0 +1,187 @@
+swagger: '2.0'
+paths:
+  /app/user/home:
+    get:
+      summary: 首页核心接口
+      tags:
+        - 用户模块
+      operationId: userHome
+      parameters:
+        - name: token
+          in: query
+          description: 用户token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            telephone 手机号
+            fullname 姓名
+            email 邮箱
+            identityStatus 身份验证
+            personalInfoStatus 扩展信息
+            contactsStatus 紧急联系人
+            telephoneStatus 通讯录
+            basicDetailStatus 基础信息
+            isCompleted 认证已完善
+            bankCardStatus 银行卡状态
+            bankCardNo 银行卡号
+            address 用户当前地址
+            panCardStatus pancard认证
+            id_card_no 身份证号
+            hasUnreadMsg 是否有未读消息
+            quota 最大可借金额 若未登录取config->quota
+            bank_card.no 银行卡号码
+            bank_card.bank 银行卡缩写
+            bank_card.bank_name 银行卡名称
+            bank_card.reserved_telephone 银行卡绑定电话
+            bank_card.bank_branch_name 支行名称
+            bank_card.province_code 省份code
+            bank_card.city_code 城市code
+            lastOrder.order_no 订单编号
+            lastOrder.principal 借款金额
+            lastOrder.loan_days 借款期限
+            lastOrder.status 订单状态
+            lastOrder.status_text 订单状态
+            lastOrder.interest_fee:应还息费(Interest)
+            lastOrder.reduction_fee:减免金额(Dedution Amount)
+            lastOrder.overdue_fee_incl_gst:逾期金额
+            lastOrder.receivable_amount:应还金额（剩余应还金额）
+            lastOrder.paid_amount:实际到账金额
+            lastOrder.overdue_days:逾期天数
+            lastOrder.paid_time:实际到账时间
+            lastOrder.appointment_paid_time:应还时间
+            lastOrder.repay_time:实际还款时间
+            lastOrder.pay_channel:放款渠道
+            lastOrder.repay_amount:实际还款金额
+            lastOrder.daily_rate:日利率
+            lastOrder.rejected_time_left:被拒倒计时时间戳
+            lastOrder.rejected_days_left:被拒倒计时天数
+            lastOrder.can_cancel:能否取消订单
+            lastOrder.can_renewal:能否进行订单续期
+            lastOrder.is_can_reduction_installment:能否进行减免操作页
+            lastOrder.is_installment:是否分期单
+            lastOrder.installment_count:分期期数
+            lastOrder.current_installment_num:当前期数，如果当前没有进行中的还款计划，该值给0
+            lastOrder.amount_due 本应还金额
+            lastOrder.part_repay_amount 已部分还款
+            lastOrder.receivable_amount 剩余应还金额
+            lastOrder.show_part_repay:当前订单是否展示部分还款（布尔型）
+            lastOrder.can_part_repay:当前订单是否可进行部分还款
+            lastOrder.min_part_repay:最低部分还款额
+            lastOrder.last_trade_amount:最后一次成功还款金额
+            repayment_plans.principal:应还本金(Principal)
+            repayment_plans.interest_fee:应还息费(Interest)
+            repayment_plans.reduction_fee:减免金额(Dedution Amount)
+            repayment_plans.receivable_amount:应还金额
+            repayment_plans.appointment_paid_time:应还日期(Repayment Date)
+            repayment_plans.repay_amount:实还金额
+
+            api_status -> api_status_text
+            WAIT_SIGN: 待确认借款,
+            PENDING: 审批中,
+            PAYING: 审批通过放款中,
+            REJECTED: 审批未通过,
+            REPLENISH: 重新提交资料,
+            PAID: 待还款,
+            PAY_FAIL: 放款失败,
+            CANCELED: 取消借款,
+            OVERDUE: 已逾期,
+            REPAYING: 还款中,
+            FINISHED: 已还款,
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "id": 1,
+                "telephone": "18127820722",
+                "fullname": "钟富成",
+                "id_card_no": "",
+                "order": {
+                  "id": 1,
+                  "order_no": "12312341234",
+                  "principal": "1000.00",
+                  "loan_days": "14",
+                  "status": "wait_manual_approve",
+                  "created_at": "2019-01-16 14:39:37",
+                  "interest_fee": "140.00",
+                  "overdue_fee": "0",
+                  "receivable_amount": "900.00",
+                  "paid_amount": "0.00",
+                  "overdue_days": "-4",
+                  "paid_time": "2019-01-11 17:09:16",
+                  "appointment_paid_time": "2019-01-25 17:09:16",
+                  "repay_time": "2019-01-14 10:00:06",
+                  "pay_channel": "人工放款",
+                  "repay_amount": "0.00",
+                  "order_detail": {
+                    "loan_location": "aaa",
+                    "loan_position": "bbb",
+                    "bank_card_no": "6222023602083352310",
+                    "bank_name": "工商银行"
+                  },
+                  "order_no_text": null,
+                  "status_text": "PENDING"
+                }
+              }
+            }
+
+  /app/user/identity:
+    get:
+      summary: 获取用户身份认证校验
+      tags:
+      - 用户模块
+      operationId: userIdentity
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      - name: scenario
+        in: query
+        description: 场景 （start_up：APP启动）
+        type: string
+      responses:
+        200:
+          description: |
+            user_id:用户id
+            fullname:用户名
+            quality:是否复贷用户
+            baseInfoStatus:基本信息
+            personalInfoStatus:扩展信息
+            contactsStatus:紧急联系人
+            faceStatus:活体人脸
+            aadhaarCardKYCStatus:aadhaarCard(KYC)
+            aadhaarCardStatus:aadhaarCard
+            panCardStatus:panCard
+            addressAuthStatus:地址证明
+            isCannotAuthBlack:是否黑名单限制认证状态
+            bankCardStatus:银行卡绑定状态
+            pan_card:panCard认证状态明细
+            address_card:地址证明认证状态明细
+            hasProgressOrder:有进行中的订单
+            authSetting:认证配置（未配置返回空）相关参数： isOpen：认证项是否打开（1：打开，0：关闭） closeTip：认证关闭提示  daysValid：有效天数
+                        <br>base_info -> Personal information
+                        <br>contacts -> Emergency Contacts
+                        <br>kyc_documents -> KYC Documents
+                        <br>user_extra_info -> Work Information
+                        <br>bankcard -> Bank Information
+
+  /app/user/risk-product:
+    get:
+      summary: 风控产品接口(废弃)
+      tags:
+      - 用户模块
+      operationId: userRiskpProduct
+      parameters:
+      - name: token
+        in: query
+        description: 用户token
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+

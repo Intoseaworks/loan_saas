@@ -1,0 +1,70 @@
+swagger: '2.0'
+paths:
+  /api/rbac/menu/index:
+    get:
+      tags:
+      - Rbac Menu
+      summary: 获取菜单列表
+      operationId: index
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      - in: formData
+        name: operation
+        type: integer
+        description: 功能是否跟菜单一起返回, 1 返回 0 不返回.
+        required: false
+        default: 0
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/menu/menu-list:
+    get:
+      tags:
+      - Rbac Menu
+      summary: 通过权限获取用户对应菜单
+      operationId: menuList
+      parameters:
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功
+
+  /api/rbac/menu/sync-main-menu:
+    get:
+      tags:
+      - Rbac Menu
+      summary: 同步菜单
+      operationId: syncMenu
+      parameters:
+      - in: formData
+        name: ticket
+        type: string
+        description: 用户ticket
+        required: true
+      - in: formData
+        name: menus
+        type: string
+        description: 菜单.
+        required: true
+      - in: formData
+        name: guard_name
+        type: string
+        description: 模块名称
+        required: true
+      responses:
+        200:
+          description: 操作成功

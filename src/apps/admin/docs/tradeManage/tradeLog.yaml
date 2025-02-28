@@ -1,0 +1,286 @@
+swagger: '2.0'
+paths:
+  /api/trade-manage/trade-log-list:
+    get:
+      summary: 支付记录列表
+      tags:
+        - 支付管理
+      operationId: tradeLogList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 用户查询 收款人姓名/ 手机号码
+        type: string
+      - name: keyword_no
+        in: query
+        description: 订单查询 订单号
+        type: string
+      - name: trade_result_time
+        in: query
+        description: 打款时间
+        type: string
+      - name: business_type
+        in: query
+        description: 业务类型 公共配置 name:trade_log_business_type
+        type: string
+      - name: trade_result
+        in: query
+        description: 交易结果 公共配置 name:trade_log_result
+        type: string
+      - name: channel_code
+        in: query
+        description: 订单渠道 公共配置 name:channel_code
+        type: string
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+            master_business_no:订单号
+            trade_account_name:收款人姓名
+            trade_account_telephone:手机号码
+            trade_amount:金额
+            trade_account_no:收款银行卡
+            bank_name:银行名称
+            branch_name：支行名称
+            order.created_at:借款时间
+            out_trade_result_time:打款时间
+            in_trade_result_time:还款时间
+            renewal_result_time:续期时间
+            business_type_text:业务类型
+            trade_platform_text:支付方式
+            admin_trade_account.account_no:平台账户
+            user.channel.channel_name:订单渠道
+            trade_result_text:状态
+
+  /api/trade-manage/system-pay-list:
+    get:
+      summary: 系统放款记录
+      tags:
+        - 支付管理
+      operationId: systemPayList
+      parameters:
+        - name: keyword_user
+          in: query
+          description: 用户查询 收款人姓名/ 手机号码
+          type: string
+        - name: trade_result_time
+          in: query
+          description: 打款时间
+          type: string
+        - name: trade_result
+          in: query
+          description: 状态 公共配置 name:trade_log_result
+          type: string
+        - name: channel_code
+          in: query
+          description: 订单渠道 公共配置 name:channel_code
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            transaction_no:流水订单号
+            master_business_no:订单号
+            trade_account_name:收款人姓名
+            trade_account_telephone:手机号码
+            trade_amount:金额
+            trade_account_no:收款银行卡
+            order.created_at:借款时间
+            trade_result_time:打款时间
+            out_trade_result_time:出款时间
+            in_trade_result_time:还款时间
+            business_type_text:业务类型
+            trade_platform_text:放款渠道
+            admin_trade_account.account_no:平台账户
+            user.email:邮箱
+            user.channel.channel_name:订单渠道
+            trade_result_text:状态
+  /api/trade-manage/account-list:
+    get:
+      summary: 账户设置页
+      tags:
+        - 支付管理
+      operationId: tradeAccountList
+      parameters:
+        - name: type
+          in: query
+          description: 查询条件：业务类型  1放款 2还款
+          type: string
+          default: 1
+        - name: account_no
+          in: query
+          description: 账户查询
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 1,
+                            "type": 1,
+                            "account_no": "saas@163.com",
+                            "account_name": "陈*",
+                            "status": 1,
+                            "created_at": "2019-01-28 11:49:03",
+                            "type_text": "出款",
+                            "status_text": "启用"
+                        }
+                    ],
+                    "first_page_url": "http://saas.test/api/trade-manage/account-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://saas.test/api/trade-manage/account-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://saas.test/api/trade-manage/account-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }
+
+  /api/trade-manage/account-create:
+    post:
+      summary: 账户添加
+      tags:
+        - 支付管理
+      operationId: accountCreate
+      parameters:
+        - name: type
+          in: formData
+          description: 业务类型
+          type: string
+        - name: payment_method
+          in: formData
+          description: 支付方式
+          type: string
+        - name: account_no
+          in: formData
+          description: 出款/收款账户
+          type: string
+        - name: account_name
+          in: formData
+          description: 出款/收款人姓名
+          type: string
+        - name: status
+          in: formData
+          description: 账户状态
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "添加成功",
+                "data": []
+            }
+  /api/trade-manage/account-check:
+    post:
+      summary: 检查账户
+      tags:
+        - 支付管理
+      operationId: accountCreate
+      parameters:
+        - name: type
+          in: formData
+          description: 业务类型
+          type: string
+        - name: payment_method
+          in: formData
+          description: 支付方式
+          type: string
+        - name: account_no
+          in: formData
+          description: 出款/收款账户
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 13000,
+                "msg": "账户已存在，请重新设置",
+                "data": []
+            }
+  /api/trade-manage/account-disable-or-enable:
+    get:
+      summary: 禁用/启用 账户
+      tags:
+        - 支付管理
+      operationId: accountDisableOrEnable
+      parameters:
+        - name: id
+          in: query
+          description: 账户id
+          type: string
+        - name: status
+          in: query
+          description: 状态  1：正常  0：禁用
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": []
+            }
+
+  /api/trade-manage/account-default:
+    post:
+      summary: 设置默认 账户
+      tags:
+      - 支付管理
+      operationId: accountDefault
+      parameters:
+      - name: id
+        in: query
+        description: 账户id
+        type: string
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": []
+            }
+
+  /api/trade-manage/account-option:
+    get:
+      summary: 账户列表下拉选项
+      tags:
+        - 支付管理
+      operationId: accountAccountOption
+      parameters:
+        - name: type
+          in: query
+          description: 账户类型 1出款 2入款
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "获取成功",
+                "data": {
+                    "1": "银行转账",
+                    "2": "支付宝转账",
+                    "3": "微信转账"
+                }
+            }
+
+

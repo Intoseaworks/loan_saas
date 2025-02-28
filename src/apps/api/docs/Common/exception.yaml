@@ -1,0 +1,22 @@
+swagger: '2.0'
+paths:
+  /app/exception/report:
+    post:
+      summary: 终端异常上报
+      tags:
+        - 公共模块
+      operationId: exceptionReport
+      parameters:
+        - name: content
+          in: query
+          description: 异常内容
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "异常上报成功",
+              "data": {}
+            }

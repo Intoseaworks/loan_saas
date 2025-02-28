@@ -1,0 +1,9 @@
+-- repayment_plan 添加允许续期字段
+ALTER TABLE `repayment_plan`
+ADD COLUMN `allow_renewal`  tinyint(4) NOT NULL DEFAULT 0 COMMENT '允许续期:0-默认, 1-允许' AFTER `ost_prncp`;
+
+-- 添加配置 - 续期费率 & 滞纳金费率
+INSERT INTO `scoreone_saas_peso`.`config` (`id`, `merchant_id`, `key`, `value`, `remark`, `created_at`, `updated_at`, `status`) VALUES ('44', '1', 'loan_renewal_rate', '0.1', '续期费率', '2020-11-08 23:42:41', '2020-11-08 23:42:48', '1');
+INSERT INTO `scoreone_saas_peso`.`config` (`id`, `merchant_id`, `key`, `value`, `remark`, `created_at`, `updated_at`, `status`) VALUES ('45', '1', 'loan_forfeit_penalty_rate', '0.05', '', '2020-11-08 23:43:43', '2020-11-08 23:43:48', '1');
+
+

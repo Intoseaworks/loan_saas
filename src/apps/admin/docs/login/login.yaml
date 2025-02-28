@@ -1,0 +1,84 @@
+swagger: '2.0'
+paths:
+  /api/login/pwd_login:
+    post:
+      summary: 账密登录
+      tags:
+      - staff 登录
+      operationId: pwdLogin
+      parameters:
+      - name: username
+        in: formData
+        description: 账号
+        type: string
+      - name: password
+        in: formData
+        description: 密码
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "登录成功",
+                "data": {
+                    "status": "loginSuccess"
+                }
+            }
+
+  /api/login/ding_login:
+    get:
+      summary: 钉钉url
+      tags:
+      - staff 登录
+      operationId: dingLogin
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "ding_url": "https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=http://saas.dev23.jiumiaodai.com/",
+                    "goto": "https%3A%2F%2Foapi.dingtalk.com%2Fconnect%2Fqrconnect%3Fappid%3D%26response_type%3Dcode%26scope%3Dsnsapi_login%26state%3DSTATE%26redirect_uri%3Dhttp%3A%2F%2Fsaas.dev23.jiumiaodai.com%2F"
+                }
+            }
+
+  /api/admin/user:
+    get:
+      summary: 获取用户信息
+      tags:
+      - staff 登录
+      operationId: userInfo
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "id": 1,
+                    "username": "admintest",
+                    "nickname": null,
+                    "last_login_time": "1543465284",
+                    "time": 1546063361
+                }
+            }
+
+  /api/login/logout:
+    get:
+      summary: 退出登录
+      tags:
+      - staff 登录
+      operationId: logout
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok"
+            }

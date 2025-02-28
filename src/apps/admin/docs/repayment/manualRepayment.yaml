@@ -1,0 +1,397 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/manual-repayment/index:
+    get:
+      summary: 人工还款-列表
+      tags:
+        - 还款管理
+      operationId: manualRepaymentIndex
+      parameters:
+        - name: status
+          in: query
+          description: 查询条件：状态 参考api/config-option/info?name=option_order_manual_repayment_status
+          type: string
+        - name: keyword
+          in: query
+          description: 查询条件：关键字 姓名|手机号
+          type: string
+        - name: appointment_paid_time
+          in: query
+          description: 应还款日期
+          type: array
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+        - name: sort
+          in: query
+          description: 排序字段 应还款日期：appointment_paid_time  逾期天数：overdue_days  减免金额：reduction_fee  (值前面加 - 表示降序，不加 - 表示 升序)
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            order_no:订单号
+            user.fullname:借款人姓名
+            user.telephone:手机号码
+            last_repayment_plan.appointment_paid_time_text:应还时间(Y-m-d)
+            principal:借款金额
+            overdue_days:逾期天数
+            overdue_fee:应还逾期罚息（元）
+            reduction_fee:减免金额（元）
+            receivable_amount:应还本息（元）
+            renewal_fee_aggregate:续期费用累计
+            renewal_days_aggregate:续期天数累计
+
+
+  /api/manual-repayment/detail:
+    get:
+      summary: 人工还款-详情
+      tags:
+        - 还款管理
+      operationId: manualRepaymentDetail
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            last_repayment_plan.no:还款计划编号
+            user.fullname:借款人姓名
+            user.telephone:手机号码
+            paid_time:放款时间
+            paid_amount:实际到账金额
+
+            principal:贷款金额
+            receivable_amount:应还金额
+            part_repay_amount:已还金额
+            reduction_fee:减免金额
+
+            overdue_rate:逾期费率
+            overdue_days:逾期天数，根据页面选择(还款支付时间,默认当前日期)动态计算：调用接口 /api/manual-repayment/calc-overdue
+            overdue_fee:逾期罚息(包含GST)，根据页面选择(还款支付时间,默认当前日期)动态计算：调用接口 /api/manual-repayment/calc-overdue
+            receivable_amount:应还金额，根据页面选择(还款支付时间,默认当前日期)动态计算：调用接口 /api/manual-repayment/calc-overdue
+            appointment_paid_time:应还款时间
+
+  /api/manual-repayment/calc-overdue:
+    get:
+      summary: 人工还款-动态计算逾期费用
+      tags:
+        - 还款管理
+      operationId: manualRepaymentCalcOverdu
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+        - name: repay_time
+          in: query
+          description: 还款时间  Y-m-d
+          type: string
+          required: true
+        - name: repay_amount
+          in: query
+          description: 还款金额
+          type: string
+          required: true
+        - name: is_part
+          in: query
+          description: 是否部分还款 0：否  1：是    传0表示正常还款
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            overdue_days：逾期天数
+            overdue_fee：逾期金额
+            receivable_amount：应还本息
+            reduction_fee：减免金额。当不为部分还款时，此项会跟随传入的还款金额动态变更
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "code":18000,
+                    "msg":"",
+                    "data":{
+                        "overdue_days":66,
+                        "overdue_fee":1946.81,
+                        "overdue_fee_incl_gst":1946.81,
+                        "receivable_amount":"6996.30",
+                        "reduction_fee":"106.30"
+                    }
+                }
+            }
+
+  /api/manual-repayment/admin-trade-repay-account-list:
+    get:
+      summary: 人工还款-收款账户列表
+      tags:
+        - 还款管理
+      operationId: manualRepaymentAdminTradeRepayAccountList
+      responses:
+        200:
+          description: |
+            account_name:姓名
+            account_no:账号
+            bank_name:银行名称
+            payment_method_text:还款方式。选择下拉框时自动更新 还款方式输入框
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "3": {
+                        "id": 3,
+                        "payment_method": 2,
+                        "account_no": "saas@163.com",
+                        "account_name": "陈*",
+                        "bank_name": "",
+                        "payment_method_text": "支付宝转账"
+                    },
+                    "9": {
+                        "id": 9,
+                        "payment_method": 1,
+                        "account_no": "saas@163.com",
+                        "account_name": "陈*",
+                        "bank_name": "",
+                        "payment_method_text": "银行转账"
+                    },
+                    "13": {
+                        "id": 13,
+                        "payment_method": 2,
+                        "account_no": "saastest@163.com",
+                        "account_name": "陈*",
+                        "bank_name": "",
+                        "payment_method_text": "支付宝转账"
+                    }
+                }
+            }
+
+  /api/manual-repayment/repay-submit:
+    post:
+      summary: 人工还款-提交人工还款
+      tags:
+        - 还款管理
+      operationId: manualRepaymentRepaySubmit
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+        - name: remark
+          in: query
+          description: 结果备注
+          type: string
+        - name: repay_name
+          in: query
+          description: 还款人姓名
+          type: string
+          required: true
+        - name: repay_telephone
+          in: query
+          description: 还款人手机号码
+          type: string
+          required: true
+        - name: repay_account
+          in: query
+          description: 还款账户
+          type: string
+          required: true
+        - name: repay_time
+          in: query
+          description: 还款支付时间 (Y-m-d H:i:s)，不能大于等于当前日期
+          type: string
+          required: true
+        - name: repay_amount
+          in: query
+          description: 还款金额
+          type: string
+          required: true
+        - name: is_part
+          in: query
+          description: 还款类型 1：部分还款 0：正常还款(全部还款)
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {}
+  /api/manual-repayment/collection_submit:
+    post:
+      summary: 添加催收记录
+      tags:
+        - 还款管理
+      operationId: manualRepaymentCollectionSubmit
+      parameters:
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+        - name: dial
+          in: query
+          description: 联系结果第一级选项 选项获取： /api/collection_config/option_dial_progress?type=self 注意type传self
+          type: string
+          required: true
+        - name: progress
+          in: query
+          description: 联系结果第二级选项 选项获取 /api/collection_config/option_dial_progress?type=self
+          type: string
+          required: true
+        - name: promise_paid_time
+          in: query
+          description: 承诺还款日 Y-m-d
+          type: string
+        - name: remark
+          in: query
+          description: 备注
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"催收记录保存成功",
+                "data":null
+            }
+  /api/manual-repayment/collection_record_list:
+    get:
+      summary: 催收记录列表
+      tags:
+        - 还款管理
+      operationId: manualRepaymentCollectionRecordList
+      parameters:
+        - name: order_id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+        - name: page
+          in: query
+          description: 页码 仅支持[5,10,15,20,30,40]
+          type: string
+          default: 1
+        - name: size
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            repayment_plan_no：联系人姓名
+            fullname：联系人姓名
+            contact：联系电话
+            created_at：催收时间
+            dial：
+            progress： dial + progress 催收结果
+            remark：催收备注
+            staff.username：催收人员(催收账号)
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "current_page":1,
+                    "data":[
+                        {
+                            "id":13,
+                            "collection_id":20,
+                            "order_id":124,
+                            "user_id":93,
+                            "admin_id":1,
+                            "fullname":"王沙亮",
+                            "relation":"本人",
+                            "contact":"15700767943",
+                            "promise_paid_time":null,
+                            "remark":"test remark54",
+                            "dial":"无法联系",
+                            "progress":"来电提醒",
+                            "from_status":"collectioning",
+                            "to_status":"collectioning",
+                            "created_at":"2019-04-08 19:39:04",
+                            "updated_at":"2019-04-08 19:39:04",
+                            "overdue_days":0,
+                            "reduction_fee":"0.00",
+                            "level":"未逾期",
+                            "receivable_amount":"1500.00"
+                        },
+                        {
+                            "id":12,
+                            "collection_id":20,
+                            "order_id":124,
+                            "user_id":93,
+                            "admin_id":1,
+                            "fullname":"王沙亮",
+                            "relation":"本人",
+                            "contact":"15700767943",
+                            "promise_paid_time":null,
+                            "remark":"test remark88",
+                            "dial":"无法联系",
+                            "progress":"暂时无人接通",
+                            "from_status":"collectioning",
+                            "to_status":"collectioning",
+                            "created_at":"2019-04-08 18:58:42",
+                            "updated_at":"2019-04-08 18:58:42",
+                            "overdue_days":0,
+                            "reduction_fee":"0.00",
+                            "level":"未逾期",
+                            "receivable_amount":"1500.00"
+                        },
+                        {
+                            "id":11,
+                            "collection_id":20,
+                            "order_id":124,
+                            "user_id":93,
+                            "admin_id":1,
+                            "fullname":"王沙亮",
+                            "relation":"本人",
+                            "contact":"15700767943",
+                            "promise_paid_time":null,
+                            "remark":"test remark35",
+                            "dial":"无法联系",
+                            "progress":"停机空号",
+                            "from_status":"collectioning",
+                            "to_status":"collectioning",
+                            "created_at":"2019-04-08 18:49:43",
+                            "updated_at":"2019-04-08 18:49:43",
+                            "overdue_days":0,
+                            "reduction_fee":"0.00",
+                            "level":"未逾期",
+                            "receivable_amount":"1500.00"
+                        }
+                    ],
+                    "first_page_url":"http://localhost/api/manual-repayment/collection_record_list?page=1",
+                    "from":1,
+                    "last_page":1,
+                    "last_page_url":"http://localhost/api/manual-repayment/collection_record_list?page=1",
+                    "next_page_url":null,
+                    "path":"http://localhost/api/manual-repayment/collection_record_list",
+                    "per_page":15,
+                    "prev_page_url":null,
+                    "to":3,
+                    "total":3
+                }
+            }

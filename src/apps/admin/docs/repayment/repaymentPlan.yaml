@@ -1,0 +1,331 @@
+swagger: '2.0'
+paths:
+  /api/repayment-plan/list:
+    get:
+      summary: 还款计划列表
+      tags:
+        - 还款管理
+      operationId: repaymentPlanList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 查询条件：用户查询姓名|手机号
+        type: string
+      - name: keyword_no
+        in: query
+        description: 查询条件：订单号
+        type: string
+      - name: status
+        in: query
+        description: 查询条件：状态
+        type: array
+      - name: appointment_paid_time
+        in: query
+        description: 应还款日期
+        type: array
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: sort
+        in: query
+        description: 排序字段 应还款日期：appointment_paid_time  已还款日期：repay_time  借款金额：principal 逾期天数：overdue_days 已还金额：repay_amount (值前面加 - 表示降序，不加 - 表示 升序)
+        type: string
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+            user.telephone:手机号码
+            user.fullname:姓名
+            order.order_no:订单号
+            installment_num:期数
+            repay_time:实际还款日期
+            appointment_paid_time:应还款日期
+            order.status_text:状态
+            principal:借款金额
+            overdue_days:逾期天数
+            overdue_fee:应还逾期罚息(包含GST)
+            reduction_fee:减免金额
+            interest_fee:应还利息
+            receivable_amount:应还本息
+            repay_amount:实际还款金额
+
+  /api/repayment-plan/paid-list:
+    get:
+      summary: 已还款列表
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanPaidList
+      parameters:
+        - name: keyword
+          in: query
+          description: 用户查询|订单查询
+          type: string
+          default: 18127820722
+        - name: status
+          in: query
+          description: 查询条件：状态
+          type: array
+        - name: created_time
+          in: query
+          description: 订单创建时间
+          type: array
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+        - name: sort
+          in: query
+          description: 排序字段 订单创建时间：created_at  实际到账金额：paid_amount 实际还款金额：repay_amount (值前面加 - 表示降序，不加 - 表示 升序)
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            order_no:订单号
+            principal:借款金额
+            loan_days:借款期限
+            status_text:还款状态
+            created_at:订单创建时间
+            updated_at:业务处理时间
+            app_version:版本号
+            app_client_text:订单创建客户端
+            interest_fee:综合费用
+            reduction_fee:减免金额
+            overdue_fee:应还逾期罚息
+            receivable_amount:应还本息
+            paid_amount:已还金额
+            overdue_days:逾期天数
+            paid_time:实际到账时间
+            appointment_paid_time:应还款日期
+            repay_time:已还款日期
+            pay_channel:放款渠道
+            repay_amount:实际还款金额
+            quality_text:用户类型
+            user.telephone:手机号码
+            user.fullname:收款人姓名
+            user.channel.channel_code:订单渠道
+            user.channel.channel_name:订单来源
+  /api/repayment-plan/overdue-list:
+    get:
+      summary: 已逾期列表
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanOverdueList
+      parameters:
+        - name: keyword
+          in: query
+          description: 用户查询|订单查询
+          type: string
+          default: 18127820722
+        - name: status
+          in: query
+          description: 查询条件：状态
+          type: array
+        - name: created_time
+          in: query
+          description: 订单创建时间
+          type: array
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+        - name: sort
+          in: query
+          description: 排序字段 订单创建时间：created_at  实际到账金额：paid_amount 逾期天数：overdue_days (值前面加 - 表示降序，不加 - 表示 升序)
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            order_no:订单号
+            principal:借款金额
+            loan_days:借款期限
+            status_text:还款状态
+            created_at:订单创建时间
+            updated_at:业务处理时间
+            app_version:版本号
+            app_client_text:订单创建客户端
+            interest_fee:综合费用
+            reduction_fee:减免金额
+            overdue_fee:应还逾期罚息
+            receivable_amount:应还本息
+            paid_amount:已还金额
+            overdue_days:逾期天数
+            paid_time:实际到账时间
+            appointment_paid_time:应还款日期
+            repay_time:已还款日期
+            pay_channel:放款渠道
+            repay_amount:实际还款金额
+            quality_text:用户类型
+            user.telephone:手机号码
+            user.fullname:收款人姓名
+            user.channel.channel_code:订单渠道
+            user.channel.channel_name:订单来源
+            collection.level:催收等级
+            collection.staff.nickname:催收员
+  /api/repayment-plan/bad-list:
+    get:
+      summary: 已坏账列表
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanBadList
+      parameters:
+        - name: keyword
+          in: query
+          description: 用户查询|订单查询
+          type: string
+          default: 18127820722
+        - name: status
+          in: query
+          description: 查询条件：状态
+          type: array
+        - name: created_time
+          in: query
+          description: 订单创建时间
+          type: array
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: pageSize
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+        - name: sort
+          in: query
+          description: 排序字段 订单创建时间：created_at  实际到账金额：paid_amount (值前面加 - 表示降序，不加 - 表示 升序)
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            order_no:订单号
+            principal:借款金额
+            loan_days:借款期限
+            status_text:还款状态
+            created_at:订单创建时间
+            updated_at:业务处理时间
+            app_version:版本号
+            app_client_text:订单创建客户端
+            interest_fee:综合费用
+            reduction_fee:减免金额
+            overdue_fee:应还逾期罚息
+            receivable_amount:应还本息
+            paid_amount:已还金额
+            overdue_days:逾期天数
+            paid_time:实际到账时间
+            appointment_paid_time:应还款日期
+            repay_time:已还款日期
+            pay_channel:放款渠道
+            repay_amount:实际还款金额
+            quality_text:用户类型
+            user.telephone:手机号码
+            user.fullname:收款人姓名
+            user.channel.channel_code:订单渠道
+            user.channel.channel_name:订单来源
+            collection.bad_time:坏账时间
+            collection.bad_time_text:坏账规则
+  /api/repayment-plan/detail:
+    get:
+      summary: 还款计划详情
+      tags:
+        - 还款管理
+      operationId: repaymentPlanView
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+  /api/repayment-plan/paid-view:
+    get:
+      summary: 已还款详情
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanView
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+  /api/repayment-plan/overdue-view:
+    get:
+      summary: 已逾期详情
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanView
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+  /api/repayment-plan/bad-view:
+    get:
+      summary: 已坏账详情
+      tags:
+        - 贷后管理
+      operationId: repaymentPlanView
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          default: 1
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档

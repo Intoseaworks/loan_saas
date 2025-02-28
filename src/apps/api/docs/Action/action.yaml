@@ -1,0 +1,66 @@
+swagger: '2.0'
+paths:
+  /app/action/create:
+    post:
+      summary: 事件统计
+      tags:
+        - 统计模块
+      operationId: actionCreate
+      parameters:
+      - name: token
+        in: formData
+        description: 用户token
+        type: string
+      - name: name
+        in: formData
+        description: 事件key
+        type: string
+      - name: device_uuid
+        in: formData
+        description: 设备ID
+        type: string
+      - name: client_id
+        in: formData
+        description: 设备类型
+        type: string
+      - name: app_version
+        in: formData
+        description: 客户端版本
+        type: string
+      - name: content
+        in: formData
+        description: 事件附加信息
+        type: string
+      - name: unit_type
+        in: formData
+        description: 设备型号
+        type: string
+      - name: brand
+        in: formData
+        description: 设备品牌
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "全局配置获取成功",
+              "data": {
+                "login_ip_filter": [
+                  {
+                    "ip": "127.0.0.77",
+                    "city": "局域网"
+                  },
+                  {
+                    "ip": "127.0.0.92",
+                    "city": "局域网"
+                  }
+                ],
+                "login_ip_filter_on": "0",
+                "any_login_on": "1",
+                "default_password": "abc303",
+                "ding_login_on": "0",
+                "login_expire_hours": "10"
+              }
+            }

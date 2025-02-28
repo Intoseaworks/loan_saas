@@ -1,0 +1,214 @@
+swagger: '2.0'
+paths:
+  /app/auth/index:
+    get:
+      summary: 认证列表
+      tags:
+      - 认证模块
+      operationId: authIndex
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            icon:图标
+            name:认证项
+            title:标题
+            url:认证跳转地址，不为空时可跳转
+            canUpdate:是否可更新或者重新认证
+            closeTip:是否可打开认证页（提示不为空则弹出提示，不予打开）
+            supplementTip:补充资料原因展示
+            status:认证状态
+            status_text:认证状态文案 h5
+            is_completed:是否已完善
+
+  /app/auth/check-card:
+    post:
+      summary: 认证card no
+      tags:
+      - 认证模块
+      operationId: authCheckCard
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: type
+        in: formData
+        description: type (
+            <br>pan_card： Pan Card
+            <br>aadhaar_card： Aadhaar Card
+            <br>address_voter： 选民证
+            <br>address_passport：护照
+          )
+        type: string
+        required: true
+      - name: no
+        in: formData
+        description: no
+        type: string
+        required: true
+      - name: father_name
+        in: formData
+        description: 父亲姓名
+        type: string
+        required: false
+      - name: address
+        in: formData
+        description: 地址
+        type: string
+        required: false
+      - name: pincode
+        in: formData
+        description: pincode
+        type: string
+        required: false
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+            注：特殊code定义
+            13001：用户进入认证黑名单列表
+
+  /app/auth/ocr:
+    post:
+      summary: Ocr认证
+      tags:
+      - 认证模块
+      operationId: authOcr
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: type
+        in: formData
+        description: type (
+          <br>pan_card： Pan Card
+          <br>aadhaar_card_front： Aadhaar Card 正面
+          <br>aadhaar_card_back： Aadhaar Card 反面
+          <br>address_voter： 选民证
+          <br>address_passport：护照
+          )
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "Certification success",
+                "data": {
+                    "card_no": "OGII2008E",
+                    "date_info": "17/01/1988",
+                    "father_name": "ADINARAYANA DUNABOINA",
+                    "name": "DURGAKIRAN DUNABOINA",
+                    "pincode": "831004",
+                    "gender": "Male",
+                    "address": "S/O Sanjay Kumar Srivastava, O/O:4ANI PATH, KHARANGAJHAR, NEAR RADHA KRISHNA MANDIR, PO-TELCO WORKS PS-TELCO ,JAMSHEDPUR, WEST GHORABANDHA, Purbi Singhbhum, Jharkhand - 831004",
+                }
+            }
+
+  /app/auth/face:
+    post:
+      summary: 人脸认证
+      tags:
+      - 认证模块
+      operationId: authFace
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: face
+        in: formData
+        description: 人脸图(图片文件)
+        type: string
+        required: true
+      - name: request_id
+        in: formData
+        description: request_id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /app/auth/aadhaar-kyc:
+    post:
+      summary: aadhaar-kyc
+      tags:
+      - 认证模块
+      operationId: authAadhaarKyc
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: data
+        in: formData
+        description: json
+        type: string
+        required: true
+      - name: file
+        in: formData
+        description: 图片
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /app/auth/skip:
+    post:
+      summary: 认证跳过
+      tags:
+      - 认证模块
+      operationId: authSkip
+      parameters:
+      - name: token
+        in: formData
+        description: token
+        type: string
+        required: true
+      - name: type
+        in: formData
+        description: 认证类型 <br>address：地址认证 <br>aadhaar_kyc：eKYC
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }

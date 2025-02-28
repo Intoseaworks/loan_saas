@@ -1,0 +1,362 @@
+[
+    {
+        "key": "approval-management",
+        "parent": "",
+        "sort": 4,
+        "name": "审批管理"
+    },
+    {
+        "key": "approval-management.Approval",
+        "parent": "approval-management",
+        "sort": 0,
+        "name": "审批工作台"
+    },
+    {
+        "key": "approval-management.Approval.Approval-list",
+        "parent": "approval-management.Approval",
+        "sort": 0,
+        "name": "审批列表"
+    },
+    {
+        "key": "approval-management.ApprovalManagement",
+        "parent": "approval-management",
+        "sort": 1,
+        "name": "审批MGT"
+    },
+    {
+        "key": "approval-management.ApprovalManagement.ApprovalManagement-list",
+        "parent": "approval-management.ApprovalManagement",
+        "sort": 0,
+        "name": "审批审核"
+    },
+    {
+        "key": "approval-management.ApprovalManagement.ApprovalQaList-list",
+        "parent": "approval-management.ApprovalManagement",
+        "sort": 1,
+        "name": "审批QA清单"
+    },
+    {
+        "key": "approval-management.ApprovalStastic",
+        "parent": "approval-management",
+        "sort": 2,
+        "name": "审批效率"
+    },
+    {
+        "key": "approval-management.ApprovalStastic.ApprovalStastic-list",
+        "parent": "approval-management.ApprovalStastic",
+        "sort": 0,
+        "name": "审批效率"
+    },
+    {
+        "key": "approval-management.refuselist",
+        "parent": "approval-management",
+        "sort": 3,
+        "name": "审批拒绝订单"
+    },
+    {
+        "key": "auth",
+        "parent": "",
+        "sort": 9,
+        "name": "权限管理"
+    },
+    {
+        "key": "auth.menus",
+        "parent": "auth",
+        "sort": 2,
+        "name": "菜单管理"
+    },
+    {
+        "key": "auth.role",
+        "parent": "auth",
+        "sort": 1,
+        "name": "角色列表"
+    },
+    {
+        "key": "auth.staff",
+        "parent": "auth",
+        "sort": 0,
+        "name": "人员列表"
+    },
+    {
+        "key": "borrowing",
+        "parent": "",
+        "sort": 3,
+        "name": "借款管理"
+    },
+    {
+        "key": "borrowing.borrow",
+        "parent": "borrowing",
+        "sort": 0,
+        "name": "借款订单"
+    },
+    {
+        "key": "borrowing.loan",
+        "parent": "borrowing",
+        "sort": 1,
+        "name": "放款订单"
+    },
+    {
+        "key": "collection-management",
+        "parent": "",
+        "sort": 7,
+        "name": "催收管理"
+    },
+    {
+        "key": "collection-management.collectionblacklist",
+        "parent": "collection-management",
+        "sort": 2,
+        "name": "催收黑名单"
+    },
+    {
+        "key": "collection-management.collectionorder",
+        "parent": "collection-management",
+        "sort": 0,
+        "name": "催收订单"
+    },
+    {
+        "key": "collection-management.mycollectionlist",
+        "parent": "collection-management",
+        "sort": 1,
+        "name": "我的订单"
+    },
+    {
+        "key": "inform-management",
+        "parent": "",
+        "sort": 10,
+        "name": "通知管理"
+    },
+    {
+        "key": "inform-management.affichelist",
+        "parent": "inform-management",
+        "sort": 0,
+        "name": "公告列表"
+    },
+    {
+        "key": "inform-management.notelist",
+        "parent": "inform-management",
+        "sort": 2,
+        "name": "短信列表"
+    },
+    {
+        "key": "inform-management.pushlist",
+        "parent": "inform-management",
+        "sort": 1,
+        "name": "推送列表"
+    },
+    {
+        "key": "payment-management",
+        "parent": "",
+        "sort": 5,
+        "name": "支付管理"
+    },
+    {
+        "key": "payment-management.artificialPayment",
+        "parent": "payment-management",
+        "sort": 1,
+        "name": "出款确认"
+    },
+    {
+        "key": "payment-management.failurePayment",
+        "parent": "payment-management",
+        "sort": 2,
+        "name": "出款失败处理"
+    },
+    {
+        "key": "payment-management.paymentRecord",
+        "parent": "payment-management",
+        "sort": 0,
+        "name": "支付记录"
+    },
+    {
+        "key": "payment-management.systemLoanRecord",
+        "parent": "payment-management",
+        "sort": 3,
+        "name": "系统放款记录"
+    },
+    {
+        "key": "repayment-management",
+        "parent": "",
+        "sort": 6,
+        "name": "还款管理"
+    },
+    {
+        "key": "repayment-management.accountadjustment",
+        "parent": "repayment-management",
+        "sort": 0,
+        "name": "调账管理"
+    },
+    {
+        "key": "repayment-management.artificiallist",
+        "parent": "repayment-management",
+        "sort": 2,
+        "name": "人工还款"
+    },
+    {
+        "key": "repayment-management.renewallist",
+        "parent": "repayment-management",
+        "sort": 3,
+        "name": "展期管理"
+    },
+    {
+        "key": "repayment-management.repaymentlist",
+        "parent": "repayment-management",
+        "sort": 1,
+        "name": "还款计划"
+    },
+    {
+        "key": "statistics",
+        "parent": "",
+        "sort": 1,
+        "name": "统计模块"
+    },
+    {
+        "key": "statistics.daily-flow-statistics",
+        "parent": "statistics",
+        "sort": 0,
+        "name": "流量统计"
+    },
+    {
+        "key": "statistics.operational",
+        "parent": "statistics",
+        "sort": 2,
+        "name": "运营统计"
+    },
+    {
+        "key": "statistics.operational.afterloan_list",
+        "parent": "statistics.operational",
+        "sort": 1,
+        "name": "每日贷后分析"
+    },
+    {
+        "key": "statistics.operational.budget_list",
+        "parent": "statistics.operational",
+        "sort": 0,
+        "name": "每日收支分析"
+    },
+    {
+        "key": "statistics.urgeRegain-statistics",
+        "parent": "statistics",
+        "sort": 1,
+        "name": "催收统计"
+    },
+    {
+        "key": "statistics.urgeRegain-statistics.reclaimaterate",
+        "parent": "statistics.urgeRegain-statistics",
+        "sort": 0,
+        "name": "催回率统计"
+    },
+    {
+        "key": "statistics.urgeRegain-statistics.urgeregainefficiency",
+        "parent": "statistics.urgeRegain-statistics",
+        "sort": 3,
+        "name": "催收效率统计"
+    },
+    {
+        "key": "statistics.urgeRegain-statistics.urgeregainorder",
+        "parent": "statistics.urgeRegain-statistics",
+        "sort": 1,
+        "name": "催收订单统计"
+    },
+    {
+        "key": "statistics.urgeRegain-statistics.urgeregainworkers",
+        "parent": "statistics.urgeRegain-statistics",
+        "sort": 2,
+        "name": "催收业绩统计"
+    },
+    {
+        "key": "system-settings",
+        "parent": "",
+        "sort": 8,
+        "name": "系统设置"
+    },
+    {
+        "key": "system-settings.approval-settings",
+        "parent": "system-settings",
+        "sort": 4,
+        "name": "审批设置"
+    },
+    {
+        "key": "system-settings.auth-process-settings",
+        "parent": "system-settings",
+        "sort": 7,
+        "name": "认证流程设置"
+    },
+    {
+        "key": "system-settings.clm-loan-settings",
+        "parent": "system-settings",
+        "sort": 2,
+        "name": "CLM贷款设置"
+    },
+    {
+        "key": "system-settings.collection-settings",
+        "parent": "system-settings",
+        "sort": 5,
+        "name": "催收设置"
+    },
+    {
+        "key": "system-settings.loan-settings",
+        "parent": "system-settings",
+        "sort": 1,
+        "name": "贷款设置"
+    },
+    {
+        "key": "system-settings.mhannel-link",
+        "parent": "system-settings",
+        "sort": 6,
+        "name": "在线包投放链接"
+    },
+    {
+        "key": "system-settings.operate-settings",
+        "parent": "system-settings",
+        "sort": 3,
+        "name": "运营设置"
+    },
+    {
+        "key": "system-settings.repayment-settings",
+        "parent": "system-settings",
+        "sort": 8,
+        "name": "还款设置"
+    },
+    {
+        "key": "system-settings.security-settings",
+        "parent": "system-settings",
+        "sort": 0,
+        "name": "安全设置"
+    },
+    {
+        "key": "user-management",
+        "parent": "",
+        "sort": 2,
+        "name": "用户管理"
+    },
+    {
+        "key": "user-management.blacklist",
+        "parent": "user-management",
+        "sort": 1,
+        "name": "黑名单用户"
+    },
+    {
+        "key": "user-management.feedbacklist",
+        "parent": "user-management",
+        "sort": 3,
+        "name": "用户反馈"
+    },
+    {
+        "key": "user-management.riskblacklist",
+        "parent": "user-management",
+        "sort": 2,
+        "name": "风控黑名单用户"
+    },
+    {
+        "key": "user-management.userlist",
+        "parent": "user-management",
+        "sort": 0,
+        "name": "用户信息"
+    },
+    {
+        "key": "work_bench",
+        "parent": "",
+        "sort": 0,
+        "name": "工作台"
+    }
+]

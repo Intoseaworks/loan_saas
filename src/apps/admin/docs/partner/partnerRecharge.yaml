@@ -1,0 +1,167 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/partner-recharge/list:
+    get:
+      summary: 商户详情页（充值记录）
+      tags:
+        - 商户账户管理
+      operationId: partnerRechargeList
+      parameters:
+        - name: arrival_time
+          in: query
+          description: 交易时间
+          type: array
+        - name: status
+          in: query
+          description: 交易状态
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: string
+          default: 1
+        - name: size
+          in: query
+          description: 分页大小
+          type: string
+          default: 15
+      responses:
+        200:
+          description: |
+            arrival_time：交易时间
+            status：交易状态,
+            type_text:服务类型
+            partner_recharge_info[0][info_key] = 'auditor':审批人
+            upload.path: 充值凭证
+            total_recharge_amount:合计充值
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "current_page":1,
+                    "data":[
+                        {
+                            "id":1,
+                            "partner_id":20,
+                            "type":"recharge",
+                            "recharge_amount":"1000.0000",
+                            "total_recharge_amount":"1000.0000",
+                            "admin_id":null,
+                            "arrival_time":"2019-03-25 12:58:56",
+                            "status":2,
+                            "remark":"审核信息一致，审核通过",
+                            "created_at":"2019-03-21 15:59:08",
+                            "updated_at":"2019-03-25 20:59:14",
+                            "type_text":"充值",
+                            "status_text":"充值成功",
+                            "auditConfig":[
+                                {
+                                    "key":"partner_recharge_audit_pass",
+                                    "value":"审核信息一致，审核通过"
+                                },
+                                {
+                                    "key":"partner_recharge_audit_no_pass_1",
+                                    "value":"审核信息不一致，上传凭证错误"
+                                },
+                                {
+                                    "key":"partner_recharge_audit_no_pass_2",
+                                    "value":"审核信息不一致，充值金额不对"
+                                }
+                            ],
+                            "partner":{
+                                "id":20,
+                                "partner_no":"SH2019032120430791",
+                                "partner_name":"商户名称",
+                                "product_name":"产品名",
+                                "company_name":"公司名",
+                                "contact":"联系人",
+                                "contact_telephone":"17752856224",
+                                "balance_warn":"10000",
+                                "excess_allow":"10000",
+                                "operation_email":"297210725@qq.com",
+                                "risk_app_key":"saas-loan",
+                                "status":1,
+                                "created_at":"2019-03-21 20:43:07",
+                                "updated_at":"2019-03-21 20:43:07"
+                            },
+                            "partner_recharge_info":[
+                                {
+                                    "id":2,
+                                    "partner_recharge_id":1,
+                                    "info_key":"auditor",
+                                    "info_value":"尼古拉丁. 赵四",
+                                    "updated_at":"2019-03-26 03:06:16",
+                                    "created_at":"2019-03-26 03:06:16"
+                                }
+                            ],
+                            "upload":[
+                                {
+                                    "id":213,
+                                    "user_id":null,
+                                    "type":"recharge_voucher",
+                                    "status":1,
+                                    "source_id":1,
+                                    "filename":"201805082037282023.jpg",
+                                    "path":"uploads/201903/5c934bb9d5d18601239.jpg",
+                                    "created_at":"2019-03-21 16:30:49",
+                                    "updated_at":"2019-03-26 14:55:42",
+                                    "ext_info":"",
+                                    "user_type":2
+                                }
+                            ]
+                        }
+                    ],
+                    "first_page_url":"http://zy-saas-master.dev23.jiumiaodai.com/api/partner-recharge/recharge/list?page=1",
+                    "from":1,
+                    "last_page":1,
+                    "last_page_url":"http://zy-saas-master.dev23.jiumiaodai.com/api/partner-recharge/recharge/list?page=1",
+                    "next_page_url":null,
+                    "path":"http://zy-saas-master.dev23.jiumiaodai.com/api/partner-recharge/recharge/list",
+                    "per_page":15,
+                    "prev_page_url":null,
+                    "to":1,
+                    "total":1
+                }
+            }
+
+  /api/partner-recharge/apply:
+    post:
+      summary: 商户详情页（充值记录）充值申请
+      tags:
+        - 账户管理(充值记录)
+      operationId: partnerRechargeApply
+      parameters:
+        - name: recharge_amount
+          in: query
+          description: 申请充值金额
+          type: float
+        - name: recharge_voucher
+          in: query
+          description: 充值凭证
+          type: array
+      responses:
+        200:
+          description: |
+            recharge_amount：申请充值金额
+            recharge_voucher： 充值凭证
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "partner_id":20,
+                    "recharge_amount":"1000",
+                    "status":1,
+                    "type":"recharge",
+                    "updated_at":"2019-03-26 14:55:42",
+                    "created_at":"2019-03-26 14:55:42",
+                    "id":97
+                }
+            }
+

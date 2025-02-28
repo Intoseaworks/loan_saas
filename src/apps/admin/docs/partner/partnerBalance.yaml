@@ -1,0 +1,61 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/partner-balance/query:
+    get:
+      summary: 商户详情页（余额信息）
+      tags:
+        - 商户账户管理
+      operationId: partnerBalanceQuery
+      parameters:
+      responses:
+        200:
+          description: |
+            company_name: 公司名称
+            partner_balance.balance_key = recharge 充值总额
+            partner_balance.balance_key = balance 余额
+            partner_balance.balance_key =  expend 消费总额
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "id":20,
+                    "partner_no":"SH2019032120430791",
+                    "partner_name":"商户",
+                    "product_name":"产品",
+                    "company_name":"公司",
+                    "contact":"联系",
+                    "contact_telephone":"15700767943",
+                    "balance_warn":"500",
+                    "excess_allow":"100",
+                    "operation_email":"297210724@qq.com",
+                    "lender_fullname":"出借人啊",
+                    "lender_id_card_no":"43021545152154511",
+                    "risk_app_key":"saas",
+                    "status":1,
+                    "created_at":"2019-03-21 20:43:07",
+                    "updated_at":"2019-03-28 10:49:52",
+                    "partner_balance":[
+                        {
+                            "balance_key":"balance",
+                            "balance":"-2896.10",
+                            "balance_key_text":"余额"
+                        },
+                        {
+                            "balance_key":"expend",
+                            "balance":"5396.10",
+                            "balance_key_text":"消费总额"
+                        },
+                        {
+                            "balance_key":"recharge",
+                            "balance":"2500.00",
+                            "balance_key_text":"充值总额"
+                        }
+                    ]
+                }
+            }

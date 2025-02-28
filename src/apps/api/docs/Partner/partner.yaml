@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/partner/detection-excess:
+    post:
+      summary: 检测商户余额是否超额
+      tags:
+        - 商户
+      operationId: login
+      responses:
+        200:
+          description: |
+            若超额则返回 13001 报错
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": []
+            }

@@ -1,0 +1,72 @@
+swagger: '2.0'
+paths:
+  /api/data_statistics/workbench/index:
+    get:
+      summary: 控制台主页
+      tags:
+      - 控制台管理
+      operationId: workbenchIndex
+      responses:
+        200:
+          description: |
+
+            当日实时合作数据
+            register:注册数
+            auth:完成认证数
+            loan:借款申请数
+            pass:审核通过数
+            remit:放款数
+            remit_amount:放款金额
+            repay:还款额
+            overdue_sum:逾期额
+            当日实时催收数据
+            overdue_count:入催笔数
+            promise_paid_count:承诺还款笔数
+            collection_success_count:催收成功笔数
+            collection_bad_count:已坏账数
+            collection_record_count:催记次数
+            approve_total_count:总审批数
+            approve_system_pass:机审通过数
+            approve_manual_count:入初审数
+            approve_wait_manual_approve:等待初审数量
+            approve_manual_pass:初审通过量
+            approve_call_count:入电审数量
+            approve_wait_call_approve:等待电审数量
+            approve_call_pass:电审通过数量
+            approve_wait_sign:待签约数量
+            approve_sign_contract:已签约数量
+            注：第一位主数额，第二位日环比，第三位周同比
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/data_statistics/workbench/line:
+    get:
+      summary: 控制台折线
+      tags:
+      - 控制台管理
+      operationId: workbenchLine
+      parameters:
+      - name: type
+        in: query
+        description: 折线表种类 day_remit_sum：每日放款额  day_repay_sum：每日还款额  day_overdue_sum：每日逾期额  day_pass_count：每日通过数
+        type: string
+      - name: date
+        in: query
+        description: 时间区间
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

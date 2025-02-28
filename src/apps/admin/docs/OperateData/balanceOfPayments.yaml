@@ -1,0 +1,297 @@
+swagger: '2.0'
+paths:
+  /api/balance-of-repayments/list:
+    get:
+      summary: 每日收支分析
+      tags:
+        - 运营数据
+      operationId: index
+      parameters:
+        - name: date
+          in: query
+          description: 日期 date[0] 开始时间  date[1] 结束时间
+          type: array
+          required: false
+        - name: export
+          in: query
+          description: 导出标识 1导出
+          default: 0
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+
+            date:日期
+            income:当日总收入
+            disburse:当日总支出
+            principal:收入-实还本金
+            overdue_fee:收入-实还罚息
+            renewal_fee:收入-续期费用
+            paid_amount:支出-实际到账金额
+            income_count:收入详情
+            disburse_count:支出详情
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "income": "3225.00",
+                            "disburse": "2820.00",
+                            "income_count": 2,
+                            "disburse_count": 2,
+                            "trade_result_time": "2019-02-26 19:23:59",
+                            "date": "2019-02-26",
+                            "overdue_fee": "225.00",
+                            "principal": "1500.00",
+                            "paid_amount": 0
+                        },
+                        {
+                            "income": "1725.00",
+                            "disburse": "2820.00",
+                            "income_count": 1,
+                            "disburse_count": 2,
+                            "trade_result_time": "2019-02-27 12:08:53",
+                            "date": "2019-02-27",
+                            "overdue_fee": "225.00",
+                            "principal": "1500.00",
+                            "paid_amount": 0
+                        }
+                    ],
+                    "first_page_url": "http://loan-saas.work/api/balance-of-repayments/list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://loan-saas.work/api/balance-of-repayments/list?page=1",
+                    "next_page_url": null,
+                    "path": "http://loan-saas.work/api/balance-of-repayments/list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 2,
+                    "total": 2
+                }
+            }
+
+
+  /api/balance-of-repayments/income-list:
+    get:
+      summary: 每日收入详情列表
+      tags:
+        - 运营数据
+      operationId: incomeList
+      parameters:
+        - name: date
+          in: query
+          description: 日期
+          type: string
+          required: true
+        - name: export
+          in: query
+          description: 导出标识 1导出
+          default: 0
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+
+            order_no:订单号
+            contract_url:合同url
+            transaction_no:交易编号
+            principal:实还本金(元)
+            interest_fee:实还息费(元)
+            penalty:实还罚息(元)
+            gst_penalty:实还罚息GST(元)
+            repay_time:还款时间
+            financial_staff:财务人员
+            pay_method:支付方式
+            status:状态
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 193,
+                            "order_no": "8887875C762AD87F3F",
+                            "contract_url": "http://baidu.com",
+                            "transaction_no": "8887875C762AD87F3F",
+                            "principal": "1500.00",
+                            "penalty": "225.00",
+                            "gst_penalty": "225.00",
+                            "repay_time": "2019-02-27 00:00:00",
+                            "financial_staff": "夏梦",
+                            "pay_method": "Mobikwik",
+                            "status": "STATUS"
+                        }
+                    ],
+                    "first_page_url": "http://loan-saas.work/api/balance-of-repayments/income-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://loan-saas.work/api/balance-of-repayments/income-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://loan-saas.work/api/balance-of-repayments/income-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }
+
+
+  /api/balance-of-repayments/disburse-list:
+    get:
+      summary: 每日支出详情列表
+      tags:
+        - 运营数据
+      operationId: disburseList
+      parameters:
+        - name: date
+          in: query
+          description: 日期
+          type: string
+          required: true
+        - name: export
+          in: query
+          description: 导出标识 1导出
+          default: 0
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+
+            order_no:订单号
+            contract_url:合同url
+            transaction_no:交易编号
+            user_name:收款人姓名
+            paid_amount:实际到账金额(元)
+            paid_time:打款时间
+            financial_staff:财务人员
+            pay_method:支付方式
+            bank_account:收款银行账号
+            status:状态
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 191,
+                            "transaction_no": "8842395C760D4EB91BXX",
+                            "order_no": "8842395C760D4EB91B",
+                            "user_name": "测试甲",
+                            "paid_amount": "1410.00",
+                            "paid_time": "2019-01-13 12:08:54",
+                            "financial_staff": "王沙亮",
+                            "pay_method": "银行转账",
+                            "bank_account": "STATE BANK OF INDIA(3095)",
+                            "status": "SUCEESS"
+                        }
+                    ],
+                    "first_page_url": "http://loan-saas.work/api/balance-of-repayments/disburse-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://loan-saas.work/api/balance-of-repayments/disburse-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://loan-saas.work/api/balance-of-repayments/disburse-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 2,
+                    "total": 2
+                }
+            }
+
+  /api/post-loan/list:
+    get:
+      summary: 每日贷后分析
+      tags:
+        - 运营数据
+      operationId: postLoanList
+      parameters:
+        - name: date
+          in: query
+          description: 放款日期
+          type: array
+        - name: quality
+          in: query
+          description: 用户类型
+          type: string
+        - name: export
+          in: query
+          description: 导出标识 1导出
+          default: 0
+          type: string
+      responses:
+        200:
+          description: |
+
+            date: 日期,
+            paid_count: 放款笔数,
+            paid_amount: 放款金额,
+            wait_repay_count: 未还款笔数,
+            wait_repay_amount: 未还款金额,
+            repay_count: 还款笔数,
+            repay_amount: 还款金额,
+            overdue_repay_count: 逾期还款,
+            overdue_repay_rate: 逾期还款占比,
+            overdue_1days_count: 1天+逾期单,
+            overdue_3days_count: 3天+逾期单,
+            overdue_7days_count: 7天+逾期单,
+            overdue_1days_rate: 1天+逾期率,
+            overdue_3days_rate: 3天+逾期率,
+            overdue_7days_rate: 7天+逾期率,
+            bad_count: 坏账数,
+            bad_rate: 坏账率,
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 214,
+                            "merchant_id": 1,
+                            "date": "2019-09-10",
+                            "user_type": 1,
+                            "pay_count": 0,
+                            "pay_amount": 0,
+                            "wait_repay_count": 6,
+                            "wait_repay_amount": 7065,
+                            "repay_count": 0,
+                            "repay_amount": 0,
+                            "overdue_repay_count": 0,
+                            "overdue_repay_rate": "0",
+                            "overdue_1days_count": 1,
+                            "overdue_1days_rate": "0",
+                            "overdue_3days_count": 1,
+                            "overdue_3days_rate": "0",
+                            "overdue_7days_count": 0,
+                            "overdue_7days_rate": "0",
+                            "bad_count": 0,
+                            "bad_rate": "0",
+                            "overdue_repay_rate_text": "0%",
+                            "overdue_1days_rate_text": "0%",
+                            "overdue_3days_rate_text": "0%",
+                            "overdue_7days_rate_text": "0%"
+                        }
+                    ],
+                    "first_page_url": "http://localsaas/api/post-loan/list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://localsaas/api/post-loan/list?page=1",
+                    "next_page_url": null,
+                    "path": "http://localsaas/api/post-loan/list",
+                    "per_page": "10",
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }

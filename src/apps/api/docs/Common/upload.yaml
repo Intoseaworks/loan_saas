@@ -1,0 +1,77 @@
+swagger: '2.0'
+paths:
+  /app/upload:
+    post:
+      summary: 图片上传
+      tags:
+      - 公共模块
+      operationId: upload
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: file
+        in: formData
+        description: 文件
+        type: string
+      - name: type
+        in: formData
+        description: 类型<br/>
+          <br/>[promotion] => 广告图(废弃)
+          <br/>[id_front] => 身份证正面(废弃)
+          <br/>[id_back] => 身份证背面(废弃)
+          <br/>[id_handheld] => 手持身份证(废弃)
+          <br/>[user_black_list] => 用户黑名单
+          <br/>[aadhaarCardFront] => aadhaar card front
+          <br/>[aadhaarCardBack] => aadhaar card back
+          <br/>[panCard] => panCard
+          <br/>[facePass] => 人脸识别(废弃)
+          <br/>[workCardFront] => work card front(废弃)
+          <br/>[workCardBack] => work card back(废弃)
+          <br/>[sign] => sign
+          <br/>[bill] => bill(废弃)
+          <br/>[paySlip] => pay slip(废弃)
+          <br/>[passportIdentity] => possport identity
+          <br/>[passportDemographics] => passport demographics
+          <br/>[voterIdCardFront] => voter id card front
+          <br/>[voterIdCardBack] => voter id card back
+          <br/>[drivingLicenseFront] => driving license front(废弃)
+          <br/>[drivingLicenseBack] => driving license back(废弃)
+          <br/>[addressAadhaarFront] => address aadhaar front(废弃)
+          <br/>[addressAadhaarBack] => address aadhaar back(废弃)
+        type: integer
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /downloadByType:
+    get:
+      summary: 图片下载
+      tags:
+      - 公共模块
+      operationId: downloadByType
+      parameters:
+      - name: source_id
+        in: query
+        description: 来源ID
+        type: string
+      - name: type
+        in: query
+        description: 类型
+        type: array
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }

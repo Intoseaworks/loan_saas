@@ -1,0 +1,61 @@
+swagger: '2.0'
+paths:
+  /api/collection_setting/index:
+    get:
+      summary: 催收设置列表
+      tags:
+      - 催收设置管理
+      operationId: collectionSettingIndex
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+
+  /api/collection_setting/rule:
+    post:
+      summary: 配置规则
+      tags:
+      - 催收设置管理
+      operationId: collectionSettingRule
+      parameters:
+      - name: rule
+        in: formData
+        description: 规则(array) 注：start_overdue_days开始逾期天数，overdue_days逾期天数，overdue_level逾期等级，contact_num联系人展示数，reduction_setting减免设置，
+          <br>admin_rules(array)（多列管理员，语言配置，代替原来的admin_ids催收员分配）
+        type: string
+        required: true
+      - name: collection_bad_days
+        in: formData
+        description: 转坏账设置
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            格式
+            [{
+            	"overdue_level": "M3",
+            	"overdue_days": 3,
+            	"contact_num": 20,
+            	"reduction_setting": "overdue_interest",
+            	"admin_ids": [2158],
+            	"admin_rules": [{
+            		"admin_ids": [2158],
+            		"language": ["Marathi"]
+            	}]
+            }]
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

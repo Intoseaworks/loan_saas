@@ -1,0 +1,487 @@
+swagger: '2.0'
+paths:
+  /api/user/index:
+    get:
+      summary: 用户列表
+      tags:
+      - 用户管理
+      operationId: userIndex
+      parameters:
+      - name: status
+        in: query
+        description: 查询条件：状态  1：正常  2：禁用
+        type: string
+      - name: city
+        in: query
+        description: 区域查询
+        type: string
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: quality
+        in: query
+        description: 用户类型(array)
+        type: string
+      - name: education_level
+        in: query
+        description: 学历(array)
+        type: string
+      - name: register_time_start
+        in: query
+        description: 注册时间(start)
+        type: string
+      - name: register_time_end
+        in: query
+        description: 注册时间(end)
+        type: string
+      - name: client_id
+        in: query
+        description: 注册客户端(array)
+        type: string
+      - name: app_version
+        in: query
+        description: 客户端版本(array)
+        type: string
+      - name: channel_name
+        in: query
+        description: 用户来源(array)
+        type: string
+      - name: channel_code
+        in: query
+        description: 注册渠道(array)
+        type: string
+      - name: order_status
+        in: query
+        description: 最后订单状态(array)
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+
+  /api/user/black_list:
+    get:
+      summary: 黑名单用户列表
+      tags:
+      - 用户管理
+      operationId: userBlackList
+      parameters:
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: loan_time_start
+        in: query
+        description: 借款时间(start)
+        type: string
+      - name: loan_time_end
+        in: query
+        description: 借款时间(end)
+        type: string
+      - name: repay_time_start
+        in: query
+        description: 应还时间(start)
+        type: string
+      - name: repay_time_end
+        in: query
+        description: 应还时间(end)
+        type: string
+      - name: quality
+        in: query
+        description: 用户类型(array)
+        type: string
+      - name: principal
+        in: query
+        description: 借款金额
+        type: string
+      - name: loan_days
+        in: query
+        description: 借款期限
+        type: string
+      - name: overdue_level
+        in: query
+        description: 逾期等级
+        type: string
+      - name: channel_name
+        in: query
+        description: 用户来源(array)
+        type: string
+      - name: channel_code
+        in: query
+        description: 注册渠道(array)
+        type: string
+      - name: client_id
+        in: query
+        description: 注册客户端(array)
+        type: string
+      - name: app_version
+        in: query
+        description: 客户端版本(array)
+        type: string
+      - name: order_status
+        in: query
+        description: 最后订单状态(array)
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      responses:
+        200:
+          description: |
+            telephone:手机号码
+            user.quality_text:用户类型
+            user.fullname:真实姓名
+            user.id_card_no:身份证号码
+            user.order.principal:借款金额
+            user.order.created_at:借款时间
+            user.order.appointment_paid_time:应还时间
+            user.order.processing_fee_incl_gst:服务费 Processing Fee（INCL GST）
+            user.order.overdue_fee_incl_gst:逾期金额 Penalty（INCL GST）
+            user.created_at:注册时间
+            user.client_id_text:注册客户端
+            user.channel.channel_name:用户来源
+            user.channel.channel_code:注册渠道
+            user.app_version:版本号
+            user.user_info.email:邮箱
+            user.order.collection.overdue_day:逾期天数
+            user.order.collection.overdue_level:逾期等级
+            user.order.collection.overdue_amount:逾期罚息
+            remark:列入原因
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "current_page": 1,
+                "data": [
+                  {
+                    "id": 4259,
+                    "telephone": "18127820728",
+                    "remark": "",
+                    "status": 1,
+                    "type": "cannot_login",
+                    "created_at": "2019-02-10 16:00:00",
+                    "updated_at": "2019-02-10 16:00:00",
+                    "black_time": "2019-02-11 00:00:00",
+                    "user": {
+                      "id": 8,
+                      "telephone": "18127820728",
+                      "fullname": "文强",
+                      "id_card_no": "5137****9536",
+                      "status": 1,
+                      "created_at": "2019-01-21 12:39:18",
+                      "client_id": "ios",
+                      "channel_id": "1",
+                      "quality": 0,
+                      "app_version": "1.0.0",
+                      "id_card_no_text": null,
+                      "status_text": "正常",
+                      "client_id_text": "苹果",
+                      "quality_text": "新用户",
+                      "channel": {
+                        "channel_code": "jqbwx",
+                        "channel_name": "深圳金钱包公众号"
+                      },
+                      "order": {
+                        "id": 8,
+                        "order_no": "88612695C518B56688",
+                        "principal": "1000.00",
+                        "loan_days": 15,
+                        "status": "overdue",
+                        "created_at": "2019-01-31 10:53:23",
+                        "updated_at": "2019-02-13 14:18:02",
+                        "app_client": "ios",
+                        "app_version": "1.0.0",
+                        "quality": 0,
+                        "overdue_rate": "0.0100",
+                        "signed_time": null,
+                        "paid_time": "2019-01-01 20:41:01",
+                        "paid_amount": "940.00",
+                        "pay_channel": "---",
+                        "fullname": "文强",
+                        "telephone": "18127820728",
+                        "interest_fee": "30.00",
+                        "overdue_fee": "290.00",
+                        "reduction_fee": "50.00",
+                        "receivable_amount": "1240.00",
+                        "pay_amount": "970.00",
+                        "overdue_days": 29,
+                        "appointment_paid_time": "2019-02-01 19:51:01",
+                        "repay_time": "---",
+                        "repay_amount": "0.00",
+                        "bank_card_no": "6217002920131968188",
+                        "bank_name": "建设银行",
+                        "loan_location": "",
+                        "loan_position": "113.953646,22.529468",
+                        "repayment_plan_no": "88698765C519016688",
+                        "channel": {
+                          "id": 1,
+                          "channel_code": "jqbwx",
+                          "channel_name": "深圳金钱包公众号"
+                        },
+                        "order_no_text": null,
+                        "status_text": "借款已逾期",
+                        "app_client_text": "苹果",
+                        "quality_text": "新用户",
+                        "user": {
+                          "id": 8,
+                          "telephone": "18127820728",
+                          "fullname": "文强",
+                          "id_card_no": "513723199705139536",
+                          "status": 1,
+                          "created_at": "2019-01-21 12:39:18",
+                          "updated_at": "2019-02-11 16:28:49",
+                          "platform": "",
+                          "client_id": "ios",
+                          "channel_id": "1",
+                          "quality": 0,
+                          "app_version": "1.0.0",
+                          "api_token": "",
+                          "channel": {
+                            "id": 1,
+                            "channel_code": "jqbwx",
+                            "channel_name": "深圳金钱包公众号"
+                          }
+                        },
+                        "collection": {
+                          "id": 8,
+                          "admin_id": 2,
+                          "order_id": 8,
+                          "status": "collectioning",
+                          "level": "M1",
+                          "bad_time": "2019-01-30 10:33:00",
+                          "id_text": null,
+                          "status_text": "催收中",
+                          "bad_time_text": "逾期2天转坏账，暂停催收",
+                          "staff": {
+                            "id": 2,
+                            "username": "admintest2",
+                            "nickname": "测试号问问",
+                            "ip_address": "深圳"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "first_page_url": "http://saas.test/api/user/black_list?page=1",
+                "from": 1,
+                "last_page": 1,
+                "last_page_url": "http://saas.test/api/user/black_list?page=1",
+                "next_page_url": null,
+                "path": "http://saas.test/api/user/black_list",
+                "per_page": 15,
+                "prev_page_url": null,
+                "to": 1,
+                "total": 1
+              }
+            }
+
+  /api/user/feedback_list:
+    get:
+      summary: 用户反馈列表
+      tags:
+      - 用户管理
+      operationId: userFeedbackList
+      parameters:
+      - name: keyword
+        in: query
+        description: 查询条件：关键字 用户名|昵称
+        type: string
+      - name: time_start
+        in: query
+        description: 开始时间(start) 格式 2019-01-23 00:00:00
+        type: string
+      - name: time_end
+        in: query
+        description: 结束时间(end) 格式 2019-01-23 23:59:59
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+            id:ID
+            user.telephone:手机号码
+            user.fullname:真实姓名
+            content:内容
+            type_text:类型
+            created_at:意见提交时间
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/user/view:
+    get:
+      summary: 用户详情
+      tags:
+      - 用户管理
+      operationId: userView
+      parameters:
+      - name: id
+        in: query
+        description: id 用户id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+  /api/user/black_list_upload:
+    post:
+      summary: 导入黑名单
+      tags:
+      - 用户管理
+      parameters:
+      - name: file
+        in: formData
+        description: 文档csv格式，第一列电话号码
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {num:10}
+            }
+  /api/user/black_list_confirm:
+    post:
+      summary: 导入黑名单用户确认
+      tags:
+      - 用户管理
+      parameters:
+      - name: source_id
+        in: formData
+        description: 文件资源id
+        type: int
+        required: true
+      - name: type
+        in: formData
+        description: cannot_login限制登录cannot_loan限制借款
+        type: string
+        required: true
+      - name: black_time
+        in: formData
+        description: 生效时间
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+
+  /api/user/black_view:
+    get:
+      summary: 黑名单用户详情
+      tags:
+      - 用户管理
+      operationId: userBlackView
+      parameters:
+      - name: id
+        in: query
+        description: id 用户id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            参考[后台资料卡项]文档
+
+  /api/user/add_black:
+    post:
+      summary: 添加黑名单
+      tags:
+      - 用户管理
+      operationId: userAddBlack
+      parameters:
+      - name: id
+        in: formData
+        description: id 用户id
+        type: string
+        required: true
+      - name: type
+        in: formData
+        description: 黑名单类型（config接口 传 user_black_type 可获取）
+        type: string
+        required: true
+      - name: black_time
+        in: formData
+        description: 黑名单开始时间
+        type: string
+        required: true
+      - name: remark
+        in: formData
+        description: 备注
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/user/move_black:
+    get:
+      summary: 移除黑名单
+      tags:
+      - 用户管理
+      operationId: userMoveBlack
+      parameters:
+      - name: id
+        in: query
+        description: id 用户id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

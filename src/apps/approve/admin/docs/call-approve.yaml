@@ -1,0 +1,240 @@
+swagger: '2.0'
+paths:
+  /api/approve/call-approve/list:
+    get:
+      summary: 电审列表
+      tags:
+        - 审批列表/电审列表
+      operationId: index
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `2`
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "id": 4,
+                        "order_id": 34,
+                        "type": 1,
+                        "grade": 2,
+                        "order_no": "120161016000034",
+                        "telephone": "18572354718",
+                        "order_type": "0",
+                        "order_status": "0",
+                        "pass_time": null,
+                        "wait_time": 1526896941,
+                        "status": 1,
+                        "created_at": "2018-12-12 18:04:11",
+                        "updated_at": "2018-12-14 18:20:24",
+                        "wait_time_text": "209d20h11m",
+                        "approve_at": "2018-12-14 18:20:24"
+                    }
+                ]
+            }
+
+            {
+                "status": 400,
+                "msg": "存在电审订单"
+            }
+
+  /api/approve/call-approve/start-work:
+    get:
+      summary: 开始审批
+      tags:
+        - 审批列表/电审列表
+      operationId: startWork
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `2`
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "id": 4,
+                        "order_id": 34,
+                        "type": 1,
+                        "grade": 2,
+                        "order_no": "120161016000034",
+                        "telephone": "18572354718",
+                        "order_type": "0",
+                        "order_status": "0",
+                        "pass_time": null,
+                        "wait_time": 1526896941,
+                        "status": 1,
+                        "created_at": "2018-12-12 18:04:11",
+                        "updated_at": "2018-12-14 18:20:24",
+                        "wait_time_text": "209d20h11m",
+                        "approve_at": "2018-12-14 18:20:24"
+                    }
+                ]
+            }
+
+            {
+                "status": 400,
+                "msg": "存在电审订单"
+            }
+
+  /api/approve/call-approve/stop-work:
+    get:
+      summary: 停止审批
+      tags:
+        - 审批列表/电审列表
+      operationId: stopWork
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+        - name: type
+          in: query
+          description: 固定传 `2`
+          type: string
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": []
+            }
+
+  /api/approve/call-approve/detail:
+    get:
+      summary: 电审详情
+      tags:
+        - 审批列表/电审列表
+      operationId: callShow
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: id
+          in: query
+          description: user_pool_id 列表id字段
+          type: integer
+          required: true
+        - name: order_id
+          in: query
+          description: 订单id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            order_status 订单状态文案
+            order_no 订单编号
+            telephone 电话
+            fullname 姓名
+            gender 性别
+            birthday 生日
+            age 年龄
+            id_card_type 身份证类型
+            id_card_no 身份证号
+            marital_status 婚姻状况
+            education_level 教育
+            monthly_income 月薪
+            employment_type 社会状态
+            work_phone 单位电话
+            work_company 单位名称
+            work_experience_years 工龄
+            working_years 在职时长
+            industry 行业
+            profession 岗位
+            bank_name 银行名称
+            bank_card_no 银行卡号
+            bank_city 银行城市
+            can_contact_time 方便接听审核时间
+            emergency_contact 紧急联系人
+            emergency_contact_other 补充联系人
+            call_approve_result 提交选项
+            refusal_code 拒绝码下拉选项
+            contact_options 联系人选项
+            contact_relation 联系人关系列表
+
+            {"code":18000,"msg":"Success","data":{"data":{"detail":{"order_status":"First approval","order_no":"88671715FE065440B6","telephone":"9664834825","fullname":"Sghssh nnjsjsj Hdhsh","gender":"Male","birthday":"01\\/01\\/2000","age":20,"id_card_type":"PRC ID","id_card_no":"1234568","marital_status":"Widow","education_level":"Vocational Course","monthly_income":"","employment_type":"Student","work_phone":"","work_company":"","work_experience_years":0,"working_years":null,"industry":null,"profession":"","bank_name":"","bank_card_no":"9664834825","bank_city":null,"can_contact_time":"12:00-14:00 PM","emergency_contact":[{"relation":"SISTER","name":"Bsnsjj","phone":"9231234561","check_status":"\\u6709\\u6548\\u53f7\\u7801"},{"relation":"SISTER","name":"dhjdj","phone":"9666652893","check_status":"\\u6709\\u6548\\u53f7\\u7801"},{"relation":"BROTHER","name":"hdjsj","phone":"9123888555","check_status":"\\u6709\\u6548\\u53f7\\u7801"}],"call_approve_result":[{"key":"call_approve_pass","val":"Approval PASS"},{"key":"call_approve_failure_check","val":"Approval FAILED"},{"key":"call_approve_no_answer","val":"No Answer"}],"refusal_code":[{"key":"R03OIDOL","val":"Wrong document number of ID CARD"},{"key":"R03OJIUQ","val":"Occupation does not meet the regulations"},{"key":"R01OIDOL","val":"Risk applicant repeated application"},{"key":"R02QB","val":"Cancel"},{"key":"R02OHBNI","val":"Applicant have a mess life"},{"key":"R01OMGNI","val":"Negative information of SMS"},{"key":"R02OJIIV","val":"Applicant don\'t have a job"},{"key":"R02OMPNA","val":"Applicant\'phone is no answer"},{"key":"R02OTCNV","val":"Applicant refuser to verify the information"},{"key":"R02RMPNA","val":"Contacts\'phone is no answer"},{"key":"R02RTCDF","val":"Contact is false"},{"key":"R02OTCNI","val":"Applicant refuse to add contacts"},{"key":"R02RTCNV","val":"Contacts refuser to verify the information"},{"key":"R01OMPCD","val":"Applicant\'phone no. is closing down"},{"key":"R01RMPCD","val":"Contacts\'phone no. is closing down"},{"key":"R02OTCDF","val":"Not client\\u2019s application"},{"key":"R01FS","val":"Non personal equipment application"},{"key":"R02OHADF","val":"The home address of the  applicant is fake"},{"key":"R02OHANV","val":"The address is not detailed and complete"},{"key":"R02OJIDF","val":"The job information of the  applicant is fake"},{"key":"R02OSAIV","val":"Applicant don\'t have a valid social network account"},{"key":"R02OTCNC","val":"Customers are not satisfied with the decrease in the amount"}],"contact_options":[{"key":"no_call","val":"No call"},{"key":"no_answer","val":"No answer"},{"key":"no_cooperate","val":"Not cooperate"},{"key":"check_diff","val":"Verification inconsistency"},{"key":"check_same","val":"Verify consistency"}],"contact_relation":["PARENT","BROTHER","SISTER","SPOUSE","CHILDREN"],"emergency_contact_other":[]}},"flows":["detail"]}}
+
+  /api/approve/call-approve/submit:
+    post:
+      summary: 电审提交
+      tags:
+        - 审批列表/电审列表
+      operationId: callApproveSubmit
+      parameters:
+        - name: order_id
+          in: query
+          description: order_id
+          type: integer
+          required: true
+        - name: id
+          in: query
+          description: approve_user_pool id 列表里的 id
+          type: integer
+          required: true
+        - name: confirm_month_income
+          in: query
+          description: 确认收入
+          type: integer
+          required: true
+        - name: social_info
+          in: query
+          description: 社交信息 {'social_application':'9872737272','facebook_messager':'9872737272','line':'9872737272'}
+          type: integer
+          required: false
+        - name: emergency_contact
+          in: query
+          description: 紧急联系人数据集合 [{'contactFullname':'xx','contactTelephone':'9876737473','ralation':'BROTHER','manualCallResult':'no_answer 取contact_options选项'}]
+          type: string
+          required: true
+        - name: emergency_contact_other
+          in: query
+          description: 补充联系人数据集合 [{'contactFullname':'xx','contactTelephone':'9876737473','ralation':'BROTHER','manualCallResult':'no_answer 取contact_options选项'}]
+          type: string
+          required: false
+        - name: status
+          in: query
+          description: 初审界面提交选项 传detail接口call_approve_result选项
+          type: string
+          required: true
+        - name: refusal_code
+          in: query
+          description: 拒贷码 审批不通过时传detail接口refusal_code选项
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                  // order_id  为 0时是用户没有订单
+                  'order_id' => 111
+                }
+            }
+
+            {
+                "status": 400,
+                "msg": "订单Id 不能为空。"
+            }

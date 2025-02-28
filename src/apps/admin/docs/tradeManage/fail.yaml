@@ -1,0 +1,52 @@
+swagger: '2.0'
+paths:
+  /api/trade-manage/fail-list:
+    get:
+      summary: 出款失败列表
+      tags:
+      - 支付管理
+      operationId: failFailLIst
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 查询关键字 姓名/手机号码
+        type: string
+      - name: order_no
+        in: query
+        description: 查询关键字 订单号
+        type: string
+      - name: trade_result_time
+        in: query
+        description: 失败时间 trade_result_time[0]:2019-01-23 00:00:00] trade_result_time[1]:2019-01-26 23:59:59
+        type: array
+      responses:
+        200:
+          description: |
+            order_no：订单号
+            fullname：收款人姓名
+            telephone：手机号码
+            bank_card_no：收款银行卡
+            pay_amount：放款金额
+            created_at：借款时间
+            status_text：借款状态
+            trade_log.trade_result_time：失败时间
+            trade_log.trade_desc：原因
+            user.email：邮箱
+
+
+  /api/trade-manage/cancel-batch:
+    post:
+      summary: 失败订单批量处理
+      tags:
+      - 支付管理
+      operationId: failcancelBatch
+      parameters:
+      - name: ids
+        in: formData
+        description: 订单号
+        type: array
+        require: true
+      responses:
+        200:
+          description: |
+

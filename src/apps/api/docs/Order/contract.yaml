@@ -1,0 +1,219 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/contract/contract-data:
+    get:
+      summary: 获取合同信息
+      tags:
+      - 订单-合同
+      operationId: contractContractData
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      - name: orderId
+        in: query
+        description: 订单id  不传默认取当前用户最新订单
+        type: string
+      responses:
+        200:
+          description: |
+            date 合同创建日期
+            sign_image_url 用户签名照片
+            fullname 用户名称
+            father_name 用户父亲名称
+            birthday 出生年月日
+            gender 婚姻状况
+            profession 职业
+            residence_type 住所类型
+            aadhaar_card_no 卡号码
+            pan_card_no Pan卡号码
+            aadhaar_address Aadhaar卡地址
+            address 现在住址
+            telephone 手机号码
+            email 邮箱
+            bank_name 银行名称
+            bank_no 银行账户号码
+            ifsc IFSC 号码
+            contact_fullname 紧急联系人名字
+            contact_telephone 紧急联系人电话
+            contract_no 合同编号
+            is_upload_bank_bill 如已上传银行账号则添加
+            is_upload_pay_slip 如已上传工资单则添加
+            principal 借款金额/贷款金额
+            charge 处理费
+            repayment_amount 还款金额
+            loan_days 借款期限
+            contract_time 签约时间
+            appointment_paid_time 还款时间
+
+
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": {
+            		"date": "10\/05\/2019",
+            		"sign_image_url": "https:\/\/cashnow.oss-cn-shenzhen.aliyuncs.com\/data\/cash_now\/promotion\/20180622\/201806221541351177.png?x-oss-process=image/resize,m_lfit,h_400&OSSAccessKeyId=LTAIeZgUCBFiTXMe&Expires=1557892798&Signature=gItyP11m75cSJrog+n3g+tZur5g=",
+            		"fullname": "王沙亮",
+            		"father_name": "f_n",
+            		"birthday": "12.1",
+            		"gender": "男",
+            		"marital_status": "未婚",
+            		"profession": "1",
+            		"residence_type": "RENTED",
+            		"aadhaar_card_no": "passport_no voter_id_card_no driving_license_no address_aadhaar_no",
+            		"pan_card_no": "1123",
+            		"aadhaar_address": "123|广东省|广东省吴川市梅箓街道上菜园一巷11号",
+            		"address": "广东省吴川市梅箓街道上菜园一巷11号",
+            		"telephone": "15700767943",
+            		"email": "email",
+            		"bank_name": "建设银行",
+            		"bank_no": "6217002920131968100",
+            		"ifsc": "111",
+            		"contact_fullname": "张宝宝333",
+            		"contact_telephone": "13909331234",
+            		"contract_no": "88570635CD4FB489E4",
+            		"contract_city": "123",
+            		"is_upload_bank_bill": "",
+            		"is_upload_pay_slip": "",
+            		"principal": "1500.00",
+            		"charge": "todotodo",
+            		"repayment_amount": "tttooodo",
+            		"loan_days": 30,
+            		"contract_time": "10\/05\/2019",
+            		"appointment_paid_time": "09\/06\/2019",
+            		"user_img_file": "",
+            		"lender": "Zavron Finance Pvt ltd"
+            	}
+            }
+  /app/contract/get-contract:
+    get:
+      summary: 获取合同html展示
+      tags:
+      - 订单-合同
+      operationId: contractGetContract
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+        required: true
+      - name: orderId
+        in: query
+        description: 订单id  不传默认取当前用户最新订单，暂不传
+        type: string
+      responses:
+        200:
+          description: |
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": {
+                'telephone': "9999988888",
+                'html_text': "<div>...</div>"
+              }
+            }
+  /app/contract/get-sanction-contract:
+    get:
+      summary: 获取sanction合同html展示
+      tags:
+      - Sanction合同
+      operationId: contractGetSanctionContract
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+        required: true
+      - name: orderId
+        in: query
+        description: 订单id  不传默认取当前用户最新订单，暂不传
+        type: string
+      responses:
+        200:
+          description: |
+            {
+            	"code": 18000,
+            	"msg": "",
+            	"data": {
+                'telephone': "9999988888",
+                'html_text': "<div>...</div>"
+              }
+            }
+  /app/contract/send-contract:
+    post:
+      summary: 发送电子合同至用户绑定邮箱(废弃)
+      tags:
+      - 订单-合同
+      operationId: contractSendContract
+      parameters:
+      - name: orderId
+        in: query
+        description: 订单id
+        type: string
+        required: true
+      - name: email
+        in: query
+        description: email
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+            	"code": 18000,
+            	"msg": "successful contract sending",
+            	"data": []
+            }
+
+  /app/contract/get-sign-url:
+    get:
+      summary: 获取签约的链接
+      tags:
+      - 订单-合同
+      operationId: contractGetSignUrl
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "successful contract sending",
+              "data": ['url':'']
+            }
+  /app/contract/confirm-opt:
+    post:
+      summary: 合同OTP确认
+      tags:
+        - 订单-合同
+      operationId: contractConfirmOpt
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: otp
+          in: query
+          description: 4位数短信验证码。测试环境默认为 1234
+          type: string
+          maxLength: 4
+          minLength: 4
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "successful contract sending",
+              "data": ['url':'']
+            }

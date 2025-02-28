@@ -1,0 +1,39 @@
+swagger: '2.0'
+paths:
+  /api/collection_contact/create:
+    post:
+      summary: 添加催收联系人
+      tags:
+      - 催收管理
+      operationId: collectionContactCreate
+      parameters:
+      - name: collection_id
+        in: formData
+        description: 催收ID
+        type: integer
+        required: true
+      - name: fullname
+        in: formData
+        description: 姓名
+        type: string
+        required: true
+      - name: relation
+        in: formData
+        description: 关系
+        type: string
+        required: true
+      - name: contact
+        in: formData
+        description: 联系值（手机号）
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

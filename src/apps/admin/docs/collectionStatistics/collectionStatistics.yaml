@@ -1,0 +1,143 @@
+swagger: '2.0'
+paths:
+  /api/collection-statistics/list:
+    get:
+      summary: 催收订单统计列表
+      tags:
+        - 催收统计
+      operationId: collectionStatisticsList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 date[0] 2019-01-16 date[1] 2019-01-17
+          type: string
+        - name: sort
+          in: query
+          description: 排序字段 日期：date (date升序 -date降序)
+          type: string
+          default: desc
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            日期：date
+            累计订单数：overdue_count
+            累计成功数：overdue_finish_count
+            累计坏账数：collection_bad_count
+            累计催回率（%）：collection_success_count_rate_text
+            今日新增订单数：today_overdue
+            今日承诺还款订单数：today_promise_paid
+            今日成功订单数：today_overdue_finish
+            今日坏账订单数：today_collection_bad
+            截止当前回款成功数：real_overdue_finish
+            今日催回率（%）：collection_success_rate_text
+
+  /api/collection-statistics/rate-list:
+    get:
+      summary: 催回率统计列表
+      tags:
+        - 催收统计
+      operationId: collectionStatisticsRateList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 date[0] 2019-01-16 date[1] 2019-01-17
+          type: string
+        - name: sort
+          in: query
+          description: 排序字段 日期：date (date升序 -date降序)
+          type: string
+          default: desc
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            日期：date
+            逾期总订单数：history_overdue_count
+            当前逾期订单数：present_overdue_count
+            当日回款成功数：today_overdue_finish
+            截止当前回款成功数：present_overdue_finish_count
+            坏账数：today_collection_bad_count
+            当日回款率（%）：today_collection_rate_text
+            截止当前回款率（%）：history_collection_rate_text
+            催收记录次数：collection_count
+
+  /api/collection-statistics/staff-list:
+    get:
+      summary: 催收员每日统计列表
+      tags:
+        - 催收统计
+      operationId: collectionStatisticsStaffList
+      parameters:
+        - name: date
+          in: query
+          description: 日期 date[0] 2019-01-16 date[1] 2019-01-17
+          type: string
+        - name: sort
+          in: query
+          description: 排序字段 日期：date (date升序 -date降序)
+          type: string
+          default: desc
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            日期：date
+            催收员姓名：staff_name
+            今日新增订单数：allot_order
+            今日承诺还款订单数：promise_paid
+            今日成功订单数：overdue_finish
+            今日坏账订单数：collection_bad
+            今日催回率（%）：collection_success_rate_text
+            今日催收次数：collection_count
+  /api/collection-statistics/efficiency-list:
+    get:
+      summary: 催收效率列表
+      tags:
+        - 催收统计
+      operationId: collectionStatisticsEfficiencyList
+      parameters:
+        - name: date
+          in: query
+          description: 分案日期
+          type: array
+        - name: level
+          in: query
+          description: 催收阶段['M1', 'M2']
+          type: array
+        - name: admin_ids
+          in: query
+          description: 催收员
+          type: array
+        - name: export
+          in: query
+          description: 导出标识 1导出 0不导出
+          type: integer
+          default: 0
+      responses:
+        200:
+          description: |
+            分案日期：admin_ids
+            催收员：username
+            催收阶段：level
+            当日进件案件数：assign_cnt
+            催回案件数：finish_cnt
+            催回率：finish_rate
+            催记案件数：collection_cnt
+            催记覆盖率：collection_rate
+            承诺还款案件数：promise_repay_cnt
+            累计催记总数：cumulative_collection_cnt
+            转移案件数：transfer_cnt
+            昨日新增催回单数（红色）：finish_cnt_yesterday

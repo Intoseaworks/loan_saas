@@ -1,0 +1,362 @@
+swagger: '2.0'
+paths:
+  /api/approve/approve-statistic/list:
+    get:
+      summary: 审批效率列表
+      tags:
+        - 审批效率列表
+      operationId: index
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: approve_type
+          in: query
+          description: 审批类型
+          type: integer
+          required: false
+        - name: export
+          in: query
+          description: 请求类型 1导出 0列表 默认0
+          type: integer
+          required: false
+        - name: approve_time
+          in: query
+          description: 审批时间
+          type: array
+          required: false
+        - name: admin_id
+          in: query
+          description: 审批人id
+          type: integer
+          required: false
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "admin_id": 1,
+                            "type": "First Approval",
+                            "total": 2,
+                            "pass": 0,
+                            "return": 2,
+                            "reject": 0,
+                            "missed": 0,
+                            "pass_rate": "0%",
+                            "cost": "18h15m",
+                            "summary": "Employment info  A.T.：18h15m"
+                        },
+                        ....
+                    ],
+                    "first_page_url": "http://approve.jiumiaodai.work/api/approve/approve-statistic/list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://approve.jiumiaodai.work/api/approve/approve-statistic/list?page=1",
+                    "next_page_url": null,
+                    "path": "http://approve.jiumiaodai.work/api/approve/approve-statistic/list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 8,
+                    "total": 8
+                }
+            }
+
+          schema:
+            type: object
+            properties:
+              total_peopele:
+                type: integer
+                description: 人数
+              data:
+                type: object
+                description: 数据
+                properties:
+                  admin_id:
+                    type: integer
+                    description: 审批用户Id
+                  username:
+                    type: string
+                    description: 审批人
+                  type:
+                    type: integer
+                    description: 审批类型
+                  type_text:
+                    type: string
+                    description: 审批类型
+                  total:
+                    type: integer
+                    description: 审批总量
+                  pass:
+                    type: integer
+                    description: 通过单量
+                  return:
+                    type: integer
+                    description: 回退/未接单量
+                  reject:
+                    type: integer
+                    description: 拒绝单量
+                  missed:
+                    type: integer
+                    description: 流失单量
+                  pass_rate:
+                    type: integer
+                    description: 通过率
+                  cost:
+                    type: string
+                    description: 花费总时长
+  /api/approve/approve-statistic/type-list:
+    get:
+      summary: 审批类型
+      tags:
+        - 审批效率列表
+      operationId: approveTypeList
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 1,
+                        "val": "First Approval"
+                    },
+                    {
+                        "key": 2,
+                        "val": "Call Approval"
+                    }
+                ]
+            }
+
+
+  /api/approve/approve-statistic/user-list:
+    get:
+      summary: 审批人员
+      tags:
+        - 审批效率列表
+      operationId: approveUserList
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 1,
+                        "val": "admin"
+                    },
+                    {
+                        "key": 2324,
+                        "val": "方俊桦"
+                    },
+                    {
+                        "key": 2432,
+                        "val": "陈思贝"
+                    },
+                    {
+                        "key": 2456,
+                        "val": "夏梦"
+                    },
+                    {
+                        "key": 2461,
+                        "val": "李春凤"
+                    },
+                    {
+                        "key": 2474,
+                        "val": "谭松林"
+                    },
+                    {
+                        "key": 2631,
+                        "val": "黄群"
+                    }
+                ]
+            }
+
+
+
+
+
+
+  /api/approve/approve-statistic/detail:
+    get:
+      summary: 审批效率详情
+      tags:
+        - 审批效率列表
+      operationId: show
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: approve_time
+          in: query
+          description: 审批时间 传时间戳 数组 0开始时间 1结束时间
+          type: array
+          required: true
+        - name: admin_id
+          in: query
+          description: 审批人员Id
+          type: integer
+          required: true
+        - name: approve_type
+          in: query
+          description: 审批类型
+          type: integer
+          required: true
+        - name: sort_type
+          in: query
+          description: 1通过单量 2回退单量 3拒绝单量 4流水单量
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "order_no": "6190117196043",
+                            "order_status": 2,
+                            "id": 39,
+                            "status": 4,
+                            "order_status_text": "First approval - Supplementary",
+                            "page_summary": "Basic detail A.T.：41s\nBank statement A.T.：16s\nPay slip A.T.：7s\nEmployee card  A.T.：7s\nEmployment info  A.T.：17s",
+                            "wait_time": "10",
+                            "miss_reason": ""
+                        }
+                    ],
+                    "first_page_url": "http://approve.jiumiaodai.work/api/approve/approve-statistic/detail?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://approve.jiumiaodai.work/api/approve/approve-statistic/detail?page=1",
+                    "next_page_url": null,
+                    "path": "http://approve.jiumiaodai.work/api/approve/approve-statistic/detail",
+                    "per_page": 10,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1,
+                    "username": "",
+                    "total_orders": 25
+                }
+            }
+
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: 审批人姓名
+              total_orders:
+                type: integer
+                description: 总量
+              data:
+                type: object
+                properties:
+                  order_no:
+                    type: string
+                    description: 订单号
+                  wait_time:
+                    type: string
+                    description: 等待时间
+                  order_status_text:
+                    type: string
+                    description: 订单状态
+                  page_summary:
+                    type: string
+                    description: 花费时长
+                  miss_reason:
+                    type: string
+                    description: 流失原因
+  /api/approve/approve-statistic/user-statistic-summary:
+    get:
+      summary: 审批效率详情
+      tags:
+        - 审批效率列表
+      operationId: show
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: approve_time
+          in: query
+          description: 审批时间 传时间戳 数组 0开始时间 1结束时间
+          type: array
+          required: true
+        - name: admin_id
+          in: query
+          description: 审批人员Id
+          type: integer
+          required: true
+        - name: approve_type
+          in: query
+          description: 审批类型
+          type: integer
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 1,
+                        "val": 1,
+                        "text": "Passed Case"
+                    },
+                    {
+                        "key": 2,
+                        "val": 4,
+                        "text": "Retured Case"
+                    },
+                    {
+                        "key": 3,
+                        "val": 0,
+                        "text": "Rejected Case"
+                    },
+                    {
+                        "key": 4,
+                        "val": 0,
+                        "text": "Missed Case"
+                    }
+                ]
+            }
+
+          schema:
+            type: object
+            properties:
+              key:
+                type: integer
+                description: 切换时传给后台的值 sort_type
+              val:
+                type: integer
+                description: 统计单量
+              text:
+                type: string
+                description: 类型

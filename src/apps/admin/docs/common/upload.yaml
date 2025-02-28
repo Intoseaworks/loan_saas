@@ -1,0 +1,51 @@
+swagger: '2.0'
+paths:
+  /api/upload:
+    post:
+      summary: 图片上传
+      tags:
+      - 公共模块
+      operationId: upload
+      parameters:
+      - name: file
+        in: formData
+        description: 文件
+        type: string
+      - name: type
+        in: formData
+        description: 类型
+        type: integer
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }
+
+  /api/downloadByType:
+    get:
+      summary: 图片下载
+      tags:
+      - 公共模块
+      operationId: downloadByType
+      parameters:
+      - name: source_id
+        in: query
+        description: 来源ID
+        type: string
+      - name: type
+        in: query
+        description: 类型
+        type: array
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": {}
+            }

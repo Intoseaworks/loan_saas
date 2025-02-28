@@ -1,0 +1,615 @@
+swagger: '2.0'
+paths:
+  /api/approve/approve-quality/list:
+    get:
+      summary: 质检列表
+      tags:
+        - 质检列表
+      operationId: index
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: approve_result
+          in: query
+          description: 审批结果
+          type: integer
+          required: false
+        - name: quality_status
+          in: query
+          description: 质检状态
+          type: integer
+          required: false
+        - name: status
+          in: query
+          description: 审批单状态
+          type: integer
+          required: false
+        - name: approve_time
+          in: query
+          description: 订单创建时间,传时间戳 第一个开始时间 第二个结束时间
+          type: array
+          required: false
+        - name: order_no
+          in: query
+          description: 订单号
+          type: string
+          required: false
+        - name: user
+          in: query
+          description: 用户姓名
+          type: string
+          required: false
+        - name: per_page
+          in: query
+          description: 页码
+          type: integer
+          required: false
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 1753,
+                            "order_no": "6190114542873",
+                            "user_name": "chensibei",
+                            "telephone": "9113456784",
+                            "approve_time": "2019-01-14 16:33:32",
+                            "order_status": "First approval",
+                            "approve_result": "identity examining PASS",
+                            "quality_status": "No QA",
+                            "quality_result": {
+                                "1": "Change PASS as REJECT",
+                                "2": "Change REJECT as PASS",
+                                "3": "Correct approval"
+                            },
+                            "quality_user_name": ""
+                        }
+                    ],
+                    "first_page_url": "http://approve.jiumiaodai.work/api/approve/approve-quality/list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://approve.jiumiaodai.work/api/approve/approve-quality/list?page=1",
+                    "next_page_url": null,
+                    "path": "http://approve.jiumiaodai.work/api/approve/approve-quality/list",
+                    "per_page": 10,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }
+
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 详情传此id
+              order_no:
+                type: string
+                description: 订单号
+              user_name:
+                type: string
+                description: 用户姓名
+              telephone:
+                type: string
+                description: 用户手机
+              approve_time:
+                type: string
+                description: 审批时间
+              order_status:
+                type: string
+                description: 订单状态
+              approve_result:
+                type: string
+                description: 审批结果
+              quality_status:
+                type: string
+                description: 质检状态
+              quality_result:
+                type: string
+                description: 质检结果
+              quality_user_name:
+                type: string
+                description: 质检人
+  /api/approve/approve-quality/approve-result-list:
+    get:
+      summary: 审批结果列表
+      tags:
+        - 质检列表
+      operationId: approveResultList
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 4,
+                        "val": "identity examining PASS"
+                    },
+                    {
+                        "key": 5,
+                        "val": "初审回退"
+                    },
+                    {
+                        "key": 6,
+                        "val": "identity examining FAILED"
+                    },
+                    {
+                        "key": 7,
+                        "val": "phone examining PASS"
+                    },
+                    {
+                        "key": 8,
+                        "val": "电审取消"
+                    },
+                    {
+                        "key": 9,
+                        "val": "phone examining FAILED"
+                    },
+                    {
+                        "key": 11,
+                        "val": "电审未接听"
+                    },
+                    {
+                        "key": 0,
+                        "val": "All"
+                    }
+                ]
+            }
+
+
+  /api/approve/approve-quality/quality-status-list:
+    get:
+      summary: 质检状态列表
+      tags:
+        - 质检列表
+      operationId: qualityStatusList
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 0,
+                        "val": "All"
+                    },
+                    {
+                        "key": 1,
+                        "val": "No QA"
+                    },
+                    {
+                        "key": 2,
+                        "val": "Already QA"
+                    }
+                ]
+            }
+
+
+  /api/approve/approve-quality/detail:
+    get:
+      summary: 质检详情
+      tags:
+        - 质检列表
+      operationId: show
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: id
+          in: query
+          description: 传列表的id字段
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            初审界面内容firstDetail
+            order_no 订单编号
+            telephone 电话
+            fullname 姓名
+            fullname_radio_list 姓名Radio选项
+            user_face 自拍照
+            user_face_comparison_selector 自拍照对比下拉选项
+            id_card 身份证照片
+            id_card_type 身份证类型
+            id_card_no 身份证号
+            id_card_radio_list 身份证号Radio选项
+            company_id 工作证件照
+            principal 申请额度
+            loan_days 贷款周期
+            user_type 用户类型
+            loan_times 贷款次数
+            birthday 生日
+            age 年龄
+            gender 性别
+            current_address 当前地址
+            confirm_selfie_id_phone 自拍与证件照是否一致
+            confirm_selfie_work_phone 自拍与工作证是否一致
+
+            电审界面内容callDetail
+            order_status 订单状态文案
+            order_no 订单编号
+            telephone 电话
+            fullname 姓名
+            gender 性别
+            birthday 生日
+            age 年龄
+            id_card_type 身份证类型
+            id_card_no 身份证号
+            marital_status 婚姻状况
+            education_level 教育
+            monthly_income 月薪
+            employment_type 社会状态
+            work_phone 单位电话
+            work_company 单位名称
+            work_experience_years 工龄
+            working_years 在职时长
+            industry 行业
+            profession 岗位
+            bank_name 银行名称
+            bank_card_no 银行卡号
+            bank_city 银行城市
+            can_contact_time 方便接听审核时间
+            emergency_contact 紧急联系人
+            emergency_contact_other 补充联系人
+
+            approveUser 审批人员
+            approveTime 审批时间
+            qualityResult 质检结果
+            qualityUser 质检人
+            qualityDone 质检是否完成 true已质检 false 未质检
+            remark 质检是否完成 备注
+            approveResult 审批结果
+            status 审批状态 审批页面 1.初审待审批/审批中 2.初审通过机审拒绝 3.初审回退 4.初审拒绝 5.初审关闭 6.初审取消 7.电审待审批/审批中 8.电审通过机审拒绝 9.电审通过 11.电审拒绝 12.电审关闭 13.电审取消
+
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                  ....
+                ]
+            }
+
+          schema:
+            type: object
+            properties:
+              firstDetail:
+                type: object
+                description: 初审详情
+                properties:
+                  bashDetail:
+                    type: object
+                    description: 基础页面
+                    properties:
+                      user_face:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            src:
+                              type: string
+                            name:
+                              type: string
+                        description: 图片
+                      order_no:
+                        type: string
+                        description: 订单号
+                      order_detail:
+                        type: string
+                        description: 审批进度
+                      reason_for_failure:
+                        type: string
+                        description: 失败原因
+                      first_name:
+                        type: string
+                        description: Full Name
+                      father_name:
+                        type: string
+                        description: Father Name
+                      gender:
+                        type: string
+                        description: Gender
+                      birthday:
+                        type: string
+                        description: Date of birth
+                      user_type:
+                        type: string
+                        description: User Type
+                      current_address:
+                        type: string
+                        description: 当前居住地址详情
+                      current_pin_code:
+                        type: string
+                        description: 当前居住地址Pin Code
+                      permanent_address:
+                        type: string
+                        description: 永久地址详情
+                      permanent_pin_code:
+                        type: string
+                        description: Pin Code
+                      pan_card_no:
+                        type: string
+                        description: Pan Card
+                      passport_no:
+                        type: string
+                        description: Passport No
+                      passport_file_checked:
+                        type: string
+                        description: Passport File
+                      aadhaar_card_no:
+                        type: string
+                        description: Aadhaar
+                      aadhaar_card_file_checked:
+                        type: string
+                        description: Aadhaar File
+                      driving_license_no:
+                        type: string
+                        description: Driving licence No
+                      driving_licence_file_checked:
+                        type: object
+                        description: Driving licence File
+                      voter_id_card_no:
+                        type: string
+                        description: Voter ID No
+                      environment_checked:
+                        type: string
+                        description: Environment
+                      appearance_checked:
+                        type: string
+                        description: Apperance
+                      permanent_address_show:
+                        type: boolean
+                        description: 是否展示永久居住地址信息
+                      pan_card_status:
+                        type: object
+                        description: pan card 是否展示和编辑判断
+                        properties:
+                          show:
+                            type: boolean
+                            description: true 展示  false 隐藏
+                          edit:
+                            type: boolean
+                            description: true 可编辑 false 不可编辑
+                      passport_status:
+                        type: object
+                        description: passport 是否展示和编辑判断
+                        properties:
+                          show:
+                            type: boolean
+                            description: true 展示  false 隐藏
+                          edit:
+                            type: boolean
+                            description: true 可编辑 false 不可编辑
+                      aadhaar_status:
+                        type: object
+                        description: aadhaar 是否展示和编辑判断
+                        properties:
+                          show:
+                            type: boolean
+                            description: true 展示  false 隐藏
+                          edit:
+                            type: boolean
+                            description: true 可编辑 false 不可编辑
+                      driving_license_status:
+                        type: object
+                        description: driving license 是否展示和编辑判断
+                        properties:
+                          show:
+                            type: boolean
+                            description: true 展示  false 隐藏
+                          edit:
+                            type: boolean
+                            description: true 可编辑 false 不可编辑
+                      voter_id_status:
+                        type: object
+                        description: voter Id 是否展示和编辑判断
+                        properties:
+                          show:
+                            type: boolean
+                            description: true 展示  false 隐藏
+                          edit:
+                            type: boolean
+                            description: true 可编辑 false 不可编辑
+                      base_detail_status:
+                        type: object
+                        description: 选项
+                  approveResult:
+                    type: string
+                    description: 初审结果
+                  riskResult:
+                    type: string
+                    description: 机审结果
+                  flows:
+                    type: object
+                    description: 页面流程
+                  version:
+                    type: number
+                    description: 订单版本 1.5.0以上用新的质检页面
+              callDetail:
+                type: object
+                description: 电审详情
+                properties:
+                  callDetail:
+                    type: object
+                    description: 电审详情
+                    properties:
+                      user_name:
+                        type: string
+                        description: 用户名
+                      gender:
+                        type: string
+                        description: 性别
+                      date_of_birthday:
+                        type: string
+                        description: 生日
+                      mobile_no:
+                        type: string
+                        description: 手机号码
+                      father_name:
+                        type: string
+                        description: 父亲姓名
+                      pan_no:
+                        type: string
+                        description: Pan No.
+                      marital_status:
+                        type: string
+                        description: Marital status
+                      marital_status_select:
+                        type: string
+                        description: marital status radio
+                      emergency_contact1:
+                        type: string
+                        description: emergency contact1
+                      emergency_contact1_select:
+                        type: string
+                        description: emergency contact1 radio
+                      emergency_contact2:
+                        type: string
+                        description: emergency contact2
+                      emergency_contact2_select:
+                        type: string
+                        description: emergency contact2 radio
+                      monthly_income:
+                        type: string
+                        description: monthly income
+                      monthly_income_select:
+                        type: string
+                        description: monthly income radio
+                      englist_level_select:
+                        type: string
+                        description: englist level radio
+                      approveResult:
+                        type: string
+                        description: 电审结果
+                      riskResult:
+                        type: string
+                        description: 机审结果
+                      version:
+                        type: number
+                        description: 订单版本 1.5.0以上用新的质检页面
+              approveUser:
+                type: string
+                description: 审批人员
+              approveTime:
+                type: string
+                description: 审批时间
+              qualityResult:
+                type: string
+                description: 质检结果
+              qualityUser:
+                type: string
+                description: 质检人
+              qualityDone:
+                type: boolean
+                description: 质检是否完成 true已质检 false 未质检
+              remark:
+                type: string
+                description: 备注
+              approveResult:
+                type: string
+                description: 审批结果
+              status:
+                type: string
+                description: 大于7要展示初审和电审页面,小于7只展示初审页面   审批页面 1.初审待审批/审批中 2.初审通过机审拒绝 3.初审回退 4.初审拒绝 5.初审关闭 6.初审取消 7.电审待审批/审批中 8.电审通过机审拒绝 9.电审通过 11.电审拒绝 12.电审关闭 13.电审取消
+              orderNo:
+                type: string
+                description: 订单号
+  /api/approve/approve-quality/quality-result-list:
+    get:
+      summary: 质检结果列表
+      tags:
+        - 质检列表
+      operationId: qualityResultList
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok",
+                "data": [
+                    {
+                        "key": 1,
+                        "val": "Change PASS as REJECT"
+                    },
+                    {
+                        "key": 2,
+                        "val": "Change REJECT as PASS"
+                    },
+                    {
+                        "key": 3,
+                        "val": "Correct approval"
+                    }
+                ]
+            }
+
+
+  /api/approve/approve-quality/quality-submit:
+    post:
+      summary: 质检结果提交
+      tags:
+        - 质检列表
+      operationId: qualitySubmit
+      parameters:
+        - name: ticket
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: id
+          in: query
+          description: 传列表的id字段
+          type: string
+          required: true
+        - name: quality_result
+          in: query
+          description: 质检结果
+          type: integer
+          required: true
+        - name: remark
+          in: query
+          description: 备注
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+
+

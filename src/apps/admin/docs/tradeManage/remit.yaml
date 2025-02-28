@@ -1,0 +1,157 @@
+swagger: '2.0'
+paths:
+  /api/trade-manage/manual-remit-list:
+    get:
+      summary: 人工出款列表
+      tags:
+      - 支付管理
+      operationId: manualRemitList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 查询关键字 姓名/手机号码
+        type: string
+      - name: keyword_no
+        in: query
+        description: 查询关键字 订单号
+        type: string
+      - name: manual_approve_time
+        in: query
+        description: 审批通过时间 manual_approve_time[0]:2019-01-23 00:00:00] manual_approve_time[1]:2019-01-26 23:59:59
+        type: array
+      - name: channel_code
+        in: query
+        description: 订单渠道
+        type: array
+      responses:
+        200:
+          description: |
+            order_no：订单号
+            user.fullname：收款人姓名
+            user.telephone：手机号码
+            pay_amount：出款金额
+            bank_card_no：收款银行卡
+            created_at：借款时间
+            manual_approve_time：审批通过时间
+            user.email：邮箱
+            user.channel.channel_code：订单渠道
+            status_text：借款状态
+            bank_card.bank_name：银行名称
+            bank_branch_name：支行名称
+            ifsc：ifsc
+            province：state
+            city：city
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 1,
+                            "order_no": "12312341234",
+                            "principal": "1000.00",
+                            "loan_days": 14,
+                            "status": "manual_pass",
+                            "created_at": "2019-01-16 14:39:37",
+                            "updated_at": "2019-01-25 21:10:19",
+                            "app_client": "ios",
+                            "app_version": "1.0.1",
+                            "quality": 0,
+                            "fullname": "钟富成",
+                            "telephone": "18127820722",
+                            "interest_fee": "840.00",
+                            "overdue_fee": "0.00",
+                            "receivable_amount": "900.00",
+                            "paid_amount": "0.00",
+                            "overdue_days": 0,
+                            "paid_time": "2019-01-11 17:09:16",
+                            "appointment_paid_time": "2019-01-25 17:09:16",
+                            "repay_time": "2019-01-14 10:00:06",
+                            "pay_channel": "人工放款",
+                            "repay_amount": "0.00",
+                            "bank_card_no": "6222023602083352310",
+                            "bank_name": "工商银行",
+                            "loan_location": "aaa",
+                            "loan_position": "bbb",
+                            "order_no_text": null,
+                            "status_text": "人工审核通过待放款",
+                            "app_client_text": "苹果",
+                            "user": {
+                                "telephone": "18127820722",
+                                "fullname": "钟富成",
+                                "quality": 0,
+                                "quality_text": "新用户",
+                                "channel": {
+                                    "channel_code": "jqbwx",
+                                    "channel_name": "深圳金钱包公众号"
+                                }
+                            }
+                        }
+                    ],
+                    "first_page_url": "http://localsaas/api/trade-manage/manual-remit-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://localsaas/api/trade-manage/manual-remit-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://localsaas/api/trade-manage/manual-remit-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }
+  /api/trade-manage/manual-remit-detail:
+    get:
+      summary: 人工出款详情
+      tags:
+        - 支付管理
+      operationId: manualRemitDetail
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+
+            order_no:订单号
+            fullname:借款人姓名
+            telephone:手机号码
+            principal:借款金额
+            loan_days:借款期限
+            daily_rate_text:借款费率
+            interest_fee:综合费用
+            pay_amount:实际到账金额
+            bank_card_info.no:收款银行卡
+            bank_card_info.bank_name:所属银行
+            pay_amount:出款金额
+            bank_card_info.province_code_text:所在城市
+            bank_card_info.city_code_text:所在市
+            bank_card_info.bank_branch_name:支行信息
+
+
+  /api/trade-manage/manual-remit-submit:
+    post:
+      summary: 人工确认放款
+      tags:
+        - 支付管理
+      operationId: manualRemitSubmit
+      parameters:
+        - name: order_id
+          in: query
+          description: 订单id 多个id请用逗号拼接 1,2,3,4..
+          type: string
+          required: true
+        - name: pay_platform
+          in: query
+          description: 放款渠道 取值全局配置admin_account_list
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+

@@ -1,0 +1,229 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/test/auth/clear-or-complete:
+    get:
+      summary: 取消或认证
+      tags:
+        - 测试管理
+      operationId: testAuthClearOrComplete
+      parameters:
+        - name: merchant_id
+          in: query
+          description: 商户id
+          type: string
+          required: true
+        - name: telephone
+          in: query
+          description: 手机
+          type: string
+          required: true
+        - name: type
+          in: query
+          description: 类型 (
+            <br/>[pan_rejected] => panCard拒绝
+            <br/>[base_info] => 基本信息
+            <br/>[user_extra_info] => 扩展信息
+            <br/>[pan_card] => panCard
+            <br/>[faces] => 人脸
+            <br/>[contacts] => 紧急联系人
+            <br/>[address_aadhaar] => aadhaar
+            <br/>[address_passport] => passport
+            <br/>[address_voter] => voter
+            <br/>[facebook] => facebook
+            <br/>[aadhaar_card] => aadhaar_card
+            <br/>[pan_ocr] => pan_ocr
+            <br/>[aadhaar_card_front_ocr] => aadhaar_card_front_ocr
+            <br/>[aadhaar_card_back_ocr] => aadhaar_card_back_ocr
+            <br/>[voter_ocr] => voter_ocr
+            <br/>[passport_ocr] => passport_ocr
+            <br/>[aadhaar_kyc_otp_error_clear] => 清空ekyc验证码错误次数)
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/order/status-update:
+    get:
+      summary: 订单状态流转
+      tags:
+        - 测试管理
+      operationId: testOrderStatusUpdate
+      parameters:
+        - name: merchant_id
+          in: query
+          description: 商户id
+          type: string
+          required: true
+        - name: telephone
+          in: query
+          description: 手机
+          type: string
+          required: true
+        - name: type
+          in: query
+          description: 流转类型 (
+            <br/>[systemPass] => 机审通过
+            <br/>[systemToManual] => 机审转人审
+            <br/>[manualPass] => 人审通过
+            <br/>[manualToCall] => 人审转电审
+            <br/>[cancel] => 订单取消
+            <br/>[sign] => 订单签约
+            <br/>[reject] => 订单拒绝
+            <br/>[clearReject] => 清除订单拒绝
+            <br/>[orderRepaySuccess] => 订单流转还款成功
+            <br/>)
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/order/status-create:
+    get:
+      summary: 创建订单+状态流转
+      tags:
+      - 测试管理
+      operationId: testOrderStatusCreate
+      parameters:
+      - name: merchant_id
+        in: query
+        description: 商户id
+        type: string
+        required: true
+      - name: telephone
+        in: query
+        description: 手机
+        type: string
+        required: true
+      - name: type
+        in: query
+        description: 流转类型 (
+          <br/>[orderRemitSuccess] => 订单放款
+          <br/>)
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/order/cancel:
+    get:
+      summary: 订单取消
+      tags:
+        - 测试管理
+      operationId: testOrderCancel
+      parameters:
+        - name: merchant_id
+          in: query
+          description: 商户id
+          type: string
+          required: true
+        - name: telephone
+          in: query
+          description: 手机
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/order/overdue:
+    get:
+      summary: 订单逾期
+      tags:
+        - 测试管理
+      operationId: testOrderOverdue
+      parameters:
+      - name: merchant_id
+        in: query
+        description: 商户id
+        type: string
+        required: true
+      - name: telephone
+        in: query
+        description: 手机
+        type: string
+        required: true
+      - name: days
+        in: query
+        description: 逾期天数
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/console/collection_assign:
+    get:
+      summary: 催收分单
+      tags:
+        - 测试管理
+      operationId: testConsoleCollectionAssign
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }
+
+  /api/test/console/flow_collection_bad:
+    get:
+      summary: 流转坏账
+      tags:
+        - 测试管理
+      operationId: testConsoleFlowCollectionBad
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

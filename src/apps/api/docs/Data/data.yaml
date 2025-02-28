@@ -1,0 +1,319 @@
+swagger: '2.0'
+paths:
+  /app/data/user-contact:
+    post:
+      summary: 通讯录上传风控
+      tags:
+      - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据 contactFullname：联系人姓名 contactTelephone：联系人号码 timesContacted：联系人联系次数 lastTimeContacted：最近联系时间 hasPhoneNumber：是否有号码 starred：是否收藏 1是否0 contactLastUpdatedTimestamp：联系人最后编辑时间 contactCreatedAt：号码添加时间
+          type: string
+          required: true
+          default: '[{"contactTelephone":"1069163690048646303","contactFullname":"天猫","timesContacted":"100","lastTimeContacted":"1606370771632","hasPhoneNumber":"1","starred":"1","contactLastUpdatedTimestamp":"1606370771632","contactCreatedAt":"1606370771632"},{"contactTelephone":"950800","contactFullname":"华为消费者服务热线","timesContacted":"0","lastTimeContacted":"0","hasPhoneNumber":"1","starred":"0","contactLastUpdatedTimestamp":"1605835724758","contactCreatedAt":"1605835724758"},{"contactTelephone":"987 6543211","contactFullname":"test1","timesContacted":"0","lastTimeContacted":"0","hasPhoneNumber":"1","starred":"0","contactLastUpdatedTimestamp":"1605694057575","contactCreatedAt":"1605694057575"},{"contactTelephone":"987 6543212","contactFullname":"test2","timesContacted":"0","lastTimeContacted":"0","hasPhoneNumber":"1","starred":"0","contactLastUpdatedTimestamp":"1605694071126","contactCreatedAt":"1605694071126"},{"contactTelephone":"987 6543213","contactFullname":"test3","timesContacted":"0","lastTimeContacted":"0","hasPhoneNumber":"1","starred":"0","contactLastUpdatedTimestamp":"1605694085222","contactCreatedAt":"1605694085222"}]'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "Address book data saved successfully",
+                "data": 15
+            }
+
+  /app/data/user-position:
+    post:
+      summary: 位置信息上传风控
+      tags:
+      - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据
+          type: string
+          required: true
+          default: '
+          {"latitude":"22.533834","longitude":"113.945958","province":"\u5e7f\u4e1c\u7701","city":"\u6df1\u5733\u5e02","district":"\u5357\u5c71\u533a","address":"\u5e7f\u4e1c\u7701\u6df1\u5733\u5e02\u5357\u5c71\u533a\u79d1\u82d1\u5357\u8def\u9760\u8fd1\u534e\u6210\u5cf0","road":"\u79d1\u82d1\u5357\u8def","street":"\u79d1\u82d1\u5357\u8def","poiName":"\u534e\u6210\u5cf0","streetNum":"37\u53f7","aoiName":"\u5fb7\u7ef4\u68ee\u5927\u53a6","type":"login"}
+          <br>latitude:纬度 <br>longitude:经度 <br>province：省 <br>city：市 <br>district：县/区 <br>street：街道 <br>address：地址
+          <br>type:上报场景（login：登录；finish_apply：完件提交）'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "位置信息保存成功",
+                "data": null
+            }
+  /app/data/user-app-list:
+    post:
+      summary: APP列表上传风控
+      tags:
+      - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据 appName:应用名 pkgName:包名 firstInstallTime:安装时间 lastUpdateTime:应用更新时间 versionName:版本名 isSystem:是否系统应用 1是0否 isAppActive:是否活动应用
+          type: string
+          required: true
+          default: '[{"appName":"旅行助手","lastUpdateTime":"1533657660000","firstInstallTime":"1533657660000","pkgName":"com.huawei.scenepack","versionName":"10.0.1.318","isSystem":"1","isAppActive":"0"},{"appName":"精品推荐","lastUpdateTime":"1533657660000","firstInstallTime":"1533657660000","pkgName":"com.huawei.hifolder","versionName":"10.5.0.302","isSystem":"1","isAppActive":"0"},{"appName":"com.android.cts.priv.ctsshim","lastUpdateTime":"1533657660000","firstInstallTime":"1533657660000","pkgName":"com.android.cts.priv.ctsshim","versionName":"9-5374186","isSystem":"1","isAppActive":"0"},{"appName":"相机","lastUpdateTime":"1533657660000","firstInstallTime":"1533657660000","pkgName":"com.huawei.camera","versionName":"10.1.1.355","isSystem":"1","isAppActive":"0"}]'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "APP列表保存成功",
+                "data": null
+            }
+  /app/data/user-phone-hardware:
+    post:
+      summary: 硬件信息上传风控
+      tags:
+      - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据
+          type: string
+          required: true
+          default: '{"nativePhone":"+8615517747859","os":"android","osVersion":"10","totalRom":"7.97 GB","usedRom":"4.04 GB","freeRom":"99.80 GB","totalRam":"119 GB","usedRam":"4.04 GB","freeRam":"99.80 GB","cookieId":"","imei":"a2d56b5dde9a8959","phoneBrand":"HUAWEI","deviceName":"HUAWEI","model":"VOG-AL00","product":"VOG-AL00","advertisingId":"","intranetIP":"192.168.31.99","isAgent":"1","isRoot":"0","isSimulator":"0","systemLanguage":"zh","timeZone":"GMT+08:00","systemTime":"1606328873316","screenBrightness":"54","nfcFunction":"Y","numberOfPhotos":0,"numberOfMessages":0,"numberOfCallRecords":0,"numberOfVideos":0,"numberOfApplications":"273","numberOfSongs":0,"systemBuildTime":"1606328873316","iccid":"","persistentDeviceId":"","requestIp":"216.164.29.10","resolution":"1080_2265","resolutionHigh":"2265","resolutionWidth":"1080","bootTime":"1606328873316","upTime":1606328873316,"wifiMac":"4C:50:77:78:42:44","ssid":"Xiaomi_04FD_5G","wifiIp":"54.129.126.122","cellIp":"164.76.46.57","meid":"","sid":"2fb63dcf-1b1c-4b13-a0af-94b6e09d9335","basebandVersion":"21C20B379S000C000,21C20B379S000C000","batteryStatus":"usbCharge","batteryPower":100,"networkOperators":"China Unicom","signalStrength":"-125","mobileNetworkType":"NETWORK_WIFI","mcc":"","mnc":"","carrier":"China Unicom","dns":"130.116.58.191","canvas":"null","radioType":"CMCC","anglex":"0.0036128315,0.36812288","angley":"-0.00577704,0.44986093","anglez":"0.0025481808,9.818219","availableMemory":"119 GB","residualMemory":"99.80 GB","runMemory":"7.97 GB","memoryUsed":"4.04 GB","howLongBootTime":"2655","totalCapacity":"119 GB","availableCapacity":"99.80 GB","device":"HUAWEI","deviceVersion":"10","BuildDate":"2020-11-27 22:43:13","googleAdvertisingId":"","gpsInfo":"39.7704,116.58429","isCommunication":"Y"}'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "硬件信息保存成功",
+                "data": null
+            }
+
+  /app/data/user-gyroscope:
+    post:
+      summary: 陀螺仪信息上传风控
+      tags:
+        - 信息采集
+      parameters:
+        - name: step
+          in: query
+          description: 步骤 登陆：login 个人信息页：personal_info 工作信息页：work_info 联系信息页：contacts 收款方式页：payment 完件提交页：finish_apply
+          type: string
+          required: true
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据
+          type: string
+          required: true
+          default: '[{"anglex":"5.5850536E-4","angley":"-0.0012740904","anglez":"-0.003036873"},{"anglex":"5.5850536E-4","angley":"-0.0012740904","anglez":"-0.003036873"}]'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "陀螺仪信息保存成功",
+                "data": null
+            }
+
+  /app/data/update-google-token:
+    post:
+      summary: googleToken更新
+      tags:
+        - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: google_token
+          in: formData
+          description: google token
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "",
+                "data": null
+            }
+  /app/data/user-photo-exif:
+    post:
+      summary: 相册Exif信息上传风控
+      tags:
+        - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据 image_type:照片类型(证件正面id_front，证件背面id_back，自拍selfie) image_name 照片文件名 model:相机型号 IMAGEWIDTH：照片宽度 IMAGEHEIGHT：照片高度 PIXELYDIMENSION：照片像素Y PIXELXDIMENSION：照片像素X make：相机制造商 sofeware：软件 datetimeoriginal：拍照时间 datetime：拍照时间 latitude：纬度 longitude：经度 province：经纬度对应省 city：经纬度对应市 district：经纬度对应区 street：街道 address：详细地址
+          type: string
+          required: true
+          default: '{"image_type":"id_front","image_name":"1606488545941.jpg","model":"VOG-AL00","IMAGEWIDTH":"480","IMAGEHEIGHT":"640","PIXELYDIMENSION":"72","PIXELXDIMENSION":"72","make":"HUAWEI","sofeware":"VOG-AL00 10.1.0.168(C00E168R2P8)","datetimeoriginal":"2020:11:27 22:49:06","datetime":"2020:11:27 22:49:06","latitude":"39.7704","longitude":"116.58429","province":"北京市","city":"北京市","district":"通州区","street":"马驹桥镇北京博羽教育富力尚悦居C区","address":"北京市通州区马驹桥镇北京博羽教育富力尚悦居C区"}'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "相册信息保存成功",
+                "data": null
+            }
+  /app/data/user-behavior:
+    post:
+      summary: 用户行为埋点信息上传风控
+      tags:
+        - 信息采集
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+        - name: data_json
+          in: query
+          description: json数据  [{controlNo, startTime, endTime, oldValue, newValue}, {controlNo, startTime, endTime, oldValue, newValue}]
+          type: string
+          required: true
+          default: '[{"controlNo":"P05_Leave","startTime":"1606559621871"},{"controlNo":"P05_Enter","startTime":"1606559611824"},{"controlNo":"P05_S_DocumentType","oldValue":""},{"controlNo":"P05_I_IDNumber","oldValue":""},{"controlNo":"P05_I_FrontIDPhoto","oldValue":""},{"controlNo":"P05_I_Selfie","oldValue":""},{"controlNo":"P05_I_RealPersonVerify","oldValue":""},{"controlNo":"P05_C_Back"}]'
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "用户行为埋点信息保存成功",
+                "data": null
+            }
+  /app/data/user-contact-count:
+    post:
+      summary: 通讯录总数上传接口
+      tags:
+        - 信息采集
+      parameters:
+        - name: token
+          in: formData
+          description: token
+          type: string
+          required: true
+        - name: count
+          in: formData
+          description: 通讯录总数
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            保存在 contacts_count 字段
+
+            {
+                "code":18000,
+                "msg":"",
+                "data":{
+                    "id":123,
+                    "merchant_id":1,
+                    "user_id":209,
+                    "gender":"Male",
+                    "province":"TELANGANA",
+                    "city":"Hyderabad",
+                    "address":"plot no",
+                    "pincode":"500072",
+                    "permanent_province":"ANDAMAN & NICOBAR ISLANDS",
+                    "permanent_city":"South Andaman",
+                    "permanent_address":"125525252",
+                    "permanent_pincode":"744112",
+                    "expected_amount":"",
+                    "salary":"",
+                    "education_level":"Doctoral Degree",
+                    "marital_status":"Married",
+                    "id_card_valid_date":"",
+                    "id_card_issued_by":"",
+                    "birthday":"01\/11\/1982",
+                    "father_name":"xixi",
+                    "residence_type":"OWNED",
+                    "religion":"Islam",
+                    "language":"Assamese,Malayalam",
+                    "pan_card_no":"AJWPR9757Q",
+                    "aadhaar_card_no":"367375088155",
+                    "company_telephone":"",
+                    "company_name":"",
+                    "passport_no":"",
+                    "voter_id_card_no":"SWD1886854",
+                    "driving_license_no":"",
+                    "address_aadhaar_no":"",
+                    "email":"",
+                    "google_token":null,
+                    "created_at":"2019-08-19 10:34:25",
+                    "updated_at":"2020-03-06 08:14:30",
+                    "input_name":null,
+                    "contacts_count":"1003",
+                    "input_birthday":null
+                }
+            }
+  /app/data/user-sms:
+    post:
+      summary: 短信上传风控
+      tags:
+      - 信息采集
+      parameters:
+      - name: token
+        in: query
+        description: token
+        type: string
+        required: true
+      - name: data_json
+        in: query
+        description: json数据
+        type: string
+        required: true
+        default: |
+            [
+                {
+                    "n":"9999999999",
+                    "b":"OTP 11231321 for urupee",
+                    "d":"1479393634596"
+                },
+                {
+                    "n":"9999999999",
+                    "b":"OTP 11231321 for urupee",
+                    "d":"1479393634596"
+                },
+                {
+                    "n":"9999999999",
+                    "b":"OTP 11231321 for urupee",
+                    "d":"1479393634596"
+                }
+            ]
+      responses:
+        200:
+          description: |
+            {
+                "code": 18000,
+                "msg": "短信保存成功",
+                "data": null
+            }

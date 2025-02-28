@@ -1,0 +1,171 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /api/config/system-approve-save:
+    post:
+      summary: 保存机审规则配置
+      tags:
+        - config 配置管理
+      operationId: configSystemApproveSave
+      parameters:
+        - name: user_type
+          in: formData
+          description: 用户类型 0：新用户 1：老用户
+          type: string
+          required: true
+        - name: rule
+          in: formData
+          description: 规则rule  规则列表见 [获取机审规则配置] 接口
+          type: string
+          required: true
+        - name: value
+          in: formData
+          description: 设置值，可按 [获取机审规则配置] 接口输出的类型和顺序上传。在 获取的接口拿到什么样的数据结构和类型，就上传什么数据结构和类型
+          type: array
+        - name: status
+          in: formData
+          description: 状态 1：开启 2：关闭   [阈值设置] 类型为 [设置开关] 的规则，由此字段控制
+          type: integer
+      responses:
+        200:
+          description: |
+            {
+                "code":18000,
+                "msg":"保存成功",
+                "data":[
+                ]
+            }
+  /api/config/system-approve-view:
+    get:
+      summary: 获取机审规则配置
+      tags:
+        - config 配置管理
+      operationId: configSystemApproveView
+      parameters:
+        - name: user_quality
+          in: query
+          description: 用户类型 0：新用户  1：老用户  不传默认为新用户
+          type: string
+          required: false
+          default: 0
+        - name: classify
+          in: query
+          description: 页面类型，不传默认给全部 apply_rule：申请规则  device_rule：设备验证  auth_rule：身份验证  contacts_rule：通讯录验证  behavior_rule：借款行为
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+            data第一层key为页面分类 ==================================
+            apply_rule：申请规则
+            device_rule：设备验证
+            auth_rule：身份验证
+            contacts_rule：通讯录验证
+            behavior_rule：借款行为
+
+            data第二层key为具体规则名 ==================================
+            ===============  申请规则  ===================
+            APPLY_AGE_UNQUALIFIED：年龄不符合要求[21,50]岁
+            APPLY_HAS_REJECTED_ORDERS：本人有90天内被审批拒绝的订单【拒绝】
+            APPLY_ON_BLACK_LIST：命中印牛黑名单【拒绝】
+            APPLY_EDUCATION_UNQUALIFIED：客户学历包括[小学] 【拒绝】
+            APPLY_CAREER_TYPE_UNQUALIFIED：客户职业类型包括[无业] 【拒绝】
+            APPLY_FIRST_LOAN_INFORMATION_FILLING_TIME：用户第一次申请贷款资料填写时间检测小于[1]分钟【拒绝】
+            APPLY_CREATE_TIME：申请时间段限制在[2:00-3:00] 【拒绝】
+            ===============  设备验证  ===================
+            DEVICE_SAME_APPLY_COUNT：一个设备借款申请超过指定次数[2] 【拒绝】
+            DEVICE_SAME_TIME_RANGE_APPLY_COUNT：一个设备指定天数借款申请超过指定次数[2] 【拒绝】
+            DEVICE_SAME_IN_APPROVE_COUNT：一个设备当前正在申请得笔数[2] 【拒绝】
+            DEVICE_SAME_OVERDUE_COUNT：一个设备逾期次数[2] 【拒绝】
+            DEVICE_SAME_MATCHING_PANCARD：同一个设备匹配[2]个Pan Card 【拒绝】
+            DEVICE_SAME_MATCHING_TELEPHONE：同一个设备匹配[2]个手机号 【拒绝】
+            DEVICE_SAME_TIME_PERIOD_APPLY_COUNT：指定时间设备申请次数[4]校验【校验】
+            DEVICE_TYPE：手机系统验证，[未开启] /    [iOS]【拒绝】
+            ===============  身份验证  ===================
+            AUTH_SAME_BANK_CARD_MATCHING_PAN_CARD：同一银行卡匹配[2]个Pan Card 【拒绝】
+            AUTH_SAME_BANK_CARD_MATCHING_TELEPHONE：同一银行卡匹配[2]个手机号【拒绝】
+            AUTH_SAME_PAN_CARD_MATCHING_TELEPHONE：同一Pan Card 匹配[2]个手机号【拒绝】
+            AUTH_SAME_PAN_CARD_MATCHING_DEVICE：同一Pan Card 匹配[2]个设备号【拒绝】
+            AUTH_RELATE_ACCOUNT_HAS_REJECTED_ORDERS：关联账户有[15]天内被审批拒绝的订单【拒绝】
+            AUTH_RELATE_ACCOUNT_HAS_UNDERWAY_ORDER：关联账户有未还完贷款或审批中贷款【拒绝】
+            ===============  通讯录验证  ===================
+            CONTACTS_IN_APPROVE_COUNT：通讯录申请贷款人数超过[2] 【拒绝】
+            CONTACTS_IN_OVERDUE_COUNT：通讯录逾期贷款人数超过[2]【拒绝】
+            CONTACTS_COUNT：通讯录个数低于[19]【拒绝】
+            ===============  借款行为  ===================
+            BEHAVIOR_REJECT_COUNT：历史被拒绝次数[9] 【拒绝】
+            BEHAVIOR_OVERDUE_COUNT：历史逾期次数[1] 【拒绝】
+            BEHAVIOR_MAX_OVERDUE_DAYS：历史最大逾期天数[7] 【拒绝】
+            BEHAVIOR_LATELY_OVERDUE_DAYS：最近一笔的逾期天数[7] 【拒绝】
+            BEHAVIOR_LATELY_COLLECTION_TELEPHONE_COUNT：上一笔的催收电话次数[3] 【拒绝】
+
+
+            另外的字段 ==================================
+            type：规则类型 1：字符串  2：范围(如 年龄范围、申请时间段)  3：选项(如 学历选项、职业选项)  4：多重属性(前三个类型都为单个属性，多重属性表示单个规则有两个以上值)
+            value：选项值  type 为 1,2,3 的时候 为单个属性  type为 4 的时候为多个属性
+            status：【设置开关】类型的配置根据 status 判断开关状态  1：开启  2：关闭
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "apply_rule": {
+                        "APPLY_AGE_UNQUALIFIED": {
+                            "rule": "APPLY_AGE_UNQUALIFIED",
+                            "type": 2,
+                            "value": [
+                                21,
+                                50
+                            ],
+                            "status": 1
+                        },
+                        "APPLY_HAS_REJECTED_ORDERS": {
+                            "rule": "APPLY_HAS_REJECTED_ORDERS",
+                            "type": 1,
+                            "value": "90",
+                            "status": 1
+                        },
+                        "APPLY_ON_BLACK_LIST": {
+                            "rule": "APPLY_ON_BLACK_LIST",
+                            "type": 1,
+                            "value": null,
+                            "status": 1
+                        },
+                        "APPLY_EDUCATION_UNQUALIFIED": {
+                            "rule": "APPLY_EDUCATION_UNQUALIFIED",
+                            "type": 3,
+                            "value": [
+                                "Primary"
+                            ],
+                            "status": 1
+                        },
+                        "APPLY_CAREER_TYPE_UNQUALIFIED": {
+                            "rule": "APPLY_CAREER_TYPE_UNQUALIFIED",
+                            "type": 3,
+                            "value": [
+                                "no job"
+                            ],
+                            "status": 1
+                        },
+                        "APPLY_FIRST_LOAN_INFORMATION_FILLING_TIME": {
+                            "rule": "APPLY_FIRST_LOAN_INFORMATION_FILLING_TIME",
+                            "type": 1,
+                            "value": "1",
+                            "status": 1
+                        },
+                        "APPLY_CREATE_TIME": {
+                            "rule": "APPLY_CREATE_TIME",
+                            "type": 2,
+                            "value": [
+                                "02:00",
+                                "03:00"
+                            ],
+                            "status": 1
+                        }
+                    }
+                }
+            }

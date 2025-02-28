@@ -1,0 +1,337 @@
+swagger: '2.0'
+paths:
+  /api/config/view:
+    get:
+      summary: 配置获取
+      tags:
+        - config 配置管理
+      operationId: configView
+      responses:
+        200:
+          description: |
+            loan_renewal_on：续期功能开关 0：处于关闭状态 1：处于开启状态
+            loan_renewal_rate：续期费率
+            auth_setting：认证配置（未配置不返回）
+
+            还款设置：
+            repay_part_repay_on：部分还款开关（未配置不返回）
+            repay_part_repay_config：部分还款配置（未配置不返回）
+            repay_part_repay_all_overdue_on：部分还款所有逾期生效开关（未配置不返回）
+            repay_part_repay_min_overdue_days：部分还款最低逾期天数配置（未配置不返回）
+            repay_part_repay_max：部分还款最大值
+
+            {
+                "code": 18000,
+                "msg": "",
+                "data": {
+                    "login_ip_filter": [],
+                    "login_ip_filter_on": "0",
+                    "only_login_on": "0",
+                    "ding_login_on": "0",
+                    "default_password": "111111",
+                    "login_expire_hours": "12",
+                    "loan_amount_range": [
+                        200,
+                        2000
+                    ],
+                    "loan_days_range": [
+                        7,
+                        25
+                    ],
+                    "loan_again_days_range": "30",
+                    "loan_daily_loan_rate": "0.2",
+                    "loan_daily_overdue_rate": "1",
+                    "loan_amount_range_old": [
+                        500,
+                        1500
+                    ],
+                    "loan_days_range_old": [
+                        7,
+                        30
+                    ],
+                    "loan_again_days_range_old": "60",
+                    "loan_daily_loan_rate_old": "0.06",
+                    "loan_daily_overdue_rate_old": "0.06",
+                    "loan_daily_create_order_max": "1000",
+                    "loan_daily_loan_amount_max": "100000",
+                    "approve_manual_allot_count": "50",
+                    "approve_manual_overtime": "100",
+                    "customer_service_telephone_numbers": "0755-05225545",
+                    "customer_work_time": [
+                        "周一",
+                        "周五",
+                        "09:30-20:30"
+                    ],
+                    "collection_bad_days": "16",
+                    "approve_all_risk": "0",
+                    "approve_risk_score": "31",
+                    "loan_renewal_rate": "0.1",
+                    "loan_renewal_on": "1",
+                    "app_name": "SasS"
+                }
+            }
+
+  /api/config/update-safe:
+    post:
+      summary: 修改安全配置
+      tags:
+        - config 配置管理
+      operationId: configUpdateSafe
+      parameters:
+        - name: login_ip_filter
+          in: formData
+          description: ip白名单(数组)
+          type: array
+        - name: login_ip_filter_on
+          in: formData
+          description: ip白名单开关(0：关闭，1：开启)
+          type: integer
+        - name: only_login_on
+          in: formData
+          description: 多地登录限制开关(0：关闭，1：开启)
+          type: integer
+        - name: default_password
+          in: formData
+          description: 默认密码
+          type: string
+        - name: ding_login_on
+          in: formData
+          description: 钉钉登录开关(0：关闭，1：开启)
+          type: integer
+        - name: login_expire_hours
+          in: formData
+          description: 账号有效时间(小时)
+          type: integer
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+  /api/config/update-approve:
+    post:
+      summary: 修改审批配置
+      tags:
+        - config 配置管理
+      operationId: configUpdateApprove
+      parameters:
+        - name: approve_manual_allot_count
+          in: formData
+          description: 人工审批 可获取审批单数
+          type: integer
+          default: 5
+        - name: approve_manual_overtime
+          in: formData
+          description: 每笔审批单超时（分钟）
+          type: integer
+          default: 5
+        - name: approve_new_user_process
+          in: formData
+          description: 新用户审批流程传数组 下拉源/api/config-option/info(option_order_approval_process)
+          type: string
+        - name: approve_old_user_process
+          in: formData
+          description: 老用户审批流程传数组 下拉源/api/config-option/info(option_order_approval_process)
+          type: string
+        - name: approve_ekyc_fail_process
+          in: formData
+          description: e-KYC认证失败审批流程传数组 下拉源/api/config-option/info(option_order_approval_process)
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+  /api/config/update-operate:
+    post:
+      summary: 修改运营配置
+      tags:
+        - config 配置管理
+      operationId: configUpdateOperate
+      parameters:
+        - name: daily_register_user_max
+          in: formData
+          description: 日最大注册用户数量
+          type: integer
+          required: true
+        - name: daily_create_order_max
+          in: formData
+          description: 日最大申请笔数-新用户
+          type: integer
+          required: true
+        - name: daily_create_order_max_old
+          in: formData
+          description: 日最大申请笔数-复贷用户
+          type: integer
+          required: true
+        - name: sys_auto_remit
+          in: formData
+          description: 自动放款 (0:关闭 1:开启)
+          type: integer
+          required: true
+        - name: daily_loan_amount_max
+          in: formData
+          description: 日最大放款金额
+          type: integer
+          required: true
+        - name: warning_daily_remain_create_order_value
+          in: formData
+          description: 日剩余可申请笔数预警值-新用户
+          type: integer
+        - name: warning_daily_remain_create_order_value_old
+          in: formData
+          description: 日剩余可申请笔数预警值-复贷用户
+          type: integer
+        - name: warning_daily_remain_loan_amount_value
+          in: formData
+          description: 日剩余可放款金额预警值
+          type: integer
+        - name: customer_service_email
+          in: formData
+          description: 客服邮箱设置
+          type: string
+        - name: customer_work_time
+          in: formData
+          description: 工作时间
+          type: string
+        - name: company_name
+          in: formData
+          description: 公司名称
+          type: string
+        - name: company_address
+          in: formData
+          description: 公司地址
+          type: string
+        - name: company_offline_rapay_bamk
+          in: formData
+          description: 公司线下还款银行账户
+          type: string
+        - name: customer_service_telephone_numbers
+          in: formData
+          description: 客服电话
+          type: array
+      responses:
+        200:
+          description: |
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+
+  /api/config/update-auth:
+    post:
+      summary: 修改认证配置
+      tags:
+        - config 配置管理
+      operationId: configUpdateAuth
+      parameters:
+        - name: auth_setting
+          in: formData
+          description: 认证配置（array）[base_info:[daysValid:90, isOpen:0, closeTip:""], contacts:[daysValid:90, isOpen:0, closeTip:""]],kyc_documents...<br>
+            <br>认证项是否打开（1：打开，0：关闭） closeTip：认证关闭提示  daysValid：有效天数
+            <br>base_info -> Personal information
+            <br>contacts -> Emergency Contacts
+            <br>kyc_documents -> KYC Documents
+            <br>user_extra_info -> Work Information
+            <br>bankcard -> Bank Information
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+  /api/config/update-repay:
+    post:
+      summary: 修改还款配置
+      tags:
+        - config 配置管理
+      operationId: configUpdateRepay
+      parameters:
+        - name: repay_part_repay_on
+          in: formData
+          description: 允许用户部分还款开关 1：打开 0：关闭
+          type: string
+        - name: repay_part_repay_min_overdue_days
+          in: formData
+          description: 部分还款最低逾期天数配置
+          type: string
+        - name: repay_part_repay_all_overdue_on
+          in: formData
+          description: 部分还款所有逾期生效开关 1：打开 0：关闭
+          type: string
+        - name: repay_part_repay_config
+          in: formData
+          description: 认证配置（array）[before:[on:0, min_part_repay:100],expire:[on:1, min_part_repay:200],overdue...]<br>
+            <br>on（1：打开，0：关闭） min_part_repay：最小部分还款
+            <br>before -> 到期前
+            <br>expire -> 到期
+            <br>overdue -> 逾期
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "status": 0,
+                "msg": "ok"
+            }
+  /api/config/get-city:
+    get:
+      summary: 通过ip获取地址
+      tags:
+        - config 配置管理
+      operationId: getCity
+      parameters:
+        - name: ip
+          in: query
+          description: ip
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": "深圳"
+            }
+
+  /api/config/info:
+    get:
+      summary: 配置获取(登录前)
+      tags:
+        - config 配置管理
+      operationId: configInfo
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+                "login_ip_filter": [
+                  {
+                    "ip": "127.0.0.77",
+                    "city": "局域网"
+                  },
+                  {
+                    "ip": "127.0.0.92",
+                    "city": "局域网"
+                  }
+                ],
+                "login_ip_filter_on": "0",
+                "only_login_on": "1",
+                "default_password": "abc303",
+                "ding_login_on": "0",
+                "login_expire_hours": "10"
+              }
+            }

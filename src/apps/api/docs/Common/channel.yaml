@@ -1,0 +1,26 @@
+swagger: '2.0'
+paths:
+  /app/channel/record:
+    post:
+      summary: 渠道推广记录用户信息
+      tags:
+      - 公共模块
+      operationId: channelRecord
+      parameters:
+      - name: type
+        in: formData
+        description: 类型 ：参考全局配置channel_type
+        type: string
+      - name: id
+        in: formData
+        description: 渠道ID ：待定
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "status": 18000,
+              "msg": "",
+              "data": "9"
+            }

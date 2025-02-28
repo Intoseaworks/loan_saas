@@ -1,0 +1,367 @@
+swagger: '2.0'
+paths:
+  /api/collection/my_order_index:
+    get:
+      summary: 我的催收订单列表
+      tags:
+      - 催收管理
+      operationId: collectionIndex
+      parameters:
+      - name: status
+        in: query
+        description: 查询条件：状态 参考下拉选项[option_order_manual_repayment_status]
+        type: string
+      - name: keyword
+        in: query
+        description: 查询条件：关键字
+        type: string
+      - name: order_no
+        in: query
+        description: 查询条件：订单查询
+        type: string
+      - name: appointment_paid_time
+        in: query
+        description: 查询条件：应还款时间
+        type: array
+      - name: record_time
+        in: query
+        description: 查询条件：催记时间
+        type: array
+      - name: promise_paid_time
+        in: query
+        description: 查询条件：承诺还款时间
+        type: array
+      - name: bad_time
+        in: query
+        description: 查询条件：坏账时间
+        type: array
+      - name: admin_ids
+        in: query
+        description: 查询条件：催收员 （数组）
+        type: array
+      - name: dial
+        in: query
+        description: 查询条件：联系结果
+        type: string
+      - name: progress
+        in: query
+        description: 查询条件：催收进度
+        type: string
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: sort
+        in: query
+        description: 排序字段 应还款日期：promise_paid_time  逾期天数：overdue_days  减免金额：reduction_fee 催记时间：record_time 承诺还款时间：collection_promise_paid_time  催收成功时间：finish_time  坏账时间：bad_time (值前面加 - 表示降序，不加 - 表示 升序)
+        type: string
+      responses:
+        200:
+          description: |
+            部分还款相关
+            order.last_repayment_plan.part_repay_amount Amount Paid（已还款金额）
+            part_repay_on 部分还款开关（不返回不展示，1：打开，0：关闭）
+            repay_tip 部分还款标识（不返回不展示，返回悬浮图标展示）
+
+            order.order_no 订单号
+            order.fullname 收款人姓名
+            order.telephone 手机号码
+            order.principal 借款金额（元）
+            order.loan_days 借款期限（天）
+            order.appointment_paid_time 应还款日期
+            order.user.overdue_days 逾期天数
+            order.overdue_fee 应还逾期罚息（元)
+            order.reduction_fee 减免金额（元)
+            order.interest_fee 应还本息（元)
+            level 催收等级
+            admin_id 催收员id
+            staff.username 催收员
+            order.channel.channel_code 订单渠道
+            status 状态标识
+            status_test 状态
+            collection_detail.record_time 催记时间
+            collection_detail.out_days 失联天数
+            order.user.fullname 联系人
+            collection_detail.progress 联系结果
+            collection_detail.remark 催记记录
+            collection_detail.promise_paid_time 承诺还款时间
+            finish_time 催收成功时间
+            bad_time 坏账时间
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+              }
+            }
+
+  /api/collection/my_order_view:
+    get:
+      summary: 我的催收订单详情
+      tags:
+      - 催收管理
+      operationId: collectionView
+      parameters:
+      - name: id
+        in: query
+        description: id 催收id
+        type: string
+        required: true
+      responses:
+        200:
+          description: |
+            部分还款相关
+            repay_tip 部分还款标识（不返回不展示，返回悬浮图标展示）
+
+            collection.order.fullname 借款人姓名
+            collection.user.user_info.gender 性别
+            collection.user.user_info.education_level 学历
+            collection.user.user_info.marital_status 婚姻状况
+            collection.user.id_card_no 身份证号
+            collection.user.address 户籍地址
+            collection.user.id_card_issued_by 签发机关
+
+            collection.order_detail.loan_location 借款所在地
+            collection.user.user_login_log.address 借款人最后活跃位置
+            collection.user.user_login_log.created_at 借款人最后活跃时间
+
+            collection.order.created_at 借款时间
+            collection.order.paid_amount 借款金额
+            collection.order.loan_days 借款期限（天）
+            collection.order.paid_time 放款时间
+            collection.order.appointment_paid_time 应还时间
+            collection.order.overdue_days 逾期天数
+            collection.order.overdue_fee 逾期金额
+            collection.order.reduction_fee 减免金额
+            collection.order_detail.bank_name 收款银行名称
+            collection.order_detail.bank_card_no 收款银行卡
+            collection.collection_record_promise.fullname 承诺还款人姓名
+            collection.collection_record_promise.relation 承诺还款人关系
+            collection.collection_record_promise.promise_paid_time 承诺还款时间
+            collection.order.receivable_amount 应还款金额
+
+            还款计划列表
+            collectionInfo.overdue_repayment_plans.id 还款计划ID
+            collectionInfo.overdue_repayment_plans.no 还款计划NO
+            collectionInfo.overdue_repayment_plans.overdue_days 逾期天数
+            collectionInfo.overdue_repayment_plans.appointment_paid_time 计划应还时间
+            collectionInfo.overdue_repayment_plans.repay_time 实际还款时间
+            collectionInfo.overdue_repayment_plans.repay_amount 实际还款金额
+            collectionInfo.overdue_repayment_plans.repay_channel 还款渠道
+            collectionInfo.overdue_repayment_plans.reduction_fee 减免金额
+            collectionInfo.overdue_repayment_plans.principal 借款金额
+            collectionInfo.overdue_repayment_plans.interest_fee 息费
+            collectionInfo.overdue_repayment_plans.overdue_fee 逾期金额
+            collectionInfo.overdue_repayment_plans.installment_num 当前期数
+            collectionInfo.overdue_repayment_plans.receivable_amount 应还金额
+            collectionInfo.overdue_repayment_plans.status_text 状态
+
+            运营商报告字段参考用户详情
+
+            借款人催收记录(参考后台资料卡项)
+            collectionRecordListCount 数量
+            collectionRecordList.no 还款计划编号
+            collectionRecordList.fullname 联系人姓名
+            collectionRecordList.relation 关系
+            collectionRecordList.contact 联系电话
+            collectionRecordList.dial collection_records.progress 联系结果
+            collectionRecordList.overdue_days 催收记录时逾期天数
+            collectionRecordList.remark 备注
+            collectionRecordList.reduction_fee 减免金额
+            collectionRecordList.level 催收等级
+            collectionRecordList.staff.username 催收员
+            collectionRecordList.created_at 催收时间
+            collectionRecordList.receivable_amount 当前应还金额
+            collectionRecordList.to_status_text 状态
+
+            借款人借款记录(参考后台资料卡项)
+            orderListCount 数量
+            orderList.order_no 订单编号
+            orderList.created_at 订单创建时间
+            orderList.status 订单状态
+            orderList.principal 借款金额
+            orderList.loan_days 借款期限（天）
+            orderList.overdue_days 逾期天数
+            orderList.receivable_amount 应还金额
+            orderList.appointment_paid_time 计划应还时间
+            orderList.repay_time 实际还款时间
+            orderList.repay_amount 实际还款金额
+
+            催收跟进
+            collection.collection_contacts.fullname 联系人姓名
+            collection.collection_contacts.relation 关系
+            collection.collection_contacts.contact 联系电话
+            collection.collection_contacts.collection_record.dial 最后拨打结果
+            collection.collection_contacts.collection_record.progress 最后联系结果
+            collection.collection_contacts.collection_record.remark 最后催记记录
+
+            last_collection_id 上一案件
+            next_collection_id 下一案件
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+
+              }
+            }
+
+  /api/collection/order_index:
+    get:
+      summary: 催收订单列表
+      tags:
+      - 催收管理
+      operationId: collectionOrderIndex
+      parameters:
+      - name: status
+        in: query
+        description: 查询条件：状态
+        type: string
+      - name: keyword
+        in: query
+        description: 查询条件：关键字
+        type: string
+      - name: order_no
+        in: query
+        description: 查询条件：订单查询
+        type: string
+      - name: appointment_paid_time
+        in: query
+        description: 查询条件：应还款时间
+        type: array
+      - name: record_time
+        in: query
+        description: 查询条件：催记时间
+        type: array
+      - name: promise_paid_time
+        in: query
+        description: 查询条件：承诺还款时间
+        type: array
+      - name: bad_time
+        in: query
+        description: 查询条件：坏账时间
+        type: array
+      - name: admin_ids
+        in: query
+        description: 查询条件：催收员 （数组）
+        type: array
+      - name: dial
+        in: query
+        description: 查询条件：联系结果
+        type: string
+      - name: overdue_days
+        in: query
+        description: 查询条件：逾期天数(数组)
+        type: array
+      - name: page
+        in: query
+        description: 页码
+        type: string
+        default: 1
+      - name: pageSize
+        in: query
+        description: 分页大小
+        type: string
+        default: 15
+      - name: export
+        in: query
+        description: 导出标识 1导出 0不导出
+        type: integer
+        default: 0
+      responses:
+        200:
+          description: |
+            参考催收列表
+
+  /api/collection/order_view:
+    get:
+      summary: 催收订单详情
+      tags:
+      - 催收管理
+      operationId: collectionOrderView
+      parameters:
+        - name: id
+          in: query
+          description: id 催收id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            参考催收详情
+
+  /api/collection/set-order-part-repay-on:
+    get:
+      summary: 催收操作部分还款开关
+      tags:
+        - 催收管理
+      operationId: setOrderPartRepayOn
+      parameters:
+        - name: id
+          in: query
+          description: id 催收id
+          type: string
+          required: true
+        - name: on
+          in: query
+          description: 开关：（1：开，0：关）
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            {
+              'code': 18000
+            }
+
+  /api/collection/renewal_calc:
+    get:
+      summary: 催收展期试算
+      tags:
+        - 催收管理
+      operationId: renewalCalc
+      parameters:
+        - name: id
+          in: query
+          description: id 催收id
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            renewal_days 展期天数
+            renewal_charge 展期服务费
+            overdue_fee 逾期息费
+            renewal_paid_amount 展期支付金额
+            {
+              "code":18000,
+              "msg":"Success",
+              "data":{
+                "renewal_days":7,
+                "renewal_charge":"239.97",
+                "overdue_fee":"263.92",
+                "renewal_paid_amount":"628.89"
+              }
+            }
+
+  /api/collection/import_blacklist:
+    post:
+      summary: 导入催收黑名单
+      tags:
+        - 催收管理
+      operationId: riskBlacklistImport
+      parameters:
+        - name: file
+          in: query
+          description: 文件 表头id_type|id_no|phone
+          type: string
+          required: true
+      responses:
+        200:
+          description: |

@@ -1,0 +1,43 @@
+swagger: '2.0'
+paths:
+  /api/collection_record/create:
+    post:
+      summary: 添加催记
+      tags:
+      - 催收管理
+      operationId: collectionRecordCreate
+      parameters:
+      - name: fullname
+        in: formData
+        description: 联系人姓名
+        type: string
+      - name: relation
+        in: formData
+        description: 关系
+        type: string
+      - name: dial
+        in: formData
+        description: 联系结果
+        type: string
+      - name: progress
+        in: formData
+        description: 联系进度
+        type: string
+      - name: promise_paid_time
+        in: formData
+        description: 承诺还款时间
+        type: string
+      - name: remark
+        in: formData
+        description: 催收备注
+        type: string
+      responses:
+        200:
+          description: |
+            {
+              "status": 0,
+              "msg": "ok",
+              "data": {
+
+              }
+            }

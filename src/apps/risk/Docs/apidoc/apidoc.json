@@ -1,0 +1,25 @@
+{
+    "name": "风控文档",
+    "version": "1.0.0",
+    "description": "风控文档",
+    "title": "风控文档",
+    "sampleUrl": "http://services.dev.indiaox.in",
+    "url": "",
+    "header": {
+        "title": "",
+        "filename": "header.md"
+    },
+    "footer": {
+        "filename": "footer.md"
+    },
+    "template": {
+        "withCompare": true,
+        "withGenerator": false
+    },
+    "order": [
+        "Common",
+        "Api",
+        "SendData",
+        "Callback"
+    ]
+}

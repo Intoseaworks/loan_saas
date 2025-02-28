@@ -1,0 +1,27 @@
+swagger: '2.0'
+paths:
+  /api/collection/assign-to-collector:
+    post:
+      summary: 人工分配催收单
+      tags:
+      - 催收管理
+      operationId: collectionAssignToCollector
+      parameters:
+      - name: collection_ids
+        in: formData
+        description: 催收id（array）
+        type: array
+      - name: admin_ids
+        in: formData
+        description: 催收员id（array）
+        type: array
+      responses:
+        200:
+          description: |
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+
+              }
+            }

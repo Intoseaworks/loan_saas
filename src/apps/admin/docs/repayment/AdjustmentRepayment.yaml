@@ -1,0 +1,243 @@
+swagger: '2.0'
+paths:
+  /api/repayment/repay-list:
+    post:
+      summary: 调账管理
+      tags:
+        - 还款管理
+      operationId: repaymentRepayList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 手机号/证件号
+        type: string
+      - name: reference_no
+        in: query
+        description: 还款码
+        type: string
+      responses:
+        200:
+          description: |
+            "id": 还款id
+            "order_no": "合同号"
+            "fullname": "用户姓名"
+            "telephone": "手机号"
+            "reference_no": "还款码"
+            "actual_paid_time": "还款日期"
+            "paid_amount": "实还金额"
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 29,
+                            "order_no": "88103635E8768CF5F2",
+                            "fullname": "",
+                            "telephone": "9876543213",
+                            "reference_no": null,
+                            "actual_paid_time": "2020-04-08 20:05:02",
+                            "paid_amount": "6758.00",
+                            "user": null
+                        },
+                    ],
+                    "first_page_url": "http://local.loan-saas.com/api/repayment/repay-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://local.loan-saas.com/api/repayment/repay-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://local.loan-saas.com/api/repayment/repay-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 5,
+                    "total": 5
+                }
+            }
+
+  /api/repayment/repay-revoke:
+    post:
+      summary: 调账管理-撤销
+      tags:
+        - 还款管理
+      operationId: repaymentRepayRevoke
+      parameters:
+      - name: id
+        in: query
+        description: repay_detail_id
+        type: int
+      - name: remark
+        in: query
+        description: 备注说明
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "remark": "测试",
+                    "trade_id": 6,
+                    "repay_detail_id": 32,
+                    "before_repayment_plan_id": 6,
+                    "type": 3,
+                    "admin_id": "0",
+                    "updated_at": "2020-11-17 18:55:22",
+                    "created_at": "2020-11-17 18:55:22",
+                    "id": 5
+                }
+            }
+
+  /api/repayment/repay-adjustment-complete:
+    post:
+      summary: 调账管理-调账并结清
+      tags:
+        - 还款管理
+      operationId: repaymentRepayAdjustComplete
+      parameters:
+      - name: id
+        in: query
+        description: repay_detail_id
+        type: int
+      - name: repayment_plan_no
+        in: query
+        description: 还款计划编号
+        type: int
+      - name: remark
+        in: query
+        description: 备注说明
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "remark": "测试",
+                    "trade_id": 6,
+                    "repay_detail_id": 32,
+                    "before_repayment_plan_id": 6,
+                    "type": 3,
+                    "admin_id": "0",
+                    "updated_at": "2020-11-17 18:55:22",
+                    "created_at": "2020-11-17 18:55:22",
+                    "id": 5
+                }
+            }
+
+
+  /api/repayment/repay-adjustment-only:
+    post:
+      summary: 调账管理-调账
+      tags:
+        - 还款管理
+      operationId: repaymentRepayAdjustOnly
+      parameters:
+      - name: id
+        in: query
+        description: repay_detail_id
+        type: int
+      - name: repayment_plan_no
+        in: query
+        description: 还款计划编号
+        type: int
+      - name: remark
+        in: query
+        description: 备注说明
+        type: string
+      responses:
+        200:
+          description: |
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "remark": "测试",
+                    "trade_id": 6,
+                    "repay_detail_id": 32,
+                    "before_repayment_plan_id": 6,
+                    "type": 3,
+                    "admin_id": "0",
+                    "updated_at": "2020-11-17 18:55:22",
+                    "created_at": "2020-11-17 18:55:22",
+                    "id": 5
+                }
+            }
+
+  /api/repayment/repay-adjustment-list:
+    post:
+      summary: 调账管理-历史调账记录
+      tags:
+        - 还款管理
+      operationId: repaymentRepayAdjustmentList
+      parameters:
+      - name: keyword_user
+        in: query
+        description: 手机号/证件号
+        type: string
+      - name: reference_no
+        in: query
+        description: 还款码
+        type: string
+      responses:
+        200:
+          description: |
+
+            "request_no": "支付请求号",
+            "transaction_no": "交易编号(使用该值显示-支付流水号)",
+            "reference_no": "还款码",
+            "paid_amount": "交易金额",
+            "type": 调账类型,
+            "remark": "调账原因",
+            "actual_paid_time": "交易日期",
+            "before_order_no": "原入账合同号",
+            "before_fullname": "原入账客户姓名",
+            "before_telephone": "原入账手机号",
+            "order_no": 调账入账合同号,
+            "fullname": 调整入账客户姓名,
+            "telephone": 调账入账手机号,
+            "user": null
+
+            {
+                "code": 18000,
+                "msg": "Success",
+                "data": {
+                    "current_page": 1,
+                    "data": [
+                        {
+                            "id": 5,
+                            "request_no": "order_EaQOyfIiy50Rd9",
+                            "transaction_no": "5FD1F9A68F6AA20201210",
+                            "reference_no": "SKYM2IEP0TVQM",
+                            "paid_amount": "0.10",
+                            "type": 3,
+                            "type_text": "撤销还款记录",
+                            "remark": "测试",
+                            "actual_paid_time": "2020-07-28 13:30:02",
+                            "before_order_no": "88594125E8DDA5EEF2",
+                            "before_fullname": "",
+                            "before_telephone": "9876543213",
+                            "order_no": null,
+                            "fullname": null,
+                            "telephone": null,
+                            "user": null
+                        }
+                    ],
+                    "first_page_url": "http://local.loan-saas.com/api/repayment/repay-adjustment-list?page=1",
+                    "from": 1,
+                    "last_page": 1,
+                    "last_page_url": "http://local.loan-saas.com/api/repayment/repay-adjustment-list?page=1",
+                    "next_page_url": null,
+                    "path": "http://local.loan-saas.com/api/repayment/repay-adjustment-list",
+                    "per_page": 15,
+                    "prev_page_url": null,
+                    "to": 1,
+                    "total": 1
+                }
+            }

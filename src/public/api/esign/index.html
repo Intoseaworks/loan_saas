@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sign</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <style type="text/css">
+        /* Modal 样式(background) */
+        .qmodel {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box 样式 */
+        .qmodel-content {
+            border-radius: 10px;
+            background-color: #fefefe;
+            margin-top: 20px; /* 15% from the top and centered */
+            margin-bottom: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding: -1px;
+            width: 700px;
+            height: 670px;
+        }
+
+        iframe {
+            border-radius: inherit;
+            margin: 0px;
+            padding: 0px;
+            border: none;
+        }
+
+        body {
+            text-align: center
+        }
+
+        #gatewayBtn {
+            margin: 0 auto;
+            width: 95%;
+            -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .035);
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, .035);
+            color: #fff;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+            -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+            -webkit-user-select: none;
+            background-image: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            height: 32px;
+            line-height: 1.5;
+            padding: 0 15px;
+            position: relative;
+            text-align: center;
+            touch-action: manipulation;
+            transition: all .3s cubic-bezier(.645, .045, .355, 1);
+            user-select: none;
+            white-space: nowrap
+        }
+
+    </style>
+    <head>
+<body>
+
+<input id="gatewayBtn" type="button" value="sign">
+
+<div class="qmodel" id="quaggaModal">
+    <div class="qmodel-content" id="quaggaModelContent"></div>
+</div>
+
+<script src="/api/esign/aadhaar-api-web-sdk.js" type="application/javascript"></script>
+
+<!--
+###########################################################################
+##################### OFFLINE AADHAAR SETUP BEGIN #########################
+############## Keep this code for offline aadhaar application #############
+####### P.S:- Goto aadhaar-api-web-sdk.css and set width to 450px #########
+###########################################################################
+-->
+<script type="application/javascript">
+    //Setup gateway
+    let gatewayOptions = {
+        company_display_name: '{{companyName}}',
+        front_text_color: '{{frontTextColor}}',
+        background_color: '{{backgroundColor}}',
+        logo_url: '{{logoUrl}}',
+        /*XML mode flags*/
+        validate_phone: '{{validatePhone}}',
+        validate_email: '{{validateEmail}}'
+    };
+
+    var myAadhaarEsignGateway = new AadhaarAPIEsignGateway('{{transactionId}}', gatewayOptions, '{{fillEmail}}', '{{fillTelephone}}');
+    openAadhaarGateway(myAadhaarEsignGateway);
+
+    document.getElementById("gatewayBtn").onclick = openGateway;
+
+    function openGateway() {
+        openAadhaarGateway(myAadhaarEsignGateway)
+    }
+
+    function handleEsignConsentDenied() {
+        console.log('Handling consent denial at client end');
+        //Handle the case when user denies consent
+    }
+
+    function handleAadhaarEsignSuccess(responseJSON) {
+        console.log('Handling EKYC success at client end');
+        console.log(responseJSON);
+        //Handle the case when user ekyc is success
+    }
+
+    function handleAadhaarEsignFailure(errorJSON) {
+        console.log('Handling EKYC failure at client end');
+        console.log(errorJSON);
+        //Handle the case when user ekyc fails
+    }
+
+    function handleAadhaarAUTHFailure(errorJSON) {
+        console.log('Handling AUTH failure at client end');
+        console.log(errorJSON);
+        //Handle the case when user authentication fails
+    }
+
+    function handleGatewayError(errorJSON) {
+        console.log('Handling Gateway launch failure at client end');
+        console.log(errorJSON);
+    }
+
+    function handleGatewayTermination() {
+        console.log('Handling Gateway Termination at client end');
+    }
+</script>
+
+</body>
+</html>

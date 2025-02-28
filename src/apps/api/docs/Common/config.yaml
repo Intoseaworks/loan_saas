@@ -1,0 +1,528 @@
+swagger: '2.0'
+info:
+  version:
+  title:
+  license:
+    name:
+paths:
+  /app/config:
+    get:
+      summary: 全局配置
+      tags:
+      - 公共模块
+      operationId: configIndex
+      responses:
+        200:
+          description: |
+            appName App名字
+            customerUrl 客服url
+            homeBanner 首页Banner轮播文字
+            chargingTip 计费弹窗
+            warmNotice 资料上传提示弹窗
+            helpVideo 帮助视频地址配置
+            companyName 公司名称
+            companyAddress 公司地址
+            customerServicePhone 客服电话
+            customerServiceEmail 客服邮箱
+            companyOfflineRepayBank 公司线下还款银行账户
+            h5LocalConfig h5本地化配置
+            notice 提示文案
+            loanReason 贷款原因
+            headerTip 首页提示语
+            supplementTip 补充资料提示语
+            personalCenter 个人中心展示配置
+            user_photo_num 相册位置信息上传数量
+            user_photo_interval 相册位置信息上传间隔
+
+            {
+                "code": 18000,
+                "msg": "全局配置获取成功",
+                "data": {
+                    "appName": "OkCash",
+                    "customerUrl": "",
+                    "h5AppUrl": "https://h5.dev.indiaox.in",
+                    "companyName": "LISFFSAD FSAFASDF",
+                    "companyAddress": "adb sss ddd ",
+                    "customerServicePhone": [
+                        "86855655656",
+                        "5555616546"
+                    ],
+                    "customerServiceEmail": "jingjindong@fd.com",
+                    "companyOfflineRepayBank": "12345678910",
+                    "loanReason": [
+                        "Bills",
+                        "Shopping",
+                        "Education",
+                        "Gifts",
+                        "Grocery",
+                        "Beauty",
+                        "Party",
+                        "Pet care",
+                        "Transport",
+                        "Electronics",
+                        "Wedding",
+                        "Business",
+                        "Rental",
+                        "Medical",
+                        "Travel",
+                        "Others"
+                    ],
+                    "headerTip": "Not the ultimate credit amount",
+                    "supplementTip": "Need to supplement following files",
+                    "personalCenter": [
+                        "LoanHistory",
+                        "CustomerService",
+                        "Help"
+                    ],
+                    "user_photo_num": 5,
+                    "user_photo_interval": 1,
+                    "h5AppPayUrl": "https://test.com/app/repay/to-pay"
+                }
+            }
+  /app/config/user-info-config:
+    get:
+      summary: 用户信息下拉配置项
+      tags:
+        - 公共模块
+      operationId: userInfo
+      responses:
+        200:
+          description: |
+            - Basic Details
+               * data.gender: Gender
+               * data.maritalStatus: Marital Status
+               * data.educationLevel: Highest Education
+               * data.language: Language
+               * data.religion: Religion
+
+            - Employment Details
+               * data.residence: Type Residence
+               * data.relation:
+               * data.relationFriend:
+               * data.warmNotice:
+               * data.Salary: Monthly Salary/Income
+               * data.employmentType: Employee Type
+            - chirdrenCount 子女数
+             {
+                 "code": 18000,
+                 "msg": "用户详情配置项获取成功",
+                 "data": {
+                     "gender": {
+                         "desc": "Sex",
+                         "value": [
+                             "Male",
+                             "Female"
+                         ]
+                     },
+                     "maritalStatus": {
+                         "desc": "Marital status",
+                         "value": [
+                             "Married",
+                             "Unmarried",
+                             "Divorce",
+                             "Widowhood"
+                         ]
+                     },
+                     "educationLevel": {
+                         "desc": "Education Qualification",
+                         "value": [
+                             "Primary",
+                             "General Secondary",
+                             "Senior Secondary",
+                             "University Degree",
+                             "Postgraduate",
+                             "Doctoral Degree",
+                             "other"
+                         ]
+                     },
+                     "language": {
+                         "desc": "Language",
+                         "value": [
+                             "Hindi",
+                             "Marathi",
+                             "Bengali",
+                             "Telugu",
+                             "Tamil",
+                             "Gujarati",
+                             "Kannada",
+                             "Urdu",
+                             "Malayalam",
+                             "Odia",
+                             "Punjabi",
+                             "Assamese"
+                         ]
+                     },
+                     "residence": {
+                         "desc": "Type of Residence",
+                         "value": [
+                             "RENTED",
+                             "OWNED",
+                             "WITH RELATIVES",
+                             "OFFICE PROVIDED"
+                         ]
+                     },
+                     "religion": {
+                         "desc": "Religion",
+                         "value": [
+                             "Hinduism",
+                             "Islam",
+                             "Christianity",
+                             "Sikhism",
+                             "Buddhism",
+                             "Jainism",
+                             "No religion",
+                             "other"
+                         ]
+                     },
+                     "relation": {
+                         "desc": "FAMILY MEMBER",
+                         "value": [
+                             "FATHER",
+                             "MOTHER",
+                             "SPOUSE",
+                             "BROTHERS",
+                             "SISTERS"
+                         ]
+                     },
+                     "relationFriend": {
+                         "desc": "FRIENDS REFERENCES",
+                         "value": [
+                             "Friend",
+                             "Colleague",
+                             "Neighbor",
+                             "Schoolmate"
+                         ]
+                     },
+                     "warmNotice": {
+                         "desc": "资料准备提醒",
+                         "value": "We gonna need your <span style='color:#1971FF'>Aadhaar Card</span> and <span style='color:#1971FF'>Pan Card</span>. Besides, we will sent an OTP to your <span style='color:#1971FF'>Aadhaar card's mobile number</span>. Please prepare it."
+                     },
+                     "Salary": {
+                         "desc": "Salary",
+                         "value": [
+                             "below and ₹15,000",
+                             "₹15,000-₹25,000",
+                             "₹25,000-₹35,000",
+                             "₹35,000-₹45,000",
+                             "₹45,000-₹55,000",
+                             "₹55,000 and above"
+                         ]
+                     },
+                     "employmentType": {
+                         "desc": "Employment type",
+                         "value": [
+                             "full-time salaried",
+                             "part-time salaried",
+                             "self-employed",
+                             "no job",
+                             "student",
+                             "other"
+                         ]
+                     }
+                 }
+             }
+
+  /app/config/loan:
+    get:
+      summary: 贷款配置(废弃)
+      tags:
+        - 公共模块
+      operationId: configLoan
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+      responses:
+        200:
+          description: |
+
+            principal 金额区间
+            loan_days 天数区间
+
+            {
+              "code": 18000,
+              "msg": "贷款配置获取成功",
+              "data": {
+                "principal": [
+                  500,
+                  600,
+                  700,
+                  800,
+                  900,
+                  1000
+                ],
+                "loan_days": [
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30
+                ]
+              }
+            }
+  /app/config/option:
+    get:
+      summary: 全局下拉配置
+      tags:
+        - 公共模块
+      operationId: configOption
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+      responses:
+        200:
+          description: |
+
+            {
+              "code": 18000,
+              "msg": "",
+              "data": {
+                "feedback_type": {
+                  "product_suggestion": "Product Suggestion",
+                  "service_complaints": "Service Complaints",
+                  "program_error": "Program Error"
+                },
+                "bank_list": [
+                  "ABHYUDAYA COOPERATIVE BANK LIMITED",
+                  "ABU DHABI COMMERCIAL BANK",
+                  "AHMEDABAD MERCANTILE COOPERATIVE BANK",
+                  "AHMEDNAGAR MERCHANTS CO-OP BANK LTD",
+                  "AIRTEL PAYMENTS BANK LIMITED",
+                  "AKOLA JANATA COMMERCIAL COOPERATIVE BANK",
+                  "ALLAHABAD BANK",
+                  "ALMORA URBAN COOPERATIVE BANK LIMITED",
+                  "AMBARNATH JAIHIND COOP BANK LTD AMBARNATH",
+                  "ANDHRA BANK",
+                  "ANDHRA PRADESH GRAMEENA VIKAS BANK",
+                  "ANDHRA PRAGATHI GRAMEENA BANK",
+                  "APNA SAHAKARI BANK LIMITED",
+                  "AU SMALL FINANCE BANK LIMITED",
+                  "AUSTRALIA AND NEW ZEALAND BANKING GROUP LIMITED",
+                  "AXIS BANK",
+                  "B N P PARIBAS",
+                  "BANDHAN BANK LIMITED",
+                  "BANK OF AMERICA",
+                  "BANK OF BAHARAIN AND KUWAIT BSC",
+                  "BANK OF BARODA",
+                  "BANK OF CEYLON",
+                  "BANK OF INDIA",
+                  "BANK OF MAHARASHTRA",
+                  "BARCLAYS BANK",
+                  "BASSEIN CATHOLIC COOPERATIVE BANK LIMITED",
+                  "BHAGINI NIVEDITA SAHAKARI BANK LTD PUNE",
+                  "BHARAT COOPERATIVE BANK MUMBAI LIMITED",
+                  "CANARA BANK",
+                  "CAPITAL SMALL FINANCE BANK LIMITED",
+                  "CENTRAL BANK OF INDIA",
+                  "CITI BANK",
+                  "CITIZEN CREDIT COOPERATIVE BANK LIMITED",
+                  "CITY UNION BANK LIMITED",
+                  "CORPORATION BANK",
+                  "CREDIT AGRICOLE CORPORATE AND INVESTMENT BANK CALYON BANK",
+                  "CREDIT SUISEE AG",
+                  "CSB BANK LIMITED",
+                  "CTBC BANK CO LTD",
+                  "DBS BANK INDIA LIMITED",
+                  "DCB BANK LIMITED",
+                  "DENA BANK",
+                  "DEOGIRI NAGARI SAHAKARI BANK LTD. AURANGABAD",
+                  "DEPOSIT INSURANCE AND CREDIT GUARANTEE CORPORATION",
+                  "DEUSTCHE BANK",
+                  "DHANALAKSHMI BANK",
+                  "DMK JAOLI BANK",
+                  "DOHA BANK",
+                  "DOMBIVLI NAGARI SAHAKARI BANK LIMITED",
+                  "DURGAPUR STEEL PEOPLES CO-OPERATIVE BANK LTD",
+                  "EMIRATES NBD BANK P J S C",
+                  "EQUITAS SMALL FINANCE BANK LIMITED",
+                  "ESAF SMALL FINANCE BANK LIMITED",
+                  "EXPORT IMPORT BANK OF INDIA",
+                  "FEDERAL BANK",
+                  "FINCARE SMALL FINANCE BANK LTD",
+                  "FINO PAYMENTS BANK",
+                  "FIRST ABU DHABI BANK PJSC",
+                  "FIRSTRAND BANK LIMITED",
+                  "G P PARSIK BANK",
+                  "GS Mahanagar Co-operative Bank Limited, Mumbai",
+                  "HARYANA STATE COOPERATIVE BANK",
+                  "HDFC BANK",
+                  "HIMACHAL PRADESH STATE COOPERATIVE BANK LTD",
+                  "HSBC BANK",
+                  "ICICI BANK LIMITED",
+                  "IDBI BANK",
+                  "IDFC First Bank Ltd",
+                  "IDUKKI DISTRICT CO OPERATIVE BANK LTD",
+                  "INDIA POST PAYMENT BANK",
+                  "INDIAN BANK",
+                  "INDIAN OVERSEAS BANK",
+                  "INDUSIND BANK",
+                  "INDUSTRIAL AND COMMERCIAL BANK OF CHINA LIMITED",
+                  "INDUSTRIAL BANK OF KOREA",
+                  "Irinjalakuda Town Co-Operative Bank Ltd",
+                  "JALGAON JANATA SAHAKARI BANK LIMITED",
+                  "JAMMU AND KASHMIR BANK LIMITED",
+                  "JANA SMALL FINANCE BANK LTD",
+                  "JANAKALYAN SAHAKARI BANK LIMITED",
+                  "JANASEVA SAHAKARI BANK BORIVLI LIMITED",
+                  "JANASEVA SAHAKARI BANK LIMITED",
+                  "JANATA SAHAKARI BANK LIMITED",
+                  "JIO PAYMENTS BANK LIMITED",
+                  "JP MORGAN BANK",
+                  "KALLAPPANNA AWADE ICHALKARANJI JANATA SAHAKARI BANK LIMITED",
+                  "KALUPUR COMMERCIAL COOPERATIVE BANK",
+                  "KALYAN JANATA SAHAKARI BANK",
+                  "KARNATAKA BANK LIMITED",
+                  "KARNATAKA VIKAS GRAMEENA BANK",
+                  "KARUR VYSYA BANK",
+                  "KEB Hana Bank",
+                  "KERALA GRAMIN BANK",
+                  "KOTAK MAHINDRA BANK LIMITED",
+                  "KOZHIKODE DISTRICT COOPERATIAVE BANK LTD",
+                  "KRUNG THAI BANK PCL",
+                  "LAXMI VILAS BANK",
+                  "Maharashtra Gramin Bank",
+                  "MAHARASHTRA STATE COOPERATIVE BANK",
+                  "Mahesh Sahakari Bank Ltd Pune",
+                  "MASHREQBANK PSC",
+                  "MIZUHO BANK LTD",
+                  "MUFG BANK, LTD",
+                  "NAGAR URBAN CO OPERATIVE BANK",
+                  "NAGPUR NAGARIK SAHAKARI BANK LIMITED",
+                  "NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT",
+                  "NAV JEEVAN CO OP BANK LTD",
+                  "NEW INDIA COOPERATIVE BANK LIMITED",
+                  "NKGSB COOPERATIVE BANK LIMITED",
+                  "NORTH EAST SMALL FINANCE BANK LIMITED",
+                  "NSDL Payments Bank Limited",
+                  "NUTAN NAGARIK SAHAKARI BANK LIMITED",
+                  "ORIENTAL BANK OF COMMERCE",
+                  "PAYTM PAYMENTS BANK LTD",
+                  "PRAGATHI KRISHNA GRAMIN BANK",
+                  "PRIME COOPERATIVE BANK LIMITED",
+                  "PT BANK MAYBANK INDONESIA TBK",
+                  "PUNJAB AND SIND BANK",
+                  "PUNJAB NATIONAL BANK",
+                  "QATAR NATIONAL BANK SAQ",
+                  "RABOBANK INTERNATIONAL",
+                  "RAJARAMBAPU SAHAKARI BANK LIMITED",
+                  "RAJASTHAN MARUDHARA GRAMIN BANK",
+                  "RAJGURUNAGAR SAHAKARI BANK LIMITED",
+                  "RAJKOT NAGRIK SAHAKARI BANK LIMITED",
+                  "RBL Bank Limited",
+                  "RESERVE BANK OF INDIA",
+                  "SAHEBRAO DESHMUKH COOPERATIVE BANK LIMITED",
+                  "SAMARTH SAHAKARI BANK LTD",
+                  "SANT SOPANKAKA SAHAKARI BANK LTD",
+                  "Saraspur Nagrik Co operative Bank Ltd Saraspur",
+                  "SARASWAT COOPERATIVE BANK LIMITED",
+                  "Satara Sahakari Bank Ltd",
+                  "SBER BANK",
+                  "SBM BANK INDIA LIMITED",
+                  "SHIKSHAK SAHAKARI BANK LIMITED",
+                  "SHINHAN BANK",
+                  "SHIVALIK MERCANTILE CO OPERATIVE BANK LTD",
+                  "SHRI CHHATRAPATI RAJASHRI SHAHU URBAN COOPERATIVE BANK LIMITED",
+                  "Shri Veershaiv Co Op Bank Ltd",
+                  "SIR M VISVESVARAYA CO OPERATIVE BANK LTD",
+                  "SOCIETE GENERALE",
+                  "SOLAPUR JANATA SAHAKARI BANK LIMITED",
+                  "SOUTH INDIAN BANK",
+                  "STANDARD CHARTERED BANK",
+                  "STATE BANK OF INDIA",
+                  "SUMITOMO MITSUI BANKING CORPORATION",
+                  "SURAT NATIONAL COOPERATIVE BANK LIMITED",
+                  "SURYODAY SMALL FINANCE BANK LIMITED",
+                  "SUTEX COOPERATIVE BANK LIMITED",
+                  "SYNDICATE BANK",
+                  "TAMILNAD MERCANTILE BANK LIMITED",
+                  "TELANGANA STATE COOP APEX BANK",
+                  "TEXTILE TRADERS CO-OPERATIVE BANK LIMITED",
+                  "THE A.P. MAHESH COOPERATIVE URBAN BANK LIMITED",
+                  "The Ajara Urban Co op Bank Ltd Ajara",
+                  "THE AKOLA DISTRICT CENTRAL COOPERATIVE BANK",
+                  "THE ANDHRA PRADESH STATE COOPERATIVE BANK LIMITED",
+                  "THE BANK OF NOVA SCOTIA",
+                  "THE BARAMATI SAHAKARI BANK LTD",
+                  "THE COSMOS CO OPERATIVE BANK LIMITED",
+                  "THE DELHI STATE COOPERATIVE BANK LIMITED",
+                  "THE GADCHIROLI DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+                  "THE GREATER BOMBAY COOPERATIVE BANK LIMITED",
+                  "THE GUJARAT STATE COOPERATIVE BANK LIMITED",
+                  "THE HASTI COOP BANK LTD",
+                  "THE JALGAON PEOPELS COOPERATIVE BANK LIMITED",
+                  "THE KANGRA CENTRAL COOPERATIVE BANK LIMITED",
+                  "THE KANGRA COOPERATIVE BANK LIMITED",
+                  "THE KARAD URBAN COOPERATIVE BANK LIMITED",
+                  "THE KARANATAKA STATE COOPERATIVE APEX BANK LIMITED",
+                  "The Kerala State Co Operative Bank Ltd",
+                  "THE KURMANCHAL NAGAR SAHAKARI BANK LIMITED",
+                  "The Malkapur Urban Co Operative Bank Ltd Malkapur",
+                  "THE MEHSANA URBAN COOPERATIVE BANK",
+                  "THE MUMBAI DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+                  "THE MUNICIPAL COOPERATIVE BANK LIMITED",
+                  "The Muslim Co-operative Bank Ltd",
+                  "THE NAINITAL BANK LIMITED",
+                  "THE NASIK MERCHANTS COOPERATIVE BANK LIMITED",
+                  "THE NAVNIRMAN CO-OPERATIVE BANK LIMITED",
+                  "THE NILAMBUR CO OPERATIVE URBAN BANK LTD NILAMBUR",
+                  "THE ODISHA STATE CO-OPERATIVE BANK LTD",
+                  "THE ODISHA STATE COOPERATIVE BANK LTD",
+                  "THE PANDHARPUR URBAN CO OP. BANK LTD. PANDHARPUR",
+                  "The Pusad Urban Cooperative Bank Ltd Pusad",
+                  "THE RAJASTHAN STATE COOPERATIVE BANK LIMITED",
+                  "THE SEVA VIKAS COOPERATIVE BANK LIMITED",
+                  "THE SHAMRAO VITHAL COOPERATIVE BANK",
+                  "THE SINDHUDURG DISTRICT CENTRAL COOP BANK LTD",
+                  "THE SURAT DISTRICT COOPERATIVE BANK LIMITED",
+                  "THE SURATH PEOPLES COOPERATIVE BANK LIMITED",
+                  "THE TAMIL NADU STATE APEX COOPERATIVE BANK",
+                  "THE THANE BHARAT SAHAKARI BANK LIMITED",
+                  "THE THANE DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+                  "THE URBAN CO OPERATIVE BANK Ltd No ONE SEVEN FIVE EIGHT PERINTHALMANNA",
+                  "THE VARACHHA COOPERATIVE BANK LIMITED",
+                  "The Vijay Co Operative Bank Limited",
+                  "THE VISHWESHWAR SAHAKARI BANK LIMITED",
+                  "THE WEST BENGAL STATE COOPERATIVE BANK",
+                  "THE ZOROASTRIAN COOPERATIVE BANK LIMITED",
+                  "THRISSUR DISTRICT CO-OPERATIVE BANK LTD",
+                  "TJSB SAHAKARI BANK LTD",
+                  "TUMKUR GRAIN MERCHANTS COOPERATIVE BANK LIMITED",
+                  "UCO BANK",
+                  "Ujjivan Small Finance Bank Limited",
+                  "UNION BANK OF INDIA",
+                  "UNITED BANK OF INDIA",
+                  "UNITED OVERSEAS BANK LIMITED",
+                  "UTKARSH SMALL FINANCE BANK",
+                  "UTTAR PRADESH COOPERATIVE BANK LTD",
+                  "VASAI JANATA SAHAKARI BANK LTD",
+                  "VASAI VIKAS SAHAKARI BANK LIMITED",
+                  "VIJAYA BANK",
+                  "WESTPAC BANKING CORPORATION",
+                  "WOORI BANK",
+                  "YES BANK",
+                  "ZILA SAHAKRI BANK LIMITED GHAZIABAD"
+                ]
+              }
+            }
