@@ -1,4 +1,4 @@
-# loan_saas_egp
+# loan_saas
 贷款项目，目标国外用户，类似国内的第三方贷款
 
 # lumen-app
